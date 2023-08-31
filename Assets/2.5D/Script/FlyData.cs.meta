@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e2bc3d0823782fe4ab4f8b3d81c7fafe
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Fly_Icon: {instanceID: 0}
+  - gun: {instanceID: 0}
+  - fire: {fileID: 5533796043292374841, guid: 17b680ff65284b74fa1960e4dbb8aff2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
