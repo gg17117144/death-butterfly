@@ -27,6 +27,7 @@ public class GunType : MonoBehaviour
 
     public float rotatinspeed;
 
+    private Animator animator;
 
     void Start()
     {
@@ -37,7 +38,8 @@ public class GunType : MonoBehaviour
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
 
         player = GameObject.FindGameObjectWithTag("Player");
-
+        
+        animator = gameObject.GetComponent<Animator>();
     }
 
     
@@ -48,20 +50,13 @@ public class GunType : MonoBehaviour
             checkType();
             CheckFlyTank();
         }
-
-        if (player.GetComponent<SpriteRenderer>().flipX)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = (int)player.GetComponent<SpriteRenderer>().sortingOrder + 1;
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().sortingOrder = (int)player.GetComponent<SpriteRenderer>().sortingOrder - 1;
-        }
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 3 - (int)transform.position.y;
 
         if (FlyTank[aa] != null)
         {
             FlyTank[aa].transform.RotateAround(this.transform.position, Vector3.forward, rotatinspeed * Time.deltaTime);
         }
+        
     }
 
 
@@ -154,7 +149,12 @@ public class GunType : MonoBehaviour
             {
                 aa = 0;
             }
-            skillUnderAnime.SetInteger("aa", aa);
+
+            if (skillUnderAnime != null)
+            {
+                skillUnderAnime.SetInteger("aa", aa);
+            }
+
         }
         for (int i = 0; i < 2; i++)
         {

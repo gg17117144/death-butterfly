@@ -17,6 +17,8 @@ TagManager:
   - PlayerCollider
   - gun
   - bullet
+  - CM
+  - uncle
   layers:
   - Default
   - TransparentFX
@@ -53,6 +55,9 @@ TagManager:
   m_SortingLayers:
   - name: BG
     uniqueID: 1069517753
+    locked: 0
+  - name: Shadow
+    uniqueID: 3849496555
     locked: 0
   - name: Default
     uniqueID: 0
