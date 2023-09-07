@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4123904982774503536}
   - component: {fileID: 8827152879078723435}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,11 +68,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -445470741
+  m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847,
-    type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,8 +155,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 682496031
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 24c40abb9a89d3446bc64ba92156a466, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -260,6 +259,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsternum: 9
-  bug_monsterprefab: {fileID: 6179427763221266392, guid: b1fa5461bb7f8c544a91c33bf38f67d7,
-    type: 3}
+  bug_monsterprefab: {fileID: 6179427763221266392, guid: b1fa5461bb7f8c544a91c33bf38f67d7, type: 3}
   monster_parent: {fileID: 0}

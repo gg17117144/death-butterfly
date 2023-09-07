@@ -16,8 +16,7 @@ public class EndTP : MonoBehaviour
 
     private void Start()
     {
-        GameManager.isStoping = false;
-        // ¦b¥Ø¼Ğ³õ´º¤¤¡AÁôÂÃ´£¥Ü¤å¦r
+        //GameManager.isStoping = false;
         if (promptText != null)
         {
             promptText.enabled = false;
@@ -29,16 +28,15 @@ public class EndTP : MonoBehaviour
         {
             transform.Rotate(Vector3.forward, 50 * Time.deltaTime);
         }
-
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "PlayerCollider")
+        if (collision.CompareTag("PlayerCollider"))
         {
             if (Task.task03 == true)
             {
-                Debug.Log("«ö¤Uf¥h¤U¤@Ãö");
+                Debug.Log("ä»»å‹™å®Œæˆ");
                 if (Input.GetKeyUp(KeyCode.F))
                 {
                     GameManager.mapLevel++;
@@ -49,19 +47,18 @@ public class EndTP : MonoBehaviour
         }
         if (!fCheck)
         {
-            if (collision.tag == "PlayerCollider")
+            if (collision.CompareTag("PlayerCollider"))
             {
-                Debug.Log("«ö¤Uf¥h¤U¤@Ãö");
+                Debug.Log("è§¸ç™¼åŠ è¼‰å‹•ç•«");
                 //LoadScene(lever);
                 SceneManager.LoadScene(lever);
             }
         }
-
     }
 
     public void LoadScene(int sceneNum)
     {
-        // ¦b¤Á´«³õ´º«e¡AÅã¥Ü´£¥Ü¤å¦r
+        // ç­‰å¾…ç•«é¢
         if (promptText != null)
         {
             promptText.enabled = true;
@@ -82,7 +79,6 @@ public class EndTP : MonoBehaviour
         {
             yield return null;
         }
-
         isChangScene = false;
     }
 

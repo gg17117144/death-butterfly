@@ -73,11 +73,13 @@ public class GunType : MonoBehaviour
             {
                 if (FlyTank[i] == null)
                 {
-                    FlyTank[i] = other.gameObject; //?{?b????????????????
+                    FlyTank[i] = other.gameObject; //填充蝴蝶槽
                     
                     //butterfltdatalist.butterflydataList[i] = FlyTank[i];
-
-                    Canvas.GetComponent<UIControl>().reloadUI();//???s???JUI????
+                    if (Canvas != null)
+                    {
+                        Canvas.GetComponent<UIControl>().reloadUI();//重製UI介面
+                    }
 
                     //other.gameObject.transform.position = FlyTankHere.transform.position;//??????????l???flytankhere
 
@@ -201,7 +203,7 @@ public class GunType : MonoBehaviour
             {
                 if (FlyTank[aa] == null)    //如果是空的
                 {
-                    UnityEngine.Debug.Log("空的");
+                    //Debug.Log("空的");
                 }
                 else
                 {
