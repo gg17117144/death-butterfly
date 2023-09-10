@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class FlyData : MonoBehaviour
 {
-    public string ButterFlyName;    //½¹½º¦WºÙ
-    public Sprite ButterFlyImage;   //½¹½º¹Ï¤ù
-    public int ButterFlyID;         //½¹½º½s¸¹
-    public int Fly_Energy;          //½¹½º¯à¶q
-    public GameObject SkillObject;  //§Þ¯àª«¥ó
+    public string ButterFlyName;    //ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½
+    public Sprite  ButterFlyImage;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½
+    public int ButterFlyID;         //ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+    public int Fly_Energy;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½q
+    public GameObject SkillObject;  //ï¿½Þ¯àª«ï¿½ï¿½
     [TextArea]
-    public string ButterFlyInfo;    //ª««~Â²¤¶
+    public string ButterFlyInfo;    //ï¿½ï¿½ï¿½~Â²ï¿½ï¿½
 
     GameObject bullet;
 
@@ -21,29 +21,35 @@ public class FlyData : MonoBehaviour
 
     float timer;
 
+    private SpriteRenderer sprite;
+    private GunType gunType;
+    private UIControl _uiControl;
     void Start()
     {
-        gun = GameObject.FindGameObjectWithTag("gun");
-        bullet = GameObject.FindGameObjectWithTag("bullet");
+        //gun = GameObject.FindGameObjectWithTag("gun");
+        gun = GameManager.instance.gun;
+        //bullet = GameObject.FindGameObjectWithTag("bullet");
+        bullet = gun.transform.Find("bullet").gameObject;
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
+        sprite = gameObject.GetComponent<SpriteRenderer>();
+        aa = gun.GetComponent<GunType>().aa;
+        gunType = gun.GetComponent<GunType>();
+        _uiControl = Canvas.GetComponent<UIControl>();
     }
-    private void Awake()
-    {
-
-    }
+    
     void Update()
     {
-        aa = gun.GetComponent<GunType>().aa;
         CheckEnergy();
+        sprite.sortingOrder = 2 - (int)gun.transform.position.y;
     }
     public void CheckEnergy()
     {
         if (Fly_Energy <= 0)
         {
-            //Debug.Log("½¹½º¯à¶q¥Î§¹");
-            gun.GetComponent<GunType>().FlyTank[aa] = null;
+            //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½qï¿½Î§ï¿½");
+            gunType.FlyTank[aa] = null;
             //gun.GetComponent<GunType>().butterfltdatalist.butterflydataList[aa] = gun.GetComponent<GunType>().FlyTank[aa];
-            Canvas.GetComponent<UIControl>().reloadUI();
+            _uiControl.ReloadGunUI();
             Destroy(this.gameObject);
         }
     }
@@ -51,14 +57,18 @@ public class FlyData : MonoBehaviour
 
     public void skill()
     {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         switch (ButterFlyID)
         {
             case 0:
                 //Debug.Log(ButterFlyID);
                 break;
-            case 1: //¿K¼ö½¹½º
+            case 1: //ï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //Debug.Log(ButterFlyID);
-                Instantiate(SkillObject, bullet.transform.position , bullet.transform.rotation);
+                Quaternion rotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
+                rotation *= Quaternion.Euler(0, 0, 90);
+                Instantiate(SkillObject, gun.transform.position ,  rotation);
 
                 Fly_Energy = Fly_Energy - 10;
 
@@ -88,6 +98,16 @@ public class FlyData : MonoBehaviour
                 Debug.Log("null");
                 break;
         }
+    }
+
+    public void stop()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<FlyMove>().enabled = false;
+        //GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().simulated = false;
+        transform.rotation = Quaternion.Euler(0f,0f,0f);
+        transform.localScale = new Vector3(0.5f, 0.5f, 1f);
     }
 
 }

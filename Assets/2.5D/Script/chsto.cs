@@ -5,24 +5,22 @@ using UnityEngine;
 
 public class chsto : MonoBehaviour
 {
-    public int mapnormal; //¦a¹Ïª«¥ó¼Æ¶q
+    public int mapnormal; //ï¿½aï¿½Ïªï¿½ï¿½ï¿½Æ¶q
 
-    public int mapant; //¥Í©Ç¬}¼Æ¶q
+    public int mapant; //ï¿½Í©Ç¬}ï¿½Æ¶q
 
-    public int mapcamp; //¸Éµ¹¯¸¼Æ¶q
+    public int mapcamp; //ï¿½Éµï¿½ï¿½ï¿½ï¿½Æ¶q
 
-    public GameObject[] mapprefab; //¦a¹Ïª«¥ó¦Cªí
-    public GameObject[] antprefab; //¦a¹Ïª«¥ó¦Cªí
-    public GameObject[] campprefab; //¦a¹Ïª«¥ó¦Cªí
+    public GameObject[] mapprefab; //ï¿½aï¿½Ïªï¿½ï¿½ï¿½Cï¿½ï¿½
+    public GameObject[] antprefab; //ï¿½aï¿½Ïªï¿½ï¿½ï¿½Cï¿½ï¿½
+    public GameObject[] campprefab; //ï¿½aï¿½Ïªï¿½ï¿½ï¿½Cï¿½ï¿½
 
-    public int width;   //¼e
-    public int height;  //ªø
+    public int width;   //ï¿½e
+    public int height;  //ï¿½ï¿½
 
     public GameObject map_parent;
 
     public GameObject cameraCM;
-
-
     void Start()
     {
         cameraCM.SetActive(false);
@@ -37,7 +35,6 @@ public class chsto : MonoBehaviour
 
     void createMap()
     {
-
         List<Vector3> list = new List<Vector3>();
         for (var y = transform.position.y; y < height; y++)
         {
@@ -47,7 +44,7 @@ public class chsto : MonoBehaviour
             }
         }
 
-        //¸Éµ¹¯¸ª«¥ó¥Í¦¨
+        //ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¦ï¿½
         for (int i = 0; i < mapcamp; i++)
         {
             var index = Random.Range(0, list.Count);
@@ -64,9 +61,10 @@ public class chsto : MonoBehaviour
             }
         }
 
+        //Debug.Log(mapant);
         if (mapant != 0)
         {
-            //¥Í©Ç¬}ª«¥ó¥Í¦¨
+            //ï¿½Í©Ç¬}ï¿½ï¿½ï¿½ï¿½Í¦ï¿½
             for (int i = 0; i < mapant; i++)
             {
                 var index = Random.Range(0, list.Count);
@@ -85,13 +83,13 @@ public class chsto : MonoBehaviour
         }
 
 
-        //¤@¯ëª«¥ó¥Í¦¨
+        //ï¿½@ï¿½ëª«ï¿½ï¿½Í¦ï¿½
         for (int i = 0; i < mapnormal; i++)
         {
             var index = Random.Range(0, list.Count);
             var pos = list[index];
 
-            Collider2D overlap = Physics2D.OverlapBox(new Vector2(pos.x, pos.y), new Vector2(10, 15), 0);
+            Collider2D overlap = Physics2D.OverlapBox(new Vector2(pos.x, pos.y), new Vector2(20, 40), 0);
             if (overlap == null)
             {
                 var preindex = Random.Range(0, mapprefab.Length);

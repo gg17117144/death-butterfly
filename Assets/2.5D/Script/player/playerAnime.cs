@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,17 +14,14 @@ public class playerAnime : MonoBehaviour
     public AudioClip walk;
 
     SpriteRenderer spriteRenderer;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
-
 
     // Update is called once per frame
     void Update()

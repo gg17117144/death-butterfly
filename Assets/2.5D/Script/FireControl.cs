@@ -87,7 +87,7 @@ public class FireControl : MonoBehaviour
     { 
         if (other.tag == "enemy")
         {
-            Debug.Log("撞到東西囉");
+            //Debug.Log("撞到東西囉");
             //audioSource.clip = bom;
             //audioSource.Play();
             hardcollider.enabled = false;

@@ -6,51 +6,76 @@ public class cameraCreate : MonoBehaviour
 {
     GameObject player;
 
-    public int monsternum; //©Çª«¼Æ¶q
-    public int flyrnum; //½¹½º¼Æ¶q
+    //public int monsternum; //ï¿½Çªï¿½ï¿½Æ¶q
+    //public int flyrnum; //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶q
 
-    public GameObject[] monsterprefab;  //©Çª«ª«¥ó¦Cªí
-    public GameObject[] flyprefab;      //½¹½ºª«¥ó¦Cªí
+    public GameObject[] monsterprefab;  //ï¿½Çªï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½
+    public GameObject[] flyprefab;      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½
 
     public Transform monster_parent;
     public Transform fly_parent;
 
     public float waitTimeToCreate_camera;
 
-    public int width = 30;   //¼e
-    public int height = 50;  //ªø
+    public int width = 30;   //ï¿½e
+    public int height = 50;  //ï¿½ï¿½
 
     public float time = 0;
 
-
+    private int sceneIndex;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
         monster_parent = GameObject.FindGameObjectWithTag("monsterSpawn").transform;
         fly_parent = GameObject.FindGameObjectWithTag("flySpawn").transform;
+        sceneIndex = GameManager.instance.sceneIndex;
+    }
+    
+    public void RefreshReferences()
+    {
+        monster_parent = GameObject.FindGameObjectWithTag("monsterSpawn").transform;
+        fly_parent = GameObject.FindGameObjectWithTag("flySpawn").transform;
+        sceneIndex = GameManager.instance.sceneIndex;
     }
 
     void FixedUpdate()
     {
         time += Time.deltaTime;
-        if (GameManager.creatMonster == true)
+        if (GameManager.creatMonster)
         {
             if (time >= waitTimeToCreate_camera)
             {
-                Debug.Log("¥Í¦¨½¹½º©Ô");
-                createmonster();    //½d³ò¥Í¦¨
-                createfly();
+                Debug.Log("ç”Ÿæˆæ±è¥¿äº†");
+                Debug.Log(sceneIndex);
+                switch (sceneIndex)
+                {
+                    case 0:
+                        createmonster(0);
+                        createfly(0);
+                        break;
+                    case 1:
+                        createmonster(0);
+                        createfly(0);
+                        break;
+                    case 2:
+                        createmonster(5);
+                        createfly(3);
+                        break;
+                    case 3:
+                        createmonster(3);
+                        createfly(3);
+                        break;
+                    
+                }
                 time = 0;
-
             }
         }
     }
 
-    void createmonster()
+    void createmonster(int monsternum)
     {
         List<Vector3Int> list = new List<Vector3Int>();
-        //­pºâ½d³ò
         for (var y = 0; y < height; y++)
         {
             for (var x = 0; x < width; x++)
@@ -73,29 +98,13 @@ public class cameraCreate : MonoBehaviour
 
             if (player != null)
             {
-                // ­pºâ¶ZÂ÷
                 float distance = Vector3.Distance(pos, player.transform.position);
 
                 if (distance > 27)
                 {
-                    //¨S¦³°»´ú¦³¨S¦³ Collider2D ¦Ó¦b­­©w½d³ò¤ºÀH¾÷¥Í¦¨
-                    
-                    var preindex = Random.Range(0, monsterprefab.Length);
                     float parentZ = monster_parent.position.z;
-                    GameObject.Instantiate(monsterprefab[preindex], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
+                    Instantiate(monsterprefab[sceneIndex-2], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
                     list.RemoveAt(index);
-                    
-                    //¦³°»´ú Collider2D ¦Ó¦b­­©w½d³ò¤ºÀH¾÷¥Í¦¨
-                    /*
-                    Collider2D overlap = Physics2D.OverlapBox(new Vector2(pos.x, pos.y), new Vector2(3, 5), 0);
-                    if (overlap == null)
-                    {
-                        var preindex = Random.Range(0, monsterprefab.Length);
-                        //¥Í©Çª«
-                        GameObject.Instantiate(monsterprefab[preindex], monster_parent).transform.position = pos;
-                        list.RemoveAt(index);
-                    }
-                    */
                 }
             }
             else
@@ -105,10 +114,9 @@ public class cameraCreate : MonoBehaviour
         }
     }
 
-    void createfly()
+    void createfly(int flyrnum)
     {
         List<Vector3Int> list = new List<Vector3Int>();
-        //­pºâ½d³ò
         for (var y = 0; y < height; y++)
         {
             for (var x = 0; x < width; x++)
@@ -132,34 +140,15 @@ public class cameraCreate : MonoBehaviour
 
             if (player != null)
             {
-                // ­pºâ¶ZÂ÷
+                // ï¿½pï¿½ï¿½Zï¿½ï¿½
                 float distance = Vector3.Distance(pos, player.transform.position);
 
                 if (distance > 27)
                 {
-                    //¨S¦³°»´ú¦³¨S¦³ Collider2D ¦Ó¦b­­©w½d³ò¤ºÀH¾÷¥Í¦¨
-
-                    var preindex = Random.Range(0, monsterprefab.Length);
+                    var preindex = Random.Range(0, flyprefab.Length);//é€™è£¡æœ‰å…¶ä»–è´è¶çš„æ™‚å€™è¦æ”¹
                     float parentZ = fly_parent.position.z;
-                    GameObject.Instantiate(flyprefab[preindex], fly_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
+                    Instantiate(flyprefab[preindex], fly_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
                     list.RemoveAt(index);
-
-                    
-                    //¦³°»´ú Collider2D ¦Ó¦b­­©w½d³ò¤ºÀH¾÷¥Í¦¨
-                    /*
-                    Collider2D overlap = Physics2D.OverlapBox(new Vector2(pos.x, pos.y), new Vector2(3, 5), 0);
-                    if (overlap == null)
-                    {
-                        var preindex = Random.Range(0, monsterprefab.Length);
-                        //¥Í½¹½º
-                        GameObject.Instantiate(flyprefab[preindex], fly_parent).transform.position = pos;
-                        list.RemoveAt(index);
-                    }
-                    */
-                }
-                else
-                {
-                    
                 }
             }
         }

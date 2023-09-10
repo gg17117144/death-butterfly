@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class camera : MonoBehaviour
 {
+    public static camera instance;
     public int scenesNum;
 
     public bool isMinCamera;
@@ -21,7 +22,19 @@ public class camera : MonoBehaviour
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
-
+    }
+    
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

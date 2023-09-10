@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class LookMouse : MonoBehaviour
 
     private Animator animator;
 
-    void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         
@@ -18,11 +19,15 @@ public class LookMouse : MonoBehaviour
 
         animator = gun.GetComponent<Animator>();
     }
+
     void Update()
     {
         if (GameManager.isStoping == false)
         {
-            Looking();
+            if (gun.activeSelf)
+            {
+                Looking();
+            }
         }
     }
 

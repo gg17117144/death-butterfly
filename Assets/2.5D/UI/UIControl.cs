@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,77 +6,49 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour
 {
+    public static UIControl instance;
     GameObject gun;
-    GameObject canvas;
-
-    public Image[] FlyTank_Image;           //ΩπΩ∫πœ§˘º—[]
-    Image[] bagFlyTank_Image;
-
-    //ßR∞£™∫ΩπΩ∫Ø‡∂qΩ’≈„•‹UI
-    /*
-    public GameObject[] Flycom;             //ΩπΩ∫Ø‡∂qÆÿ¨[º—[]
-    public Image[] FlyTank_EnergyImage;     //ΩπΩ∫Ø‡∂qπœ§˘º—[]
-    public Slider[] FlyTank_EnergySlider;   ////ΩπΩ∫Ø‡∂q©‘±¯º—[]
-    */
-
-
+    [SerializeField]
+    public Image[] FlyTank_Image;           //Ëù¥Ëù∂ÊßΩÁöÑ[]
+    
     public Sprite nullimage;
 
-
+    [SerializeField]
     List<GameObject> flytank;
-
-
-    void Start()
+    
+    void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
         gun = GameObject.FindWithTag("gun");
-        canvas = GameObject.FindGameObjectWithTag("Canvas");
-        Transform bag = transform.Find("ButterFlyGrid");
 
         if (gun != null && gun.activeSelf)
         {
             flytank = gun.GetComponent<GunType>().FlyTank;
         }
-
-        for (int i = 0; i < 4; i++)
-        {
-            //bagFlyTank_Image[] = bag;
-        }
-
-        reloadUI();
-
+        
+        ReloadGunUI();
     }
 
-    void Update()
-    {
 
-    }
-
-    public void checkUIing(int aa)    //≈˝øÔ®˙™∫UI∞µ§œ¿≥∞ µeµ•
-    {
-
-    }
-    
-    public void reloadUI() //≠´∑s∏¸§JUI§∂≠±
+    public void ReloadGunUI() //ÈáçË£ΩUI
     {
         for (int i = 0; i < 3; i++)
         {
-            if (gun.GetComponent<GunType>().FlyTank[i] == null)
+            if (flytank[i])
             {
-                FlyTank_Image[i].sprite = nullimage;
-                /*
-                FlyTank_EnergyImage[i].sprite = nullimage;
-                Flycom[i].SetActive(false);
-                */
+                FlyTank_Image[i].sprite = flytank[i].GetComponent<FlyData>().ButterFlyImage;
             }
             else
             {
-                FlyTank_Image[i].sprite = flytank[i].GetComponent<FlyData>().ButterFlyImage;
-
-                /*
-                Flycom[i].SetActive(true);
-                FlyTank_EnergyImage[i].sprite = flytank[i].GetComponent<FlyData>().ButterFlyImage;
-                FlyTank_EnergySlider[i].value = flytank[i].GetComponent<FlyData>().Fly_Energy;
-                */
+                FlyTank_Image[i].sprite = nullimage;
             }
         }
     }

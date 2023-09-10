@@ -41,6 +41,7 @@ public class EndTP : MonoBehaviour
                 {
                     GameManager.mapLevel++;
                     Task.ResetTask();
+                    
                     LoadScene(lever);
                 }
             }

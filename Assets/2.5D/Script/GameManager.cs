@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using NaughtyAttributes;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public static int mapLevel;
     public static GameObject mainCamera;
-    static GameManager _intance;
 
     public GameObject lightSet;
     public GameObject gaming;
@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public static bool isStoping;
     bool StopOpen;
 
-    GameObject player;
-
+    public GameObject player;
+    [SerializeField]
     public GameObject gun;
 
     int maxMonsterNum;
@@ -29,21 +29,24 @@ public class GameManager : MonoBehaviour
 
     public static bool isFight;
 
+    public int sceneIndex;
     void Awake()
     {
-
-        if (_intance != null)
+        if (instance == null)
         {
-            Destroy(this.gameObject);
-            return;
+            instance = this;
         }
-        _intance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+        gun = GameObject.FindGameObjectWithTag("gun");
 
-
-        DontDestroyOnLoad(this.gameObject);
-
+        player = GameObject.FindGameObjectWithTag("Player");
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log(sceneIndex);
         Task.ResetTask();
-
     }
     // Start is called before the first frame update
     void Start()
@@ -54,11 +57,7 @@ public class GameManager : MonoBehaviour
         task.SetActive(true);
         StopSetting.SetActive(false);
 
-        gun = GameObject.FindGameObjectWithTag("gun");
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        //gun = GameObject.FindGameObjectWithTag("gun");
-
+        SceneCheck();
         Task.ResetTask();
 
     }
@@ -80,7 +79,6 @@ public class GameManager : MonoBehaviour
         }
 
 
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             StopOpen = !StopOpen;
@@ -95,33 +93,44 @@ public class GameManager : MonoBehaviour
         {
             creatMonster = true;
         }
-        sceneCheck();
+
     }
 
-    void sceneCheck()
+    public void SceneCheck()
     {
-        mapLevel = mainCamera.GetComponent<camera>().scenesNum;
-
-        switch (mapLevel)
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
+        Debug.Log("現在場景編號：" + sceneIndex);
+        
+        switch (sceneIndex)
         {
             case 0:
-                break;
-            case 2:
                 isFight = false;
                 task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
+                StopSetting.SetActive(false);
+                player.SetActive(false);
                 break;
-            case 3:
+            case 1:
+                isFight = false;
+                task.SetActive(false);
+                gun.SetActive(false);
+                gaming.SetActive(false);
+                player.SetActive(true);
+                break;
+            case 2:
                 isFight = true;
                 task.SetActive(true);
                 gun.SetActive(true);
                 gaming.SetActive(true);
+                player.SetActive(true);
                 break;
-            case 4:
+            case 3:
                 isFight = true;
                 gun.SetActive(true);
                 gaming.SetActive(true);
+                player.SetActive(true);
                 break;
 
         }
@@ -149,7 +158,6 @@ public class GameManager : MonoBehaviour
             task.GetComponent<Task>().reTaskText();
             task.GetComponent<Task>().moveTask();
         }
-
     }
     public void StartGame()
     {
@@ -186,6 +194,7 @@ public class GameManager : MonoBehaviour
 
     public void BackHome()
     {
+        Debug.Log("回主選單");
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
@@ -206,6 +215,7 @@ public class GameManager : MonoBehaviour
 
     public void relife()
     {
+        Debug.Log("重生");
         dead.SetActive(false);
         player.GetComponent<PlayerHeart>().relife();
         //SceneManager.LoadScene(mapLevel);

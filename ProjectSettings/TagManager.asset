@@ -17,8 +17,8 @@ TagManager:
   - PlayerCollider
   - gun
   - bullet
-  - CM
   - uncle
+  - BackGround
   layers:
   - Default
   - TransparentFX

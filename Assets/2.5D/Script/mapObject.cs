@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class mapObject : MonoBehaviour
 {
     public bool isfull = false;
 
-    public Transform circle;
+    public Transform Shadow;
 
     void Start()
     {
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0 - (int)gameObject.transform.position.y;
-        circle = transform.GetChild(0);
-        if (circle == null)
+        Shadow = transform.GetChild(0);
+        if (Shadow == null)
         {
-            circle.transform.position = this.transform.position;
+            Shadow.transform.position = this.transform.position;
         }
     }
     void Update()
@@ -26,11 +27,11 @@ public class mapObject : MonoBehaviour
     {
         if (other.tag == "PlayerCollider" && isfull == false)
         {
-            if (other.transform.position.y > circle.transform.position.y)
+            if (other.transform.position.y > Shadow.transform.position.y)
             {
                 gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1 - (int)gameObject.transform.position.y;
                 this.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 180);
-                //Debug.Log("¨¤¦â¶i¤Jª«¥ó«á­±Åo");
+                //Debug.Log("ï¿½ï¿½ï¿½ï¿½iï¿½Jï¿½ï¿½ï¿½ï¿½á­±ï¿½o");
             }
         }
     }
@@ -42,7 +43,7 @@ public class mapObject : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = -2 - (int)gameObject.transform.position.y;
             this.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
-            //Debug.Log("¨¤¦âÂ÷¶}ª«¥óÅo");
+            //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½ï¿½ï¿½ï¿½ï¿½o");
         }
     }
 

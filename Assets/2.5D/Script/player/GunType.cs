@@ -4,13 +4,13 @@ using UnityEngine;
 public class GunType : MonoBehaviour
 {
     public GameObject checkarms; //手臂
-    //public GameObject checkgun;
     GameObject Canvas;
     bool CanCatchFly = true;     //可不可以抓蝴蝶
     bool check_Type = true;      //槍的模式ture=單發false=雙發
     public int aa = 0;           //蝴蝶第幾格
 
-    public GameObject FlyTankHere;
+    public GameObject FlyTankUnder;
+    public GameObject[] FlyTankHere;
 
     public List<GameObject> FlyTank = new List<GameObject>();   //蝴蝶槽[]
 
@@ -54,7 +54,7 @@ public class GunType : MonoBehaviour
 
         if (FlyTank[aa] != null)
         {
-            FlyTank[aa].transform.RotateAround(this.transform.position, Vector3.forward, rotatinspeed * Time.deltaTime);
+            FlyTankUnder.transform.Rotate(Vector3.forward * rotatinspeed * Time.deltaTime);
         }
         
     }
@@ -63,9 +63,9 @@ public class GunType : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) //確認是否抓到蝴蝶
     {
-        if (other.tag == "fly" && CanCatchFly == true)
+        if (other.CompareTag("fly") && CanCatchFly == true)
         {
-            //Debug.Log("??????F");
+            //Debug.Log("抓到蝴蝶了");
             audioSource.clip = catchfly;
             audioSource.Play();
 
@@ -75,49 +75,18 @@ public class GunType : MonoBehaviour
                 {
                     FlyTank[i] = other.gameObject; //填充蝴蝶槽
                     
-                    //butterfltdatalist.butterflydataList[i] = FlyTank[i];
                     if (Canvas != null)
                     {
-                        Canvas.GetComponent<UIControl>().reloadUI();//重製UI介面
+                        Canvas.GetComponent<UIControl>().ReloadGunUI();//重製UI介面
                     }
-
-                    //other.gameObject.transform.position = FlyTankHere.transform.position;//??????????l???flytankhere
-
-                    other.gameObject.transform.SetParent(FlyTankHere.transform);
-                    //other.gameObject.transform.localPosition = Vector3.zero;
-                    //other.GetComponent<FlyMove>().enabled = false;
-
-                    //other.gameObject.SetActive(false);  //????????n????????
-                    other.GetComponent<Collider2D>().enabled = false;
-                    other.GetComponent<FlyMove>().enabled = false;
-                    other.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+                    other.gameObject.transform.SetParent(FlyTankHere[i].transform); 
+                    other.GetComponent<FlyData>().stop();
+                    other.transform.position = FlyTankHere[i].transform.position;
                     break;
-
-
+                    
                 }
                 if (i == 2 )
                 {
-                    /*
-                    FlyTank[aa].gameObject.SetActive(true);
-                    FlyTank[aa].transform.position = checkarms.transform.position; //??????????X?{?b?j?f
-                    other.GetComponent<FlyMove>().enabled = true;
-
-                    FlyTank[aa] = other.gameObject; //?{?b????????????????
-
-                    //butterfltdatalist.butterflydataList[aa] = FlyTank[aa];
-
-                    Canvas.GetComponent<UIControl>().reloadUI();//???s???JUI????
-
-                    other.gameObject.transform.position = FlyTankHere.transform.position;//??????????l???flytankhere
-
-                    other.gameObject.SetActive(false);  //????????n???????? 
-                    Debug.Log("?A?l????????");
-
-                    this.GetComponent<EdgeCollider2D>().enabled = false; //?N?j??collider????
-
-                    Invoke("YesCanCatchFly", 1);
-                    break;
-                    */
                     CanCatchFly = false;
                 }
             }
@@ -142,16 +111,22 @@ public class GunType : MonoBehaviour
     void CheckFlyTank() //確認第幾格蝴蝶槽
     {
         float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
+        int delta = (int)(scrollWheelInput * 10);
         if (scrollWheelInput != 0f && canaddaa == true)
         {
             canaddaa = false;
             Invoke("Canaddaa",0.15f);
-            aa++;
+            aa = aa + delta;
             if (aa > 2)
             {
                 aa = 0;
             }
 
+            if (aa < 0)
+            {
+                aa = 2;
+            }
+            
             if (skillUnderAnime != null)
             {
                 skillUnderAnime.SetInteger("aa", aa);
@@ -165,7 +140,7 @@ public class GunType : MonoBehaviour
                 FlyTank[i] = FlyTank[i + 1].gameObject;
                 FlyTank[i + 1] = null;
 
-                Canvas.GetComponent<UIControl>().reloadUI();//???s???JUI????
+                Canvas.GetComponent<UIControl>().ReloadGunUI();//更新UI
             }
         }
     }
@@ -209,7 +184,7 @@ public class GunType : MonoBehaviour
                 {
                     //Debug.Log("??�^??????????");
                     FlyTank[aa].GetComponent<FlyData>().skill();    //重製技能ui
-                    Canvas.GetComponent<UIControl>().reloadUI();    //使用重製ui
+                    Canvas.GetComponent<UIControl>().ReloadGunUI();    //使用重製ui
                     canuse = false;
                     Invoke("waituse", 1);
                 }

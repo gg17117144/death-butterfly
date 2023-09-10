@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Task : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Task : MonoBehaviour
     {
         ResetTask();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -42,36 +43,11 @@ public class Task : MonoBehaviour
         DropEmeny = 0;
     }
 
-    public void moveTask()
-    {
-        if (isTaskMoving)
-        {
-            return; // 如果任务正在移动，则不执行新的移动操作
-        }
-
-        int offset = isMovingRight ? 475 : -475; // 根据当前状态确定偏移量
-        Vector2 targetPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x + offset, GetComponent<RectTransform>().anchoredPosition.y);
-        float duration = 1f; // 过渡持续时间
-
-        isTaskMoving = true; // 设置任务正在移动中
-
-        StartCoroutine(SmoothMove(GetComponent<RectTransform>(), targetPosition, duration, () =>
-        {
-            isTaskMoving = false; // 移动结束后将 isTaskMoving 设置为 false
-        }));
-
-        isMovingRight = !isMovingRight; // 切换移动方向
-    }
-
     public void mapTask()
     {
         switch (GameManager.mapLevel)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3: //第一區前
+            case 2: //第一區前
                 if (killEmeny >= 1)
                 {
                     task01 = true;
@@ -91,13 +67,13 @@ public class Task : MonoBehaviour
                     task03 = true;
                 }
                 break;
-            case 4://第一區後
-                if (DropEmeny >= TaskNum)
+            case 3://第一區後
+                if (DropEmeny >= 10)
                 {
                     task01 = true;
                     Debug.Log("任務1完成");
                 }
-                if (killEmeny >= monsterNum)
+                if (killEmeny >= 10)
                 {
                     task02 = true;
                     Debug.Log("任務2完成");
@@ -114,9 +90,9 @@ public class Task : MonoBehaviour
 
                 }
                 break;
-            case 5:
+            case 4:
                 break;
-            case 6:
+            case 5:
                 break;
 
         }
@@ -125,11 +101,7 @@ public class Task : MonoBehaviour
     {
         switch (GameManager.mapLevel)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3: //第一區前
+            case 2: //第一區前
                 monsterNum = 20;
                 TaskNum = 0;
                 if (task01 == true)
@@ -152,7 +124,7 @@ public class Task : MonoBehaviour
 
                 TaskText[2].text = "到達指定地點";
                 break;
-            case 4: //第一區後
+            case 3: //第一區後
                 monsterNum = 50;
                 TaskNum = 30;
                 if (task01 == true)
@@ -175,13 +147,34 @@ public class Task : MonoBehaviour
 
                 TaskText[2].text = "在3分鐘內離開森林";
                 break;
-            case 5:
+            case 4:
                 break;
-            case 6:
+            case 5:
                 break;
         }
     }
 
+    
+    public void moveTask()
+    {
+        if (isTaskMoving)
+        {
+            return; // 如果任务正在移动，则不执行新的移动操作
+        }
+
+        int offset = isMovingRight ? 475 : -475; // 根据当前状态确定偏移量
+        Vector2 targetPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x + offset, GetComponent<RectTransform>().anchoredPosition.y);
+        float duration = 1f; // 过渡持续时间
+
+        isTaskMoving = true; // 设置任务正在移动中
+
+        StartCoroutine(SmoothMove(GetComponent<RectTransform>(), targetPosition, duration, () =>
+        {
+            isTaskMoving = false; // 移动结束后将 isTaskMoving 设置为 false
+        }));
+
+        isMovingRight = !isMovingRight; // 切换移动方向
+    }
     private IEnumerator SmoothMove(RectTransform rectTransform, Vector2 targetPosition, float duration, System.Action onMoveComplete = null)
     {
         Vector2 startPosition = rectTransform.anchoredPosition;

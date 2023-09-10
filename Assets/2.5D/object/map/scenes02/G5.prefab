@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isfull: 0
-  circle: {fileID: 0}
+  Shadow: {fileID: 0}
 --- !u!58 &4825742667637489992
 CircleCollider2D:
   m_ObjectHideFlags: 0

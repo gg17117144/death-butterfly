@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UpdataOrderInLayer : MonoBehaviour
 {
-    public GameObject player;
+    [SerializeField]
+    GameObject player;
+
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.instance.player;
+        Debug.Log(player);
     }
+
     // Update is called once per frame
     void Update()
     {

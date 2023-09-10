@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerHeart : MonoBehaviour
 {
+    private static PlayerHeart instance;
     public int max_hp;              //最大血量值
     public int hp;                  //血量值
     public float nowhp;
@@ -39,7 +40,20 @@ public class PlayerHeart : MonoBehaviour
         {
             deadtext.SetActive(false);
         }
-        
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -110,6 +124,7 @@ public class PlayerHeart : MonoBehaviour
 
     public void relife()
     {
+        Debug.Log("重生");
         hp = max_hp;
         GameManager.isStoping = false;
 
