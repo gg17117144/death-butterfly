@@ -25,11 +25,7 @@ public class cameraCreate : MonoBehaviour
     private int sceneIndex;
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        monster_parent = GameObject.FindGameObjectWithTag("monsterSpawn").transform;
-        fly_parent = GameObject.FindGameObjectWithTag("flySpawn").transform;
-        sceneIndex = GameManager.instance.sceneIndex;
+        player = GameManager.instance.player;
     }
     
     public void RefreshReferences()
@@ -46,23 +42,20 @@ public class cameraCreate : MonoBehaviour
         {
             if (time >= waitTimeToCreate_camera)
             {
-                Debug.Log("生成東西了");
-                Debug.Log(sceneIndex);
+                //Debug.Log(sceneIndex);
                 switch (sceneIndex)
                 {
                     case 0:
-                        createmonster(0);
-                        createfly(0);
                         break;
                     case 1:
-                        createmonster(0);
-                        createfly(0);
                         break;
                     case 2:
+                        Debug.Log("生成東西了");
                         createmonster(5);
                         createfly(3);
                         break;
                     case 3:
+                        Debug.Log("生成東西了");
                         createmonster(3);
                         createfly(3);
                         break;

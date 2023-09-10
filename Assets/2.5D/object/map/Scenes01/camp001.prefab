@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isfull: 1
-  circle: {fileID: 0}
+  Shadow: {fileID: 0}
 --- !u!114 &1910017533676275987
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ public class monsterAI : MonoBehaviour
 
     public bool isright;
 
+    private GameObject task;
+
     public int damage;
 
     Animator animator;
@@ -35,7 +37,7 @@ public class monsterAI : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-
+        task = GameManager.instance.task;
     }
 
     // Update is called once per frame
@@ -59,6 +61,7 @@ public class monsterAI : MonoBehaviour
     void killemeny()
     {
         Task.killEmeny += 1;
+        task.GetComponent<Task>().reTaskText();
     }
 
     void ChasePlayer()

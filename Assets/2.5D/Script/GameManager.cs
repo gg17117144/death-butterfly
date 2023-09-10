@@ -42,10 +42,9 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         gun = GameObject.FindGameObjectWithTag("gun");
-
         player = GameObject.FindGameObjectWithTag("Player");
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(sceneIndex);
+        //Debug.Log(sceneIndex);
         Task.ResetTask();
     }
     // Start is called before the first frame update

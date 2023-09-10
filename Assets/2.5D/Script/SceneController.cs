@@ -9,17 +9,22 @@ public class SceneController : MonoBehaviour
     
     private void Start()
     {
-        // 监听场景加载事件
         SceneManager.sceneLoaded += OnSceneLoaded;
-        cameraCreate.RefreshReferences();
+        if (GameManager.mapLevel >= 2)
+        {
+            cameraCreate.RefreshReferences();
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 获取当前场景的ID并更新GameManager中的值
         GameManager.mapLevel = scene.buildIndex;
-        Debug.Log(GameManager.mapLevel);
+        //Debug.Log(GameManager.mapLevel);
         GameManager.instance.SceneCheck();
-        cameraCreate.RefreshReferences();
+        GameManager.instance.task.GetComponent<Task>().reTaskText();
+        if (scene.buildIndex >= 2)
+        {
+            cameraCreate.RefreshReferences();
+        }
     }
 }
