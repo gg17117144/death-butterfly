@@ -19,6 +19,7 @@ TagManager:
   - bullet
   - uncle
   - BackGround
+  - Lake
   layers:
   - Default
   - TransparentFX

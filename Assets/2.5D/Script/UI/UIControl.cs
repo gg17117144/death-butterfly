@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIControl : MonoBehaviour
 {
     public static UIControl instance;
+    [SerializeField]
     GameObject gun;
     [SerializeField]
     public Image[] FlyTank_Image;           //蝴蝶槽的[]
@@ -29,16 +30,19 @@ public class UIControl : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        gun = GameObject.FindWithTag("gun");
+        gun = GameManager.instance.gun;
 
-        if (gun != null && gun.activeSelf)
+        if (gun != null && !gun.activeSelf)
         {
             flytank = gun.GetComponent<GunType>().FlyTank;
+            ReloadGunUI();
         }
-        
-        ReloadGunUI();
     }
 
+    private void Update()
+    {
+        Debug.Log(flytank.Count);
+    }
 
     public void ReloadGunUI() //重製UI
     {

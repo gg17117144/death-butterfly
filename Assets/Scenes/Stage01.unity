@@ -4713,7 +4713,7 @@ MonoBehaviour:
   width: 100
   height: 100
   map_parent: {fileID: 1489203100}
-  cameraCM: {fileID: 406007363}
+  background: {fileID: 406007363}
 --- !u!1 &1563235424
 GameObject:
   m_ObjectHideFlags: 0

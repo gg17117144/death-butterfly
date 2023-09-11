@@ -88,13 +88,13 @@ public class playerAnime : MonoBehaviour
             {
                 spriteRenderer.flipX = true;
 
-                animator.Play("Side");
+                animator.Play("LiftSide");
             }
             else if (horizontalInput > 0)   // 向右的動畫和音效
             {
                 spriteRenderer.flipX = false;
 
-                animator.Play("Side");
+                animator.Play("RightSide");
             }
 
             if (!audioSource.isPlaying)

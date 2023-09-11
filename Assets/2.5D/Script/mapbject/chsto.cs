@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class chsto : MonoBehaviour
@@ -20,12 +21,37 @@ public class chsto : MonoBehaviour
 
     public GameObject map_parent;
 
-    public GameObject cameraCM;
+    public GameObject background;
+
+    private int maplever;
     void Start()
     {
-        cameraCM.SetActive(false);
-        createMap();
-        cameraCM.SetActive(true);
+        maplever = GameManager.instance.sceneIndex;
+        Debug.Log(maplever);
+        background.SetActive(false);
+        switch (maplever)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                createMap(3,6);
+                break;
+            case 3:
+                createMap(3,6);
+                break;
+            case 4:
+                createMap(1,3);
+                break;
+            case 5:
+                break;
+            
+            
+        }
+
+        
+        background.SetActive(true);
 
     }
     void Update()
@@ -33,7 +59,7 @@ public class chsto : MonoBehaviour
 
     }
 
-    void createMap()
+    void createMap(int RdScale01,int RdScale02)
     {
         List<Vector3> list = new List<Vector3>();
         for (var y = transform.position.y; y < height; y++)
@@ -93,7 +119,7 @@ public class chsto : MonoBehaviour
             if (overlap == null)
             {
                 var preindex = Random.Range(0, mapprefab.Length);
-                var RdScale = Random.Range(3, 6);
+                var RdScale = Random.Range(RdScale01, RdScale02);
                 mapprefab[preindex].transform.localScale = new Vector2(RdScale, RdScale);
                 GameObject.Instantiate(mapprefab[preindex], map_parent.transform).transform.position = new Vector3(pos.x, pos.y, 10);
                 list.RemoveAt(index);

@@ -3444,7 +3444,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217927400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.3, y: 2, z: 0}
+  m_LocalPosition: {x: -17.75, y: 8.9, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1359290209}
@@ -3464,7 +3464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lever: 4
   rot: 1
-  fCheck: 1
+  fCheck: 0
   promptText: {fileID: 0}
 --- !u!58 &1217927403
 CircleCollider2D:
@@ -4360,6 +4360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41bc5b1dfd22d0418ccb0d188a6bceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gun: {fileID: 0}
   FlyTank_Image:
   - {fileID: 1751293844}
   - {fileID: 413092410}
@@ -4932,7 +4933,7 @@ MonoBehaviour:
   width: 100
   height: 100
   map_parent: {fileID: 1123347160}
-  cameraCM: {fileID: 1399327676}
+  background: {fileID: 1399327676}
 --- !u!1 &1675948901
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         gun = GameObject.FindGameObjectWithTag("gun");
         player = GameObject.FindGameObjectWithTag("Player");
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneCheck();
         //Debug.Log(sceneIndex);
         Task.ResetTask();
     }
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         task.SetActive(true);
         StopSetting.SetActive(false);
 
-        SceneCheck();
+        //SceneCheck();
         Task.ResetTask();
 
     }

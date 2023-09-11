@@ -125,11 +125,11 @@ public class GunType : MonoBehaviour
         }
         int delta = (int)scrollWheelInput;
 
-        Debug.Log($"delt:{delta} scroll:{scrollWheelInput}");
+        //Debug.Log($"delt:{delta} scroll:{scrollWheelInput}");
         if (scrollWheelInput != 0f && isScrolling)
         {
             isScrolling = false;
-            Debug.Log(isScrolling);
+            //Debug.Log(isScrolling);
             StartCoroutine(ProcessScrollInput(delta));
         }
         for (int i = 0; i < 2; i++)
