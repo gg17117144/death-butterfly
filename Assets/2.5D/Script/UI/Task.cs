@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -20,10 +21,13 @@ public class Task : MonoBehaviour
     private bool isMovingRight = true; // 初始狀態向右移動
     private bool isTaskMoving = false; // 任務是否正在移動
     
+    private RectTransform rectTransform;
+    
     // Start is called before the first frame update
     private void Start()
     {
         ResetTask();
+        rectTransform = GetComponent<RectTransform>();
     }
     
     // Update is called once per frame
@@ -37,6 +41,11 @@ public class Task : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 reTaskText();
                 break;
+        }
+        if (Input.GetKeyDown(KeyCode.Tab) && gameObject.activeSelf)
+        {
+            reTaskText();
+            moveTask();
         }
     }
     public static void ResetTask()
@@ -76,12 +85,12 @@ public class Task : MonoBehaviour
                 if (DropEmeny >= 10)
                 {
                     task01 = true;
-                    Debug.Log("任務1完成");
+                    //Debug.Log("任務1完成");
                 }
                 if (killEmeny >= 10)
                 {
                     task02 = true;
-                    Debug.Log("任務2完成");
+                    //Debug.Log("任務2完成");
                 }
 
                 if (timeLeft <= 0)
@@ -168,12 +177,12 @@ public class Task : MonoBehaviour
         }
 
         int offset = isMovingRight ? 475 : -475; // 根据当前状态确定偏移量
-        Vector2 targetPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x + offset, GetComponent<RectTransform>().anchoredPosition.y);
+        Vector2 targetPosition = new Vector2(rectTransform.anchoredPosition.x + offset, rectTransform.anchoredPosition.y);
         float duration = 1f; // 过渡持续时间
 
         isTaskMoving = true; // 设置任务正在移动中
 
-        StartCoroutine(SmoothMove(GetComponent<RectTransform>(), targetPosition, duration, () =>
+        StartCoroutine(SmoothMove(rectTransform, targetPosition, duration, () =>
         {
             isTaskMoving = false; // 移动结束后将 isTaskMoving 设置为 false
         }));

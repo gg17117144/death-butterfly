@@ -36,7 +36,7 @@ public class EndTP : MonoBehaviour
         {
             if (Task.task03 == true)
             {
-                Debug.Log("任務完成");
+                //Debug.Log("任務完成");
                 if (Input.GetKeyUp(KeyCode.F))
                 {
                     GameManager.mapLevel++;
@@ -50,7 +50,7 @@ public class EndTP : MonoBehaviour
         {
             if (collision.CompareTag("PlayerCollider"))
             {
-                Debug.Log("觸發加載動畫");
+                Debug.Log("觸發加載過場動畫");
                 //LoadScene(lever);
                 SceneManager.LoadScene(lever);
             }

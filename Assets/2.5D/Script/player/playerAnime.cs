@@ -11,13 +11,16 @@ public class playerAnime : MonoBehaviour
 
     AudioSource audioSource;
 
+    private PlayerHeart playerHeart;
+
     public AudioClip walk;
 
     SpriteRenderer spriteRenderer;
     
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = gameObject;
+        playerHeart = GetComponent<PlayerHeart>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -29,8 +32,14 @@ public class playerAnime : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 3 - (int)player.transform.position.y;
 
         //lookmouse();
-
-        RunWhere();
+        if (playerHeart.hp > 0)
+        {
+            RunWhere();
+        }
+        else
+        {
+            Dead();
+        }
     }
 
     void lookmouse()
@@ -49,6 +58,17 @@ public class playerAnime : MonoBehaviour
             // 鼠标在左侧，将角色图像向左转向
             spriteRenderer.flipX = true; // 翻转图像
         }
+    }
+
+    public void Dead()
+    {
+        animator.Play("Dead");
+    }
+
+    public void DeadText()
+    {
+        Task.ResetTask();
+        GameManager.instance.relife();
     }
 
     void RunWhere()

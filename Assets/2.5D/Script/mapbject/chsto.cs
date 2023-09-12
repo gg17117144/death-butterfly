@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 
@@ -22,14 +23,14 @@ public class chsto : MonoBehaviour
     public GameObject map_parent;
 
     public GameObject background;
-
-    private int maplever;
+    
+    [FormerlySerializedAs("sceneIndex")] public int chstosceneIndex;
     void Start()
     {
-        maplever = GameManager.instance.sceneIndex;
-        Debug.Log(maplever);
+        chstosceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //Debug.Log(sceneIndex);
         background.SetActive(false);
-        switch (maplever)
+        switch (chstosceneIndex)
         {
             case 0:
                 break;
@@ -46,10 +47,7 @@ public class chsto : MonoBehaviour
                 break;
             case 5:
                 break;
-            
-            
         }
-
         
         background.SetActive(true);
 

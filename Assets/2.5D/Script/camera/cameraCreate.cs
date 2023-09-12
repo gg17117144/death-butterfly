@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class cameraCreate : MonoBehaviour
 {
@@ -20,30 +22,31 @@ public class cameraCreate : MonoBehaviour
     public int width = 30;   //�e
     public int height = 50;  //��
 
-    public float time = 0;
+    public float time;
 
-    private int sceneIndex;
+    private int cmmapLevel;
     void Start()
     {
+        time = waitTimeToCreate_camera;
         player = GameManager.instance.player;
     }
-    
+
     public void RefreshReferences()
     {
         monster_parent = GameObject.FindGameObjectWithTag("monsterSpawn").transform;
         fly_parent = GameObject.FindGameObjectWithTag("flySpawn").transform;
-        sceneIndex = GameManager.instance.sceneIndex;
+        cmmapLevel = GameManager.mapLevel;
     }
 
     void FixedUpdate()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         if (GameManager.creatMonster)
         {
-            if (time >= waitTimeToCreate_camera)
+            if (time <= 0)
             {
                 //Debug.Log(sceneIndex);
-                switch (sceneIndex)
+                switch (cmmapLevel)
                 {
                     case 0:
                         break;
@@ -59,9 +62,14 @@ public class cameraCreate : MonoBehaviour
                         createmonster(3);
                         createfly(3);
                         break;
+                    case 4:
+                        Debug.Log("生成東西了");
+                        //createmonster(3);
+                        //createfly(3);
+                        break;
                     
                 }
-                time = 0;
+                time = waitTimeToCreate_camera;
             }
         }
     }
@@ -96,7 +104,7 @@ public class cameraCreate : MonoBehaviour
                 if (distance > 27)
                 {
                     float parentZ = monster_parent.position.z;
-                    Instantiate(monsterprefab[sceneIndex-2], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
+                    Instantiate(monsterprefab[cmmapLevel-2], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
                     list.RemoveAt(index);
                 }
             }

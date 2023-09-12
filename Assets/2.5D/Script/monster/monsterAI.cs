@@ -26,7 +26,10 @@ public class monsterAI : MonoBehaviour
 
     Animator animator;
 
-    bool canDamage = true;
+    private bool canDamage = true;
+    private bool isattack;
+
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -38,6 +41,8 @@ public class monsterAI : MonoBehaviour
         animator = GetComponent<Animator>();
 
         task = GameManager.instance.task;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -45,7 +50,7 @@ public class monsterAI : MonoBehaviour
     {
         ChasePlayer();
 
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = (int)stoppingDistance.y/2 - (int)this.transform.position.y;
+        spriteRenderer.sortingOrder = (int)stoppingDistance.y/2 - (int)this.transform.position.y;
 
         Vector3 newPosition = transform.position;
         newPosition.z = 0f;
@@ -72,7 +77,7 @@ public class monsterAI : MonoBehaviour
             float distance = Vector2.Distance(transform.position, player.transform.position);
 
             // 如果距離大於停止距離，就向玩家移動
-            if (distance > stoppingDistance.x || distance > stoppingDistance.y && canDamage == true)
+            if (distance > stoppingDistance.x || distance > stoppingDistance.y && canDamage)
             {
                 // 計算怪物要移動的方向
                 Vector2 moveDirection = (player.transform.position - transform.position).normalized;
@@ -81,7 +86,7 @@ public class monsterAI : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)moveDirection , speed * Time.deltaTime);
             }
             // 檢查 x 和 y 值的條件，如果其中一個小於特定值，觸發攻擊動畫
-            if (distance < stoppingDistance.x || distance < stoppingDistance.y)
+            if (distance < stoppingDistance.x || distance < stoppingDistance.y && !isattack)
             {
                 //Debug.Log("怪物應該要使出攻擊了吧");
                 animator.SetTrigger("attack");
@@ -118,18 +123,18 @@ public class monsterAI : MonoBehaviour
 
         if (other.tag == "enemy")
         {
-            this.GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
         else
         {
-            this.GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = true;
         }
 
 
-        if (other.tag == "PlayerCollider" && canDamage == true)
+        if (other.tag == "PlayerCollider" && canDamage)
         {
-            player.GetComponent<PlayerHeart>().damage(damage);
             canDamage = false;
+            player.GetComponent<PlayerHeart>().damage(damage);
             Invoke("waitDamage" , 1.8f);
         }
     }
@@ -137,6 +142,11 @@ public class monsterAI : MonoBehaviour
     void waitDamage()
     {
         canDamage = true;
+    }
+    
+    void waitAttack()
+    {
+        isattack = true;
     }
    
     void DropDown()
@@ -153,7 +163,7 @@ public class monsterAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "skill" && canDamage == true)
+        if (other.tag == "skill" && canDamage)
         {
             HP -= other.GetComponent<skill>().damage;
 
@@ -168,12 +178,12 @@ public class monsterAI : MonoBehaviour
             }
             else
             {
-                //Destroy(other.GetComponent<FireControl>().hardcollider);
-                //other.GetComponent<Animator>().SetTrigger("bom");
-                //other.GetComponent<FireControl>().lifeTime = 0;
-                animator.SetTrigger("hurt");
                 canDamage = false;
+                isattack = true;
+                animator.SetTrigger("hurt");
                 Invoke("waitDamage", 1f);
+                Invoke("waitAttack", 30f);
+                
             }
         }
     }

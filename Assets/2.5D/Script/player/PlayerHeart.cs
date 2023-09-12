@@ -59,8 +59,7 @@ public class PlayerHeart : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        playerdead();
-        if (GameManager.isFight)
+        if (GameManager.mapLevel >= 2)
         {
             nowhp = (float)hp / max_hp; //顯示現在血量為血量除最大血量 控制為1內
             H2Otimer += Time.deltaTime;    //計算時間
@@ -73,7 +72,7 @@ public class PlayerHeart : MonoBehaviour
 
             if (H2O <= 0)
             {
-                playerdead();
+                GetComponent<playerAnime>().Dead();
             }
 
             blood.fillAmount = nowhp;
@@ -103,18 +102,6 @@ public class PlayerHeart : MonoBehaviour
         canDamage = true;
     }
     */
-
-
-    void playerdead()   //玩家死亡並重生
-    {
-        if (hp <= 0)
-        {
-            deadtext.SetActive(true);
-            GameManager.isStoping = true;
-            
-            //Invoke("restart", 2);
-        }
-    }
 
 
     void restart()

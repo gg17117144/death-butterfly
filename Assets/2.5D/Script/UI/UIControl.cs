@@ -30,22 +30,26 @@ public class UIControl : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        gun = GameManager.instance.gun;
+    }
 
+    private void Start()
+    {
+        gun = GameManager.instance.gun;
+        flytank = gun.GetComponent<GunType>().FlyTank;
         if (gun != null && !gun.activeSelf)
         {
-            flytank = gun.GetComponent<GunType>().FlyTank;
             ReloadGunUI();
         }
     }
 
     private void Update()
     {
-        Debug.Log(flytank.Count);
+        //Debug.Log(flytank.Count);
     }
 
     public void ReloadGunUI() //重製UI
     {
+        
         for (int i = 0; i < 3; i++)
         {
             if (flytank[i])

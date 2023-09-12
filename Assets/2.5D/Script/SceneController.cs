@@ -11,7 +11,7 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        if (GameManager.mapLevel >= 2)
+        if (GameManager.instance.SceneIndex >= 2)
         {
             cameraCreate.RefreshReferences();
         }
