@@ -663,6 +663,17 @@ Transform:
   m_Father: {fileID: 1489203101}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &444758464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027493934589087012, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+  m_PrefabInstance: {fileID: 1002538194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &572081402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1117,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4845267406210975649, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845267406210975649, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738730706252993, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4879738730894578994, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1121,6 +1144,26 @@ PrefabInstance:
     - target: {fileID: 4879738731337830092, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738731337830095, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: FlyTank_energy.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738731337830095, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: FlyTank_energy.Array.data[0]
+      value: 
+      objectReference: {fileID: 1838482784}
+    - target: {fileID: 4879738731337830095, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: FlyTank_energy.Array.data[1]
+      value: 
+      objectReference: {fileID: 444758464}
+    - target: {fileID: 4879738731337830095, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: FlyTank_energy.Array.data[2]
+      value: 
+      objectReference: {fileID: 1804163853}
+    - target: {fileID: 4879738731337830097, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738731337830099, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_Pivot.x
@@ -1214,10 +1257,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2031057552}
+    - target: {fileID: 4879738731894869835, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738732221646833, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4879738732238933736, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2031057552}
+    - target: {fileID: 4879738732276701346, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4879738732586669460, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1226,6 +1281,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2031057552}
+    - target: {fileID: 4983880331885330540, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7126627265314806273, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7126627265314806273, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153541647766074647, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153541647766074647, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
 --- !u!1 &1002538195 stripped
@@ -1620,6 +1695,28 @@ Transform:
   m_Father: {fileID: 755326933}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1804163853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 441938680620898336, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+  m_PrefabInstance: {fileID: 1002538194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1838482784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2543791743344641384, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+  m_PrefabInstance: {fileID: 1002538194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1935458860
 GameObject:
   m_ObjectHideFlags: 0

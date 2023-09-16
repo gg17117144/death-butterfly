@@ -33,6 +33,8 @@ public class GunType : MonoBehaviour
 
     private Animator animator;
 
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         checkarms.SetActive(false); //開始先關閉
@@ -46,6 +48,8 @@ public class GunType : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
 
         task = GameManager.instance.task;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     
@@ -56,7 +60,7 @@ public class GunType : MonoBehaviour
             checkType();
             CheckFlyTank();
         }
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 3 - (int)transform.position.y;
+        spriteRenderer.sortingOrder = 3 - (int)transform.position.y;
 
         if (FlyTank[num] != null)
         {
@@ -134,7 +138,7 @@ public class GunType : MonoBehaviour
         }
         for (int i = 0; i < 2; i++)
         {
-            if (FlyTank[i] == null && FlyTank[i + 1] != null)
+            if (ReferenceEquals(FlyTank[i],null) && !ReferenceEquals(FlyTank[i+1],null))
             {
                 FlyTank[i] = FlyTank[i + 1].gameObject;
                 FlyTank[i + 1] = null;
@@ -156,11 +160,11 @@ public class GunType : MonoBehaviour
         {
             num = 2;
         }
-        if (skillUnderAnime != null)
+        if (!ReferenceEquals(skillUnderAnime , null))
         {
             skillUnderAnime.SetTrigger($"{input}");
         }
-        Debug.Log(canuse);
+        //Debug.Log(canuse);
         yield return new WaitForSeconds(0.5f);
 
         isScrolling = true; // 重置滚动标志
@@ -203,8 +207,8 @@ public class GunType : MonoBehaviour
                 else
                 {
                     //Debug.Log("??�^??????????");
-                    FlyTank[num].GetComponent<FlyData>().skill();    //重製技能ui
-                    Canvas.GetComponent<UIControl>().ReloadGunUI();    //使用重製ui
+                    FlyTank[num].GetComponent<FlyData>().skill();    //使用技能
+                    UIControl.instance.ReloadGunUI();
                     canuse = false;
                     Invoke("waituse", 1);
                 }

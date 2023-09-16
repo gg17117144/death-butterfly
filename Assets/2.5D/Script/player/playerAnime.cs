@@ -29,34 +29,16 @@ public class playerAnime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 3 - (int)player.transform.position.y;
+        spriteRenderer.sortingOrder = 3 - (int)player.transform.position.y;
 
         //lookmouse();
-        if (playerHeart.hp > 0)
+        if (playerHeart.newhp > 0)
         {
             RunWhere();
         }
         else
         {
             Dead();
-        }
-    }
-
-    void lookmouse()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        Vector3 characterPosition = transform.position;
-        Vector3 offset = mousePosition - Camera.main.WorldToScreenPoint(characterPosition);
-
-        if (offset.x > 0)
-        {
-            // 鼠标在右侧，将角色图像向右转向
-            spriteRenderer.flipX = false; // 不翻转图像
-        }
-        else if (offset.x < 0)
-        {
-            // 鼠标在左侧，将角色图像向左转向
-            spriteRenderer.flipX = true; // 翻转图像
         }
     }
 

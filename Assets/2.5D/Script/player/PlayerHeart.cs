@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class PlayerHeart : MonoBehaviour
 {
     private static PlayerHeart instance;
-    public int max_hp;              //程﹀秖
-    public int hp;                  //﹀秖
-    public float nowhp;
-    [SerializeField]
-    public Image blood;
-    [SerializeField]
-    public Image H2OImage;
-    [SerializeField]
-    public GameObject deadtext;
+    public float max_hp;              //程﹀秖
+    public float oldhp;                  //﹀秖
+    public float newhp;
 
-    public int max_H2O;                    //程
-    public int H2O;                        //
+    public float max_O2;                    //程
+    public float O2;                        //
 
-    public float H2Otimer;                 //丁
+    public float O2timer;                 //丁
 
     //bool canDamage = true;               //端ヰ丁
 
@@ -28,18 +22,7 @@ public class PlayerHeart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        max_hp = 200;               //程﹀秖
-        hp = max_hp;                //﹀秖砞程﹀秖
-
-        max_H2O = 100;              //程
-        H2O = max_H2O;              //砞程
-
-        H2Otimer = 0;                  //丁砞﹚0
-
-        if (deadtext != null)
-        {
-            deadtext.SetActive(false);
-        }
+        ResetPlayerValue();
     }
 
     void Awake()
@@ -61,58 +44,63 @@ public class PlayerHeart : MonoBehaviour
     {
         if (GameManager.mapLevel >= 2)
         {
-            nowhp = (float)hp / max_hp; //陪ボ瞷﹀秖﹀秖埃程﹀秖 北1ず
-            H2Otimer += Time.deltaTime;    //璸衡丁
+            O2timer += Time.deltaTime;    //璸衡丁
 
-            if (H2Otimer >= 3)
+            if (O2timer >= 3)
             {
-                H2Otimer = 0;
-                H2O -= 1;
+                O2timer = 0;
+                O2 -= 1;
             }
 
-            if (H2O <= 0)
+            if (O2 <= 0)
             {
                 GetComponent<playerAnime>().Dead();
             }
-
-            blood.fillAmount = nowhp;
-            H2OImage.fillAmount = (float)H2O / max_H2O;
         }
     }
 
 
     public void damage(int damage)  //窱寄Ιdamage
     {
-        hp = hp - damage;
+        newhp -= damage;
+        float HpValue = newhp / max_hp;
+        UIControl.instance.ReloadPlayeHpUI(HpValue);
     }
-
+    
     public void healHp(int healHP)
     {
-        hp = hp + healHP;
+        newhp += healHP;
+        float HpValue = newhp / max_hp;
+        UIControl.instance.ReloadPlayeHpUI(HpValue);
     }
 
     public void healO2(int healO2)
     {
-        H2O = H2O + healO2;
+        O2 += healO2;
+        float O2Value = O2 / max_O2;
+        UIControl.instance.ReloadPlayerO2UI(O2Value);
     }
 
-    /*
-    void waitDamage()
+    void ResetPlayerValue()
     {
-        canDamage = true;
+        max_hp = 200;               //程﹀秖
+        oldhp = max_hp;
+        newhp = oldhp;                //﹀秖砞程﹀秖
+
+        max_O2 = 100;              //程
+        O2 = max_O2;              //砞程
+
+        O2timer = 0;                  //丁砞﹚0
+        float O2Value = O2 / max_O2;
+        float HpValue = newhp / max_hp;
+        UIControl.instance.ReloadPlayeHpUI(HpValue);
+        UIControl.instance.ReloadPlayerO2UI(O2Value);
     }
-    */
-
-
-    void restart()
-    {
-        GameManager.isStoping = false;
-    }
-
+    
     public void relife()
     {
         Debug.Log("ネ");
-        hp = max_hp;
+        ResetPlayerValue();
         GameManager.isStoping = false;
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -121,6 +109,5 @@ public class PlayerHeart : MonoBehaviour
             Destroy(enemy);
         }
     }
-
 
 }

@@ -23,7 +23,7 @@ public class FlyData : MonoBehaviour
 
     private SpriteRenderer sprite;
     private GunType gunType;
-    private UIControl _uiControl;
+    private UIControl uiControl;
     void Start()
     {
         //gun = GameObject.FindGameObjectWithTag("gun");
@@ -34,12 +34,11 @@ public class FlyData : MonoBehaviour
         sprite = gameObject.GetComponent<SpriteRenderer>();
         aa = gun.GetComponent<GunType>().num;
         gunType = gun.GetComponent<GunType>();
-        _uiControl = Canvas.GetComponent<UIControl>();
+        uiControl = Canvas.GetComponent<UIControl>();
     }
     
     void Update()
     {
-        CheckEnergy();
         sprite.sortingOrder = 2 - (int)gun.transform.position.y;
     }
     public void CheckEnergy()
@@ -49,8 +48,9 @@ public class FlyData : MonoBehaviour
             //Debug.Log("������q�Χ�");
             gunType.FlyTank[aa] = null;
             //gun.GetComponent<GunType>().butterfltdatalist.butterflydataList[aa] = gun.GetComponent<GunType>().FlyTank[aa];
-            _uiControl.ReloadGunUI();
-            Destroy(this.gameObject);
+            //uiControl.ReloadGunUI();
+            Destroy(gameObject);
+            UIControl.instance.ReloadGunUI();
         }
     }
 
@@ -98,6 +98,8 @@ public class FlyData : MonoBehaviour
                 Debug.Log("null");
                 break;
         }
+
+        CheckEnergy();
     }
 
     public void stop()
