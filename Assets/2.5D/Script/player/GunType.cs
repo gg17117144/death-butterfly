@@ -18,8 +18,6 @@ public class GunType : MonoBehaviour
 
     public List<GameObject> FlyTank = new List<GameObject>();   //蝴蝶槽[]
 
-    public Animator skillUnderAnime;
-
     private AudioSource audioSource;
 
     public AudioClip catchfly;
@@ -30,8 +28,6 @@ public class GunType : MonoBehaviour
     private bool isScrolling = true;
 
     public float rotatinspeed;
-
-    private Animator animator;
 
     private SpriteRenderer spriteRenderer;
 
@@ -44,8 +40,6 @@ public class GunType : MonoBehaviour
         Canvas = GameObject.FindGameObjectWithTag("Canvas");
 
         player = GameObject.FindGameObjectWithTag("Player");
-        
-        animator = gameObject.GetComponent<Animator>();
 
         task = GameManager.instance.task;
 
@@ -92,7 +86,7 @@ public class GunType : MonoBehaviour
                     other.gameObject.transform.SetParent(FlyTankHere[i].transform); 
                     other.GetComponent<FlyData>().stop();
                     other.transform.position = FlyTankHere[i].transform.position;
-                    task.GetComponent<Task>().reTaskText();
+                    task.GetComponent<Task>().mapTask();
                     break;
                     
                 }
@@ -160,10 +154,7 @@ public class GunType : MonoBehaviour
         {
             num = 2;
         }
-        if (!ReferenceEquals(skillUnderAnime , null))
-        {
-            skillUnderAnime.SetTrigger($"{input}");
-        }
+        UIControl.instance.ChangeGunTank(input);
         //Debug.Log(canuse);
         yield return new WaitForSeconds(0.5f);
 
@@ -192,6 +183,8 @@ public class GunType : MonoBehaviour
     {
         canuse = true;
     }
+    
+    
 
 
     void Type01() //單發
@@ -203,6 +196,7 @@ public class GunType : MonoBehaviour
                 if (FlyTank[num] == null)    //如果是空的
                 {
                     //Debug.Log("空的");
+                    UIControl.instance.ReloadGunUI();
                 }
                 else
                 {
@@ -238,7 +232,7 @@ public class GunType : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))    //左鍵
         {
-            if (FlyTank[num] == null)        //看第幾格
+            if (ReferenceEquals(FlyTank[num] ,null))        //看第幾格
             {
                 UnityEngine.Debug.Log("雙發技能");
             }

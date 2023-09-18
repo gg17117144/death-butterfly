@@ -10,17 +10,21 @@ public class EndTP : MonoBehaviour
     public bool rot;
     public bool fCheck;
 
-    public Text promptText;
+    public GameObject waitIng;
 
     bool isChangScene;
+
+    private GameObject player;
 
     private void Start()
     {
         //GameManager.isStoping = false;
-        if (promptText != null)
+        if (waitIng != null)
         {
-            promptText.enabled = false;
+            waitIng.SetActive(false);
         }
+
+        player = GameManager.instance.player;
     }
     private void Update()
     {
@@ -51,6 +55,7 @@ public class EndTP : MonoBehaviour
             if (collision.CompareTag("PlayerCollider"))
             {
                 Debug.Log("觸發加載過場動畫");
+                player.transform.position = new Vector3(0, 0, 0);
                 //LoadScene(lever);
                 SceneManager.LoadScene(lever);
             }
@@ -60,9 +65,9 @@ public class EndTP : MonoBehaviour
     public void LoadScene(int sceneNum)
     {
         // 等待畫面
-        if (promptText != null)
+        if (waitIng != null)
         {
-            promptText.enabled = true;
+            waitIng.SetActive(true);
         }
 
         if (!isChangScene)
@@ -75,6 +80,7 @@ public class EndTP : MonoBehaviour
 
     private IEnumerator LoadSceneTask(int sceneNum)
     {
+        waitIng.SetActive(false);
         var asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
         while (!asyncLoad.isDone)
         {

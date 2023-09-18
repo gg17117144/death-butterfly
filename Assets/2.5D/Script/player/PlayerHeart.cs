@@ -50,6 +50,7 @@ public class PlayerHeart : MonoBehaviour
             {
                 O2timer = 0;
                 O2 -= 1;
+                UIControl.instance.ReloadPlayerO2UI(O2 / 100);
             }
 
             if (O2 <= 0)
@@ -65,6 +66,7 @@ public class PlayerHeart : MonoBehaviour
         newhp -= damage;
         float HpValue = newhp / max_hp;
         UIControl.instance.ReloadPlayeHpUI(HpValue);
+        UIControl.instance.PlayerHit();
     }
     
     public void healHp(int healHP)

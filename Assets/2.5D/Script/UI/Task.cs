@@ -44,8 +44,8 @@ public class Task : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab) && gameObject.activeSelf)
         {
-            reTaskText();
             moveTask();
+            reTaskText();
         }
     }
     public static void ResetTask()
@@ -108,13 +108,15 @@ public class Task : MonoBehaviour
                 break;
 
         }
+
+        reTaskText();
     }
     public void reTaskText()
     {
         switch (GameManager.mapLevel)
         {
             case 2: //第一區前scenes01
-                monsterNum = 30;
+                monsterNum = 20;
                 TaskNum = 0;
                 if (task01 == true)
                 {
@@ -164,8 +166,7 @@ public class Task : MonoBehaviour
             case 5:
                 break;
         }
-
-        mapTask();
+        
     }
 
     

@@ -22,7 +22,7 @@ public class SceneController : MonoBehaviour
         GameManager.mapLevel = scene.buildIndex;
         //Debug.Log(GameManager.mapLevel);
         GameManager.instance.SceneCheck();
-        GameManager.instance.task.GetComponent<Task>().reTaskText();
+        GameManager.instance.task.GetComponent<Task>().mapTask();
         if (scene.buildIndex >= 2)
         {
             cameraCreate.RefreshReferences();

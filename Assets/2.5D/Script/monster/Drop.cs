@@ -37,7 +37,7 @@ public class Drop : MonoBehaviour
         if (other.tag == "PlayerCollider")
         {
             Task.DropEmeny += 1;
-            task.GetComponent<Task>().reTaskText();
+            task.GetComponent<Task>().mapTask();
             Destroy(this.gameObject);
             Debug.Log("吃到了掉落物");
         }

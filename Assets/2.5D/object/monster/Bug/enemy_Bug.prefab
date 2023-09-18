@@ -92,8 +92,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6179427763221266399}
   - component: {fileID: 6179427763221266398}
-  - component: {fileID: 7495191939594095266}
   - component: {fileID: -2084666511407339372}
+  - component: {fileID: 7495191939594095266}
   - component: {fileID: 7687128667731643801}
   - component: {fileID: 6344281492038359487}
   - component: {fileID: 1310552180}
@@ -170,6 +170,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &-2084666511407339372
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6179427763221266392}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.05, y: 0.05}
+  serializedVersion: 2
+  m_Radius: 1.1567783
 --- !u!61 &7495191939594095266
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -196,22 +212,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8771744, y: 1.1148638}
   m_EdgeRadius: 0
---- !u!58 &-2084666511407339372
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6179427763221266392}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.05, y: 0.05}
-  serializedVersion: 2
-  m_Radius: 1.1567783
 --- !u!50 &7687128667731643801
 Rigidbody2D:
   serializedVersion: 4
@@ -272,5 +272,7 @@ MonoBehaviour:
     m_Bits: 0
   speed: 2.5
   stoppingDistance: {x: 7.3, y: 5}
+  monsterStop: 1
   isright: 0
-  damage: 30
+  damage: 20
+  waitAttackTime: 1.8

@@ -25,6 +25,7 @@ public class cameraCreate : MonoBehaviour
     public float time;
 
     private int cmmapLevel;
+
     void Start()
     {
         time = waitTimeToCreate_camera;
@@ -64,8 +65,8 @@ public class cameraCreate : MonoBehaviour
                         break;
                     case 4:
                         Debug.Log("生成東西了");
-                        //createmonster(3);
-                        //createfly(3);
+                        createmonster(3);
+                        createfly(3);
                         break;
                     
                 }
@@ -104,7 +105,7 @@ public class cameraCreate : MonoBehaviour
                 if (distance > 27)
                 {
                     float parentZ = monster_parent.position.z;
-                    Instantiate(monsterprefab[cmmapLevel-2], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);
+                    Instantiate(monsterprefab[cmmapLevel-2], monster_parent).transform.position = new Vector3(pos.x, pos.y, parentZ);//怪物是哪隻
                     list.RemoveAt(index);
                 }
             }

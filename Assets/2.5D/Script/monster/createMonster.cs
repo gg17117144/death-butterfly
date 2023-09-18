@@ -5,16 +5,16 @@ using UnityEngine;
 public class createMonster : MonoBehaviour
 {
 
-    public int monsternum; //©Çª«¼Æ¶q
+    public int monsternum; //æ€ªç‰©æ•¸é‡
 
-    public GameObject bug_monsterprefab; //©Çª«ª«¥ó¦Cªí
+    public GameObject bug_monsterprefab; //æ€ªç‰©ç‰©ä»¶åˆ—è¡¨
 
     public GameObject monster_parent;
 
     Transform player;
 
     float timer = 10;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,14 +32,14 @@ public class createMonster : MonoBehaviour
 
         if (player != null)
         {
-            // ­pºâ¶ZÂ÷
+            // è¨ˆç®—è·é›¢
             float distance = Vector2.Distance(transform.position, player.transform.position);
             if (GameManager.creatMonster == true)
             {
-                // ¦pªG¶ZÂ÷¤j©ó¶ZÂ÷¡AÂÎ¬}¥Í¦¨
+                // å¦‚æœè·é›¢å¤§æ–¼è·é›¢ï¼ŒèŸ²æ´ç”Ÿæˆ
                 if (distance < 20f && timer > 10)
                 {
-                    createmonster2();   //ÂÎ¬}¥Í¦¨
+                    createmonster2();   //èŸ²æ´ç”Ÿæˆ
                     timer = 0;
                 }
             }
@@ -49,7 +49,6 @@ public class createMonster : MonoBehaviour
     void createmonster2()
     {
         var index = Random.Range(6, monsternum);
-
         for (int i = 0; i < index; i++)
         {
             Instantiate(bug_monsterprefab, gameObject.transform.position, Quaternion.identity, monster_parent.transform);

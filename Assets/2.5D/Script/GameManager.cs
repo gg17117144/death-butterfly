@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public static int mapLevel;
     public static GameObject mainCamera;
-
+    [SerializeField]
     public GameObject lightSet;
+    [SerializeField]
     public GameObject gaming;
+    [SerializeField]
     public GameObject StopSetting;
+    [SerializeField]
     public GameObject task;
+    [SerializeField]
     public GameObject dead;
     public static bool isStoping;
 
@@ -25,9 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GameObject gun;
 
-    int maxMonsterNum;
-
     public static bool creatMonster;
+    public static bool creatFly;
     
     public int SceneIndex;
     void Awake()
@@ -53,15 +56,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isStoping = false;
-        
-        //task.SetActive(true);
         StopSetting.SetActive(false);
         SceneCheck();
-        //SceneCheck();
         Task.ResetTask();
+        
+        InvokeRepeating("checkNum", 2f,5f);
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -82,16 +82,6 @@ public class GameManager : MonoBehaviour
             StopOpen = !StopOpen;
             StopButton();
         }
-
-        if (maxMonsterNum >= 100)
-        {
-            creatMonster = false;
-        }
-        else
-        {
-            creatMonster = true;
-        }
-
     }
 
     public void SceneCheck()
@@ -107,12 +97,14 @@ public class GameManager : MonoBehaviour
                 gaming.SetActive(false);
                 StopSetting.SetActive(false);
                 player.SetActive(false);
+                dead.SetActive(false);
                 break;
             case 1:
                 task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
                 player.SetActive(true);
+                dead.SetActive(false);
                 break;
             case 2:
                 Debug.Log(mapLevel);
@@ -120,18 +112,21 @@ public class GameManager : MonoBehaviour
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                dead.SetActive(false);
                 break;
             case 3:
                 task.SetActive(true);
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                dead.SetActive(false);
                 break;
             case 4:
                 task.SetActive(true);
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                dead.SetActive(false);
                 break;
 
         }
@@ -161,7 +156,7 @@ public class GameManager : MonoBehaviour
     {
         StopOpen = !StopOpen;
 
-        if (StopOpen == true)
+        if (StopOpen)
         {
             StopSetting.SetActive(true);
             isStoping = true;
@@ -204,8 +199,31 @@ public class GameManager : MonoBehaviour
     {
 
     }
-    
 
+    public void checkNum()
+    {
+        var maxMonsterNum = GameObject.FindGameObjectsWithTag("enemy");
+        if (maxMonsterNum.Length >= 50)
+        {
+            creatMonster = false;
+        }
+        else
+        {
+            creatMonster = true;
+        }
+        var maxFlyNum = GameObject.FindGameObjectsWithTag("fly");
+        if (maxFlyNum.Length >= 40)
+        {
+            creatFly = false;
+        }
+        else
+        {
+            creatFly = true;
+        }
+
+        Debug.Log($"maxMonsterNum:{maxMonsterNum.Length}  maxFlyNum:{maxFlyNum.Length}");
+    }
+    
     public void relife()
     {
         Debug.Log("重生");

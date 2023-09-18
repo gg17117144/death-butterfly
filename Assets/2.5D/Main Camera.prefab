@@ -112,6 +112,7 @@ MonoBehaviour:
   monsterprefab:
   - {fileID: 6179427763221266392, guid: b1fa5461bb7f8c544a91c33bf38f67d7, type: 3}
   - {fileID: 299211275061030, guid: b4c72e6691014944987761222e02f85c, type: 3}
+  - {fileID: 2280571037442025747, guid: ae3dde5b69bdd114ca590fbd6fcff360, type: 3}
   flyprefab:
   - {fileID: 509935326212809480, guid: e4a7d01398ba438498c4cf75fe249553, type: 3}
   monster_parent: {fileID: 0}

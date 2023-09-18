@@ -12,17 +12,12 @@ public class playermovee : MonoBehaviour
     private Vector2 targetPosition;
     private Vector2 velocity;
 
-    public GameObject talk;
-
     //Rigidbody2D rB;
     // Start is called before the first frame update
     void Start()
     {
         //rB = GetComponent<Rigidbody2D>();
-        if (talk != null)
-        {
-            talk.SetActive(false);
-        }
+
     }
 
     // Update is called once per frame
@@ -48,17 +43,6 @@ public class playermovee : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (talk != null)
-        {
-            if (collision.tag == "uncle")
-            {
-                talk.SetActive(true);
-                talk.GetComponent<TalkToTalk>().startTalk();
-            }
-        }
-        else
-        {
-            //Debug.Log("Talk object is null");
-        }
+        
     }
 }

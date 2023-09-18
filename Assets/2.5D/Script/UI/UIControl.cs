@@ -10,6 +10,8 @@ public class UIControl : MonoBehaviour
     public static UIControl instance;
     [SerializeField]
     GameObject gun;
+    [SerializeField] 
+    public Animator skillUnderAnime;
     [SerializeField]
     public Image[] FlyTank_Image;           //蝴蝶槽的[]
     [SerializeField]
@@ -27,15 +29,15 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     public Image blood_Y;
 
-    [FormerlySerializedAs("H2OImage")] [SerializeField]
+    [SerializeField]
     public Image O2Image;
     [SerializeField]
     public GameObject deadtext;
-
-    public Image PlayerHitImage;
+    [SerializeField]
+    public Animator playerHit;
 
     private float currentPrg, targetPrg;
-    public float AccelerHpSpeed = 1.0f;
+    public float AccelerHpSpeed = 0.5f;
     void Awake()
     {
         if (instance == null)
@@ -53,7 +55,18 @@ public class UIControl : MonoBehaviour
     {
         gun = GameManager.instance.gun;
         flytank = gun.GetComponent<GunType>().FlyTank;
-        
+        /*
+        GameObject SkillUnder = GameObject.Find("SkillUnder");
+        for (int i = 0; i < 3; i++)
+        {
+            FlyTank_Image[i] = SkillUnder.transform.GetChild(i).GetComponent<Image>();
+            FlyTank_energy[i] = FlyTank_Image[i].transform.GetChild(i).GetComponent<Slider>();
+        }
+
+        blood_R = GameObject.Find("RedBlood").transform.GetComponent<Image>();
+        blood_Y = GameObject.Find("YellowBlood").transform.GetComponent<Image>();
+        O2Image = GameObject.Find("O2Image").transform.GetComponent<Image>();
+        */
         if (gun != null && !gun.activeSelf)
         {
             ReloadGunUI();
@@ -64,11 +77,13 @@ public class UIControl : MonoBehaviour
         }
 
         currentPrg = blood_R.fillAmount;
+        
+
     }
 
     private void Update()
     {
-
+        
     }
 
     public void ReloadGunUI() //重製UI
@@ -116,9 +131,17 @@ public class UIControl : MonoBehaviour
 
     public void PlayerHit()
     {
-        PlayerHitImage.color = new Color32(255, 0, 0, 60);
+        //playerHit.Play("nothing");
+        playerHit.Play("hit");
+        //playerHit.Play("Warning");
     }
 
-
+    public void ChangeGunTank(int input)
+    {
+        if (!ReferenceEquals(skillUnderAnime , null))
+        {
+            skillUnderAnime.SetTrigger($"{input}");
+        }
+    }
     
 }
