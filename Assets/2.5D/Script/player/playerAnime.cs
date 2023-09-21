@@ -30,9 +30,9 @@ public class playerAnime : MonoBehaviour
     void Update()
     {
         spriteRenderer.sortingOrder = 3 - (int)player.transform.position.y;
-
+        
         //lookmouse();
-        if (playerHeart.newhp > 0)
+        if (playerHeart.newhp > 0 && !GameManager.instance.isStoping)
         {
             RunWhere();
         }
@@ -55,8 +55,8 @@ public class playerAnime : MonoBehaviour
 
     void RunWhere()
     {
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical") * Time.fixedDeltaTime;
+        float horizontalInput = Input.GetAxisRaw("Horizontal") * Time.fixedDeltaTime;
 
         
         if (verticalInput != 0 || horizontalInput != 0)

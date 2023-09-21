@@ -1,0 +1,80 @@
+{
+    "Story": [
+      {
+        "StoryLever": 0,
+        "dialogue": [
+          {
+            "character": "UNCLE ROGER",
+            "context": "早安阿!佐佐"
+          },
+          {
+            "character": "主角",
+            "context": "嗨呀~uncle roger"
+          },
+          {
+            "character": "UNCLE ROGER",
+            "context": "都口以酷NO~"
+          },
+          {
+            "character": "主角",
+            "context": "i am going to find my papa"
+          },
+          {
+            "character": "UNCLE ROGER",
+            "context": "終於來到這一天了嗎"
+          },
+          {
+            "character": "主角",
+            "context": "嗨呀~"
+          },
+          {
+            "character": "UNCLE ROGER",
+            "context": "雖然講過好幾次了，但還是注意安全"
+          },
+          {
+            "character": "主角",
+            "context": "OK瞜"
+          },
+          {
+            "character": "UNCLE ROGER",
+            "context": "這傢伙的脾氣跟拉姆其一個樣"
+          },
+          {
+            "character": "主角",
+            "context": "掰瞜UNCLE ROGER！"
+          },
+          {
+            "character": "UNCLE ROGER",
+            "context": "later bixxh~"
+          }
+        ]
+      },
+      {
+        "StoryLever": 1,
+        "dialogue": [
+          {
+            "character": "主角",
+            "context": "這是甚麼？先收集起來好了，或許有別的用途也不一定"
+          }
+        ]
+      },
+      {
+        "StoryLever": 2,
+        "dialogue": [
+          {
+            "character": "主角",
+            "context": "以前爸媽只讓我探索到這，看來接下來的路需要自行探索了"
+          }
+        ]
+      },    
+      {
+        "StoryLever": 3,
+        "dialogue": [
+          {
+            "character": "主角",
+            "context": "這裡在測試"
+          }
+        ]
+      }     
+    ]
+  }

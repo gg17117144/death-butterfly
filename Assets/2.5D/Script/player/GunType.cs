@@ -49,7 +49,7 @@ public class GunType : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (GameManager.isStoping == false)
+        if (GameManager.instance.isStoping == false)
         {
             checkType();
             CheckFlyTank();

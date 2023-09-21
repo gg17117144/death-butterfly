@@ -103,7 +103,8 @@ public class PlayerHeart : MonoBehaviour
     {
         Debug.Log("­«¥Í");
         ResetPlayerValue();
-        GameManager.isStoping = false;
+        GameManager.instance.isStoping = false;
+        GameManager.instance.checkIsStoping();
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
         foreach (GameObject enemy in enemies)

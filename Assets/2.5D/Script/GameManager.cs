@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject task;
     [SerializeField]
     public GameObject dead;
-    public static bool isStoping;
+    public bool isStoping;
 
     bool StopOpen;
 
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isStoping = false;
+        checkIsStoping();
         StopSetting.SetActive(false);
         SceneCheck();
         Task.ResetTask();
@@ -67,6 +68,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Debug.Log(SceneIndex);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StopOpen = !StopOpen;
+            StopButton();
+        }
+    }
+
+    public void checkIsStoping()
+    {
         if (isStoping == true)
         {
             Time.timeScale = 0;
@@ -74,13 +85,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 1;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            StopOpen = !StopOpen;
-            StopButton();
         }
     }
 
@@ -145,6 +149,8 @@ public class GameManager : MonoBehaviour
             StopSetting.SetActive(false);
             isStoping = false;
         }
+
+        checkIsStoping();
     }
     
     public void StartGame()
@@ -166,6 +172,8 @@ public class GameManager : MonoBehaviour
             StopSetting.SetActive(false);
             isStoping = false;
         }
+
+        checkIsStoping();
     }
 
     public void volumeSliderSet(float volumeValue)
@@ -175,8 +183,11 @@ public class GameManager : MonoBehaviour
 
     public void lightSliderSet(float lightValue)
     {
-        float mappedValue = (1 - lightValue) * 150f;
-        lightSet.GetComponent<Image>().color = new Color32(0, 0, 0, (byte)mappedValue);
+        if (mapLevel >= 2)
+        {
+            float mappedValue = (1 - lightValue) * 150f;
+            lightSet.GetComponent<Image>().color = new Color32(0, 0, 0, (byte)mappedValue);
+        }
     }
 
     public void BackHome()
@@ -221,7 +232,7 @@ public class GameManager : MonoBehaviour
             creatFly = true;
         }
 
-        Debug.Log($"maxMonsterNum:{maxMonsterNum.Length}  maxFlyNum:{maxFlyNum.Length}");
+        //Debug.Log($"maxMonsterNum:{maxMonsterNum.Length}  maxFlyNum:{maxFlyNum.Length}");
     }
     
     public void relife()

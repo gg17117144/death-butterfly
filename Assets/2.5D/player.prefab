@@ -659,7 +659,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  skillUnderAnime: {fileID: 0}
   catchfly: {fileID: 8300000, guid: e2c51c3c17d10e74d9cc1ec51b917115, type: 3}
   rotatinspeed: 50
 --- !u!1 &1277456669817598966
@@ -5534,7 +5533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1277456670989636135}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.7, z: 0}
+  m_LocalPosition: {x: 0, y: -0.24, z: 0}
   m_LocalScale: {x: 3.57111, y: 1.23329, z: 1}
   m_Children: []
   m_Father: {fileID: 1277456669420016924}

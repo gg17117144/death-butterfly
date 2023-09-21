@@ -28,7 +28,7 @@ public class monsterAI : MonoBehaviour
     Animator animator;
 
     private bool canDamage = true;
-    private bool isattack;
+    //private bool isattack;
 
     private SpriteRenderer spriteRenderer;
 
@@ -182,7 +182,7 @@ public class monsterAI : MonoBehaviour
             else
             {
                 canDamage = false;
-                isattack = true;
+                //isattack = true;
                 animator.Play("hurt");
                 Invoke("waitDamage", 0.5f);
             }

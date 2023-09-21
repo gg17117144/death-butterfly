@@ -22,7 +22,7 @@ public class LookMouse : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.isStoping == false)
+        if (GameManager.instance.isStoping == false)
         {
             if (gun.activeSelf)
             {
