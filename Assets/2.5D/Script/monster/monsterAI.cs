@@ -51,14 +51,16 @@ public class monsterAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        ChasePlayer();
+        if (!GameManager.instance.isTalking)
+        {
+            ChasePlayer();
 
-        spriteRenderer.sortingOrder = (int)stoppingDistance.y/2 - (int)this.transform.position.y;
+            spriteRenderer.sortingOrder = (int)stoppingDistance.y/2 - (int)this.transform.position.y;
 
-        Vector3 newPosition = transform.position;
-        newPosition.z = 0f;
-        transform.position = newPosition;
-
+            Vector3 newPosition = transform.position;
+            newPosition.z = 0f;
+            transform.position = newPosition;
+        }
     }
 
     void Destroy()

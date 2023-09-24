@@ -39,10 +39,11 @@ public class TalkToTalk : MonoBehaviour
     private StoryData storyData; // 將對話數據類型更改為 StoryData
     private int storyLevel = 0; // 目前對話的索引
     private int currentIndex = 0; // 目前對話的索引
-    private bool isTalking = false;//是否正在對話中
     private bool isTyping = false; // 是否正在打印對話
 
+    [SerializeField] private bool checckk;
 
+    public Animator animator;
     private void Start()
     {
         ReadJsonFile(); // 讀取JSON文件
@@ -57,21 +58,24 @@ public class TalkToTalk : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isTalking)
+        if (GameManager.instance.isTalking)
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyUp(KeyCode.Escape))
             {
-                if (Input.GetKeyDown(KeyCode.Exclaim))
-                {
-                    currentIndex = dialogueData.dialogue.Count;
-                }
+                //Debug.Log("跳出對話");
+                animator.Play("disappear");
+                GameManager.instance.isTalking = false;
+                currentIndex = 0;
+            }
             
+            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
+            {
                 if (isTyping)
                 {
                     // 如果正在打印對話，則直接跳過打印並顯示全部對話
                     StopCoroutine(TypeMessage(dialogueData.dialogue[currentIndex].context));
-                    messagetext.text = dialogueData.dialogue[currentIndex].context;
-                    isTyping = false;
+                    //messagetext.text = dialogueData.dialogue[currentIndex].context;
+                    //isTyping = false;
                 }
                 else
                 {
@@ -117,9 +121,9 @@ public class TalkToTalk : MonoBehaviour
         }
         else
         {
-            GameManager.instance.isStoping = false;
-            isTalking = false;
-            TalkUI.SetActive(false);
+            GameManager.instance.isTalking = false;
+            animator.Play("disappear");
+            //TalkUI.SetActive(false);
         }
     }
 
@@ -152,12 +156,12 @@ public class TalkToTalk : MonoBehaviour
         // 首先檢查 storyData 是否為 null
         if (storyData != null && storyData.Story != null)
         {
-            GameManager.instance.isStoping = true;
-            isTalking = true;
+            GameManager.instance.isTalking = true;
             storyLevel = 0;
-            TalkUI.SetActive(true);
+            //TalkUI.SetActive(true);
+            animator.Play("Appear");
             string aaa = storyData.Story[0].dialogue[0].context.ToString();
-            Debug.Log(aaa);
+            //Debug.Log(aaa);
             // 根據傳入的故事等級查找對應的 StoryData
             //DialogueData foundDialogueData = storyData.Story.Find(x => x.StoryLevel == storyLevel);
             DialogueData foundDialogueData = storyData.Story[storyLevel];

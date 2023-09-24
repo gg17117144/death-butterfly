@@ -32,9 +32,16 @@ public class playerAnime : MonoBehaviour
         spriteRenderer.sortingOrder = 3 - (int)player.transform.position.y;
         
         //lookmouse();
-        if (playerHeart.newhp > 0 && !GameManager.instance.isStoping)
+        if (playerHeart.newhp > 0)
         {
-            RunWhere();
+            if (!GameManager.instance.isTalking)
+            {
+                RunWhere();
+            }
+            else
+            {
+                animator.Play("Idle");
+            }
         }
         else
         {

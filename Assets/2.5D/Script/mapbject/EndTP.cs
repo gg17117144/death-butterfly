@@ -54,21 +54,17 @@ public class EndTP : MonoBehaviour
         {
             if (collision.CompareTag("PlayerCollider"))
             {
-                Debug.Log("觸發加載過場動畫");
+                //Debug.Log("觸發加載過場動畫");
                 player.transform.position = new Vector3(0, 0, 0);
-                //LoadScene(lever);
-                SceneManager.LoadScene(lever);
+                LoadScene(lever);
+                //SceneManager.LoadScene(lever);
             }
         }
     }
 
     public void LoadScene(int sceneNum)
     {
-        // 等待畫面
-        if (waitIng != null)
-        {
-            waitIng.SetActive(true);
-        }
+        Debug.Log("跑這裡應該比較不會卡");
 
         if (!isChangScene)
         {
@@ -80,13 +76,17 @@ public class EndTP : MonoBehaviour
 
     private IEnumerator LoadSceneTask(int sceneNum)
     {
-        waitIng.SetActive(false);
-        var asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
+
         while (!asyncLoad.isDone)
         {
+            // 在加载的过程中可以执行其他操作
+            // 可以显示加载进度条等
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            Debug.Log("Loading progress: " + (progress * 100) + "%");
+
             yield return null;
         }
-        isChangScene = false;
     }
 
 }

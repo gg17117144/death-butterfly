@@ -18,6 +18,8 @@ public class UIControl : MonoBehaviour
     public Slider[] FlyTank_energy;
     
     public Sprite nullimage;
+    [SerializeField]
+    public GameObject lightSet;
 
     [SerializeField] 
     List<GameObject> flytank;
@@ -141,6 +143,23 @@ public class UIControl : MonoBehaviour
         if (!ReferenceEquals(skillUnderAnime , null))
         {
             skillUnderAnime.SetTrigger($"{input}");
+        }
+    }
+    
+    public void volumeSliderSet(float volumeValue)
+    {
+        AudioListener.volume = volumeValue;
+        Debug.Log(volumeValue);
+    }
+
+    public void lightSliderSet(float lightValue)
+    {
+        if (GameManager.mapLevel >= 2)
+        {
+            float mappedValue = (1 - lightValue) * 150f;
+            lightSet.GetComponent<Image>().color = new Color32(0, 0, 0, (byte)mappedValue);
+            Debug.Log(lightValue);
+            Debug.Log(mappedValue);
         }
     }
     

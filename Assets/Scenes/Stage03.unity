@@ -859,7 +859,7 @@ MonoBehaviour:
   lever: 3
   rot: 1
   fCheck: 1
-  promptText: {fileID: 0}
+  waitIng: {fileID: 585379099}
 --- !u!58 &388348297
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -913,9 +913,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -445470741
+  m_SortingLayer: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1194,6 +1194,11 @@ GameObject:
 --- !u!1 &585379098 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4879738732221646833, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+  m_PrefabInstance: {fileID: 585379088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &585379099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4879738731129432496, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
   m_PrefabInstance: {fileID: 585379088}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &634459260

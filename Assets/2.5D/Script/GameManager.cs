@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     public static int mapLevel;
     public static GameObject mainCamera;
     [SerializeField]
-    public GameObject lightSet;
-    [SerializeField]
     public GameObject gaming;
     [SerializeField]
     public GameObject StopSetting;
@@ -22,7 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GameObject dead;
     public bool isStoping;
-
+    public bool isTalking;
+    
     bool StopOpen;
 
     public GameObject player;
@@ -69,11 +68,13 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log(SceneIndex);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isTalking)
         {
+            //Debug.Log("叫出暫停鍵了");
             StopOpen = !StopOpen;
             StopButton();
         }
+
     }
 
     public void checkIsStoping()
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
+    
     public void SceneCheck()
     {
         SceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -111,7 +112,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 break;
             case 2:
-                Debug.Log(mapLevel);
+                //Debug.Log(mapLevel);
                 task.SetActive(true);
                 gun.SetActive(true);
                 gaming.SetActive(true);
@@ -176,19 +177,7 @@ public class GameManager : MonoBehaviour
         checkIsStoping();
     }
 
-    public void volumeSliderSet(float volumeValue)
-    {
-        AudioListener.volume = volumeValue;
-    }
 
-    public void lightSliderSet(float lightValue)
-    {
-        if (mapLevel >= 2)
-        {
-            float mappedValue = (1 - lightValue) * 150f;
-            lightSet.GetComponent<Image>().color = new Color32(0, 0, 0, (byte)mappedValue);
-        }
-    }
 
     public void BackHome()
     {

@@ -17,14 +17,15 @@ public class playermovee : MonoBehaviour
     void Start()
     {
         //rB = GetComponent<Rigidbody2D>();
-
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        movement();
-
+        if (!GameManager.instance.isTalking)
+        {
+            movement();
+        }
     }
 
     private void movement()//方法
@@ -40,9 +41,5 @@ public class playermovee : MonoBehaviour
         transform.position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
+    
 }
