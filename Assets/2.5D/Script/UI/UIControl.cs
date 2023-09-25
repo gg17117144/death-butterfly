@@ -34,8 +34,6 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     public Image O2Image;
     [SerializeField]
-    public GameObject deadtext;
-    [SerializeField]
     public Animator playerHit;
 
     private float currentPrg, targetPrg;
@@ -72,10 +70,6 @@ public class UIControl : MonoBehaviour
         if (gun != null && !gun.activeSelf)
         {
             ReloadGunUI();
-        }
-        if (deadtext != null)
-        {
-            deadtext.SetActive(false);
         }
 
         currentPrg = blood_R.fillAmount;

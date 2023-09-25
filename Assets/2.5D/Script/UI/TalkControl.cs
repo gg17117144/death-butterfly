@@ -26,7 +26,7 @@ public class TalkControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 DialogBubble.SetActive(false);
-                talkToTalk.ShowDialogueByStoryLevel(0);
+                talkToTalk.ShowDialogueByStoryLevel(PlayStoryLevel);
                 //UnityEngine.Debug.Log("碰到了");
                 hasTriggered = true;
             }

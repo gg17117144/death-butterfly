@@ -37,7 +37,7 @@ public class TalkToTalk : MonoBehaviour
 
     private DialogueData dialogueData; // 對話數據
     private StoryData storyData; // 將對話數據類型更改為 StoryData
-    private int storyLevel = 0; // 目前對話的索引
+    private int storyLevel; // 目前對話的索引
     private int currentIndex = 0; // 目前對話的索引
     private bool isTyping = false; // 是否正在打印對話
 
@@ -48,6 +48,8 @@ public class TalkToTalk : MonoBehaviour
     {
         ReadJsonFile(); // 讀取JSON文件
         //ShowDialogueByStoryLevel(0);
+        
+        
     }
 
     [Button]
@@ -56,13 +58,13 @@ public class TalkToTalk : MonoBehaviour
         ShowDialogue(storyLevel); // 顯示對話
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (GameManager.instance.isTalking)
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                //Debug.Log("跳出對話");
+                Debug.Log("跳出對話");
                 animator.Play("disappear");
                 GameManager.instance.isTalking = false;
                 currentIndex = 0;
@@ -109,7 +111,50 @@ public class TalkToTalk : MonoBehaviour
             Debug.LogError("找不到JSON文件: " + jsonFileName);
         }
     }
+    
 
+    // 新增函数，根据故事等级展示对话
+    public void ShowDialogueByStoryLevel(int _storyLevel)//對外
+    {
+        // 首先檢查 storyData 是否為 null
+        if (storyData != null && storyData.Story != null)
+        {
+            GameManager.instance.isTalking = true;
+            //storyLevel = 0;
+            storyLevel = _storyLevel;
+            //TalkUI.SetActive(true);
+            animator.Play("Appear");
+            string aaa = storyData.Story[0].dialogue[0].context.ToString();
+            //Debug.Log(aaa);
+            // 根據傳入的故事等級查找對應的 StoryData
+            //DialogueData foundDialogueData = storyData.Story.Find(x => x.StoryLevel == storyLevel);
+            DialogueData foundDialogueData = storyData.Story[_storyLevel];
+            
+            //Debug.Log(foundDialogueData.StoryLevel);
+            
+            if (foundDialogueData != null)
+            {
+                //Debug.Log($"此對話的長度{foundDialogueData.dialogue.Count()}");
+                for (int i = 0; i < foundDialogueData.dialogue.Count(); i++)
+                {
+                    //Debug.Log($"此對話的所有對話:{foundDialogueData.dialogue[i].context}");
+                }
+                // 重置索引並展示對話
+                currentIndex = 0;
+                dialogueData = foundDialogueData;
+                ShowDialogue(_storyLevel);
+            }
+            else
+            {
+                Debug.LogError("找不到故事等級: " + _storyLevel);
+            }
+        }
+        else
+        {
+            Debug.LogError("故事數據為 null 或不存在");
+        }
+    }
+    
     private void ShowDialogue(int storyLevel)
     {
         if (storyData != null && storyData.Story != null && currentIndex < storyData.Story[storyLevel].dialogue.Count())
@@ -126,7 +171,8 @@ public class TalkToTalk : MonoBehaviour
             //TalkUI.SetActive(false);
         }
     }
-
+    
+    
     private IEnumerator TypeMessage(string message)
     {
         isTyping = true;
@@ -149,43 +195,5 @@ public class TalkToTalk : MonoBehaviour
             currentIndex = 0; //重置0
         }
     }
-
-    // 新增函数，根据故事等级展示对话
-    public void ShowDialogueByStoryLevel(int storyLevel)
-    {
-        // 首先檢查 storyData 是否為 null
-        if (storyData != null && storyData.Story != null)
-        {
-            GameManager.instance.isTalking = true;
-            storyLevel = 0;
-            //TalkUI.SetActive(true);
-            animator.Play("Appear");
-            string aaa = storyData.Story[0].dialogue[0].context.ToString();
-            //Debug.Log(aaa);
-            // 根據傳入的故事等級查找對應的 StoryData
-            //DialogueData foundDialogueData = storyData.Story.Find(x => x.StoryLevel == storyLevel);
-            DialogueData foundDialogueData = storyData.Story[storyLevel];
-            
-            //Debug.Log(foundDialogueData.StoryLevel);
-            
-            if (foundDialogueData != null)
-            {
-                // 重置索引並展示對話
-                currentIndex = 0;
-                dialogueData = foundDialogueData;
-                ShowDialogue(storyLevel);
-            }
-            else
-            {
-                Debug.LogError("找不到故事等級: " + storyLevel);
-            }
-        }
-        else
-        {
-            Debug.LogError("故事數據為 null 或不存在");
-        }
-    }
-
-
 
 }
