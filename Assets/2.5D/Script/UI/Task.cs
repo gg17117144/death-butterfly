@@ -28,6 +28,8 @@ public class Task : MonoBehaviour
     {
         ResetTask();
         rectTransform = GetComponent<RectTransform>();
+        killEmeny = 0;
+        reTaskText();
     }
     
     // Update is called once per frame

@@ -38,6 +38,10 @@ public class UIControl : MonoBehaviour
 
     private float currentPrg, targetPrg;
     public float AccelerHpSpeed = 0.5f;
+
+    public GameObject DebugGrid;
+    public GameObject debugText;
+
     void Awake()
     {
         if (instance == null)
@@ -73,8 +77,6 @@ public class UIControl : MonoBehaviour
         }
 
         currentPrg = blood_R.fillAmount;
-        
-
     }
 
     private void Update()
@@ -84,7 +86,6 @@ public class UIControl : MonoBehaviour
 
     public void ReloadGunUI() //重製UI
     {
-        
         for (int i = 0; i < 3; i++)
         {
             if (flytank[i])
@@ -155,6 +156,12 @@ public class UIControl : MonoBehaviour
             Debug.Log(lightValue);
             Debug.Log(mappedValue);
         }
+    }
+
+    public void DebugText(string debug)
+    {
+        
+        //debugText.text = debug;
     }
     
 }

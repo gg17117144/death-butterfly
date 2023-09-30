@@ -56,7 +56,7 @@ public class GunType : MonoBehaviour
         }
         spriteRenderer.sortingOrder = 3 - (int)transform.position.y;
 
-        if (FlyTank[num] != null)
+        if (!ReferenceEquals(FlyTank[num] , null))
         {
             FlyTankUnder.transform.Rotate(Vector3.forward * rotatinspeed * Time.deltaTime);
         }
@@ -72,7 +72,7 @@ public class GunType : MonoBehaviour
             //Debug.Log("抓到蝴蝶了");
             audioSource.clip = catchfly;
             audioSource.Play();
-
+            
             for (int i = 0; i < 3; i++)
             {
                 if (FlyTank[i] == null)
@@ -130,6 +130,7 @@ public class GunType : MonoBehaviour
             //Debug.Log(isScrolling);
             StartCoroutine(ProcessScrollInput(delta));
         }
+        /*
         for (int i = 0; i < 2; i++)
         {
             if (ReferenceEquals(FlyTank[i],null) && !ReferenceEquals(FlyTank[i+1],null))
@@ -140,6 +141,7 @@ public class GunType : MonoBehaviour
                 Canvas.GetComponent<UIControl>().ReloadGunUI();//更新UI
             }
         }
+        */
     }
     
     IEnumerator ProcessScrollInput(int input)
@@ -183,8 +185,12 @@ public class GunType : MonoBehaviour
     {
         canuse = true;
     }
-    
-    
+
+    public void flyNoEnergy()
+    {
+        FlyTank[num] = null;
+        UIControl.instance.ReloadGunUI();
+    }
 
 
     void Type01() //單發
@@ -193,7 +199,7 @@ public class GunType : MonoBehaviour
         {
             if (Input.GetMouseButton(0)) //左鍵
             {
-                if (FlyTank[num] == null)    //如果是空的
+                if (ReferenceEquals(FlyTank[num] , null))    //如果是空的
                 {
                     //Debug.Log("空的");
                     UIControl.instance.ReloadGunUI();
@@ -219,11 +225,7 @@ public class GunType : MonoBehaviour
                 checkarms.SetActive(false);
                 CanCatchFly = false;
             }
-
-
-
         }
-
     }
     
 

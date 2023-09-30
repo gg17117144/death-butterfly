@@ -45,12 +45,8 @@ public class FlyData : MonoBehaviour
     {
         if (Fly_Energy <= 0)
         {
-            //Debug.Log("������q�Χ�");
-            gunType.FlyTank[aa] = null;
-            //gun.GetComponent<GunType>().butterfltdatalist.butterflydataList[aa] = gun.GetComponent<GunType>().FlyTank[aa];
-            //uiControl.ReloadGunUI();
+            gunType.flyNoEnergy();
             Destroy(gameObject);
-            UIControl.instance.ReloadGunUI();
         }
     }
 
@@ -59,29 +55,34 @@ public class FlyData : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
+        rotation *= Quaternion.Euler(0, 0, 90);
+        Instantiate(SkillObject, gun.transform.position ,  rotation);
+
+        Fly_Energy -= 10;
+
+        /*
         switch (ButterFlyID)
         {
             case 0:
                 //Debug.Log(ButterFlyID);
                 break;
-            case 1: //�K������
+            case 1: //炙熱蝴蝶
                 //Debug.Log(ButterFlyID);
-                Quaternion rotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
-                rotation *= Quaternion.Euler(0, 0, 90);
-                Instantiate(SkillObject, gun.transform.position ,  rotation);
-
-                Fly_Energy = Fly_Energy - 10;
 
                 break;
-            case 2:
+            case 2://生命蝴蝶
+                //Debug.Log(ButterFlyID);
+                Quaternion rotation2 = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
+                rotation2 *= Quaternion.Euler(0, 0, 90);
+                Instantiate(SkillObject, gun.transform.position ,  rotation2);
+                Fly_Energy = Fly_Energy - 10;
+                break;
+            case 3://氧氣蝴蝶
                 Debug.Log(ButterFlyID);
                 Fly_Energy = Fly_Energy - 10;
                 break;
-            case 3:
-                Debug.Log(ButterFlyID);
-                Fly_Energy = Fly_Energy - 10;
-                break;
-            case 4:
+            case 4://閃電蝴蝶
                 Debug.Log(ButterFlyID);
                 Fly_Energy = Fly_Energy - 10;
                 break;
@@ -98,7 +99,7 @@ public class FlyData : MonoBehaviour
                 Debug.Log("null");
                 break;
         }
-
+        */
         CheckEnergy();
     }
 

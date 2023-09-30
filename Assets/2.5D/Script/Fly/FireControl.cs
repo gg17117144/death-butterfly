@@ -14,6 +14,8 @@ public class FireControl : MonoBehaviour
     Vector3 moveDirection;
     public float speed = 0.3f;
 
+    private Animator animator;
+    
     AudioSource audioSource;
     public AudioClip shou;
     public AudioClip bom;
@@ -21,6 +23,7 @@ public class FireControl : MonoBehaviour
     void Start()
     {
         moveDirection = new Vector3(speed, 0, 0);
+        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = shou;
         audioSource.Play();
@@ -52,7 +55,7 @@ public class FireControl : MonoBehaviour
         {
             if (lifeTime <= 0)
             {
-                GetComponent<Animator>().SetTrigger("bom");
+                animator.SetTrigger("bom");
                 moveDirection = new Vector2(0,0); // 停止移動
             }
             else if (lifeTime > 0.1f)
@@ -83,6 +86,7 @@ public class FireControl : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if (other.tag == "enemy")
@@ -90,6 +94,8 @@ public class FireControl : MonoBehaviour
             //Debug.Log("撞到東西囉");
             //audioSource.clip = bom;
             //audioSource.Play();
+            other.GetComponent<monsterAI>().isHurt(10);
+            
             hardcollider.enabled = false;
 
             GetComponent<Animator>().SetTrigger("bom");

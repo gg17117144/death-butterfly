@@ -167,13 +167,13 @@ public class monsterAI : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void isHurt(int damage)
     {
-        if (other.tag == "skill" && canDamage)
+        if (canDamage)
         {
-            HP -= other.GetComponent<skill>().damage;
+            HP -= damage;
 
-            //Debug.Log("撞到東西囉");
+            //Debug.Log($"撞到東西囉,我受傷了{damage}");
             //other.GetComponent<FireControl>().lifeTime = 0;
 
 
@@ -190,6 +190,5 @@ public class monsterAI : MonoBehaviour
             }
         }
     }
-
-
+    
 }

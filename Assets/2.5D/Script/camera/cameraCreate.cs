@@ -54,17 +54,17 @@ public class cameraCreate : MonoBehaviour
                     case 1:
                         break;
                     case 2:
-                        Debug.Log("生成東西了");
+                        //Debug.Log("生成東西了");
                         createmonster(5);
                         createfly(3);
                         break;
                     case 3:
-                        Debug.Log("生成東西了");
+                        //Debug.Log("生成東西了");
                         createmonster(3);
                         createfly(3);
                         break;
                     case 4:
-                        Debug.Log("生成東西了");
+                        //Debug.Log("生成東西了");
                         createmonster(3);
                         createfly(3);
                         break;
