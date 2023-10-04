@@ -421,6 +421,10 @@ PrefabInstance:
       propertyPath: skillUnderAnime
       value: 
       objectReference: {fileID: 1002538196}
+    - target: {fileID: 1277456670989636128, guid: d2622aeb373e6784fadc8202a40b6912, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2449122847482949275, guid: d2622aeb373e6784fadc8202a40b6912, type: 3}
       propertyPath: m_Animation
       value: 
