@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1447183247717007930}
   - component: {fileID: 2577315781647616314}
   - component: {fileID: 861992662639919429}
-  - component: {fileID: 1144577466283784037}
+  - component: {fileID: 6723238554260586490}
   - component: {fileID: 5168539223572716258}
   - component: {fileID: 7033250146066861172}
   m_Layer: 0
@@ -107,8 +107,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &1144577466283784037
-BoxCollider2D:
+--- !u!58 &6723238554260586490
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -116,23 +116,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 398875753159729948}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 7307343643a417d4e8fd8827d7e752f4, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!82 &5168539223572716258
 AudioSource:
   m_ObjectHideFlags: 0
@@ -243,5 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 3
   skillID: 3
-  damage: 30
+  damage: 5
   speed: 5
+  playerHeart: {fileID: 0}
+  playermovee: {fileID: 0}

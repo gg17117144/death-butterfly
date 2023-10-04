@@ -173,10 +173,6 @@ public class monsterAI : MonoBehaviour
         {
             HP -= damage;
 
-            //Debug.Log($"撞到東西囉,我受傷了{damage}");
-            //other.GetComponent<FireControl>().lifeTime = 0;
-
-
             if (HP <= 0)
             {
                 animator.SetTrigger("die");

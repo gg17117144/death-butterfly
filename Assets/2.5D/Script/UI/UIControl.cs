@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 public class UIControl : MonoBehaviour
 {
@@ -40,7 +41,8 @@ public class UIControl : MonoBehaviour
     public float AccelerHpSpeed = 0.5f;
 
     public GameObject DebugGrid;
-    public GameObject debugText;
+    public GameObject debugTextPrefab;
+    private Text debugText;
 
     void Awake()
     {
@@ -59,6 +61,7 @@ public class UIControl : MonoBehaviour
     {
         gun = GameManager.instance.gun;
         flytank = gun.GetComponent<GunType>().FlyTank;
+        debugText = debugTextPrefab.GetComponent<Text>();
         /*
         GameObject SkillUnder = GameObject.Find("SkillUnder");
         for (int i = 0; i < 3; i++)
@@ -153,15 +156,42 @@ public class UIControl : MonoBehaviour
         {
             float mappedValue = (1 - lightValue) * 150f;
             lightSet.GetComponent<Image>().color = new Color32(0, 0, 0, (byte)mappedValue);
-            Debug.Log(lightValue);
-            Debug.Log(mappedValue);
+            //Debug.Log(lightValue);
+            //Debug.Log(mappedValue);
         }
     }
 
+    
     public void DebugText(string debug)
     {
+        GameObject debugTextInstance = Instantiate(debugTextPrefab, DebugGrid.gameObject.transform);
+        debugText = debugTextInstance.GetComponent<Text>();
+        debugText.text = debug; 
+        Color textColor = debugText.color;
+        textColor.a = 1f; // 初始透明度为不透明
+        debugText.color = textColor;
+        StartCoroutine(FadeOutAndDestroy(debugTextInstance));
+    }
+    
+    private IEnumerator FadeOutAndDestroy(GameObject debugTextInstance)
+    {
+        // 等待一段时间（可根据需要调整）
+        yield return new WaitForSeconds(1.0f);
+
+        // 逐渐减小透明度
+        for (float alpha = 1f; alpha >= 0f; alpha -= Time.deltaTime)
+        {
+            Color textColor = debugText.color;
+            textColor.a = alpha;
+            debugText.color = textColor;
+            yield return null;
+        }
         
-        //debugText.text = debug;
+        Color finalTextColor = debugText.color;
+        finalTextColor.a = 0f;
+        debugText.color = finalTextColor;
+        Destroy(debugTextInstance);
+        //DestroyImmediate(debugTextInstance, true);
     }
     
 }

@@ -199,7 +199,7 @@ public class GunType : MonoBehaviour
         {
             if (Input.GetMouseButton(0)) //左鍵
             {
-                if (ReferenceEquals(FlyTank[num] , null))    //如果是空的
+                if (FlyTank[num] == null)    //如果是空的
                 {
                     //Debug.Log("空的");
                     UIControl.instance.ReloadGunUI();

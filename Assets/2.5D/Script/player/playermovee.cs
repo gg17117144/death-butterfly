@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using UnityEngine;
 
-public class playermovee : MonoBehaviour
+public class Playermovee : MonoBehaviour
 {
     //public float moveSpeed; //移動速度
-
+    private float SpeedUP = 1f;
+    private float SpeedUPTime = 0f;
+    
     public float moveSpeed = 5f;
     public float smoothTime = 0.1f;
 
@@ -26,6 +29,17 @@ public class playermovee : MonoBehaviour
         {
             movement();
         }
+
+        if (SpeedUPTime > 0)
+        {
+            SpeedUP = 1.5f;
+            SpeedUPTime -= Time.deltaTime;
+        }
+        else
+        {
+            SpeedUP = 1f;
+        }
+        
     }
 
     private void movement()//方法
@@ -36,10 +50,18 @@ public class playermovee : MonoBehaviour
 
         Vector2 inputVector = new Vector2(horizontalInput, verticalInput).normalized;
 
-        targetPosition = (Vector2)transform.position + inputVector * moveSpeed * Time.fixedDeltaTime;
+        targetPosition = (Vector2)transform.position + inputVector * moveSpeed * Time.fixedDeltaTime * SpeedUP;
 
         transform.position = Vector2.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
     }
+
+    public void startplayerSpeedUP()
+    {
+        UIControl.instance.DebugText("應該要調整動畫速度");
+        UIControl.instance.DebugText("應該要有加速動畫效果");
+        SpeedUPTime += 3f;
+    }
+
     
 }

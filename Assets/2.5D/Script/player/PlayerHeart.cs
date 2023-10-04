@@ -55,7 +55,7 @@ public class PlayerHeart : MonoBehaviour
 
             if (O2 <= 0)
             {
-                GetComponent<playerAnime>().Dead();
+                GetComponent<PlayerAnime>().Dead();
             }
         }
     }
@@ -69,7 +69,7 @@ public class PlayerHeart : MonoBehaviour
         UIControl.instance.PlayerHit();
     }
     
-    public void healHp(int healHP)
+    public void healHp(float healHP)
     {
         newhp += healHP;
         float HpValue = newhp / max_hp;

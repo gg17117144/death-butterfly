@@ -9,32 +9,26 @@ public class FlyData : MonoBehaviour
     public int ButterFlyID;         //�����s��
     public int Fly_Energy;          //������q
     public GameObject SkillObject;  //�ޯફ��
+    
     [TextArea]
     public string ButterFlyInfo;    //���~²��
 
     GameObject bullet;
 
-    GameObject Canvas;
-    int aa;
-
     GameObject gun;
-
+    GameObject player;
     float timer;
 
     private SpriteRenderer sprite;
     private GunType gunType;
-    private UIControl uiControl;
+
     void Start()
     {
-        //gun = GameObject.FindGameObjectWithTag("gun");
         gun = GameManager.instance.gun;
-        //bullet = GameObject.FindGameObjectWithTag("bullet");
-        bullet = gun.transform.Find("bullet").gameObject;
-        Canvas = GameObject.FindGameObjectWithTag("Canvas");
-        sprite = gameObject.GetComponent<SpriteRenderer>();
-        aa = gun.GetComponent<GunType>().num;
         gunType = gun.GetComponent<GunType>();
-        uiControl = Canvas.GetComponent<UIControl>();
+        player = GameManager.instance.player;
+        bullet = gun.transform.Find("bullet").gameObject;
+        sprite = gameObject.GetComponent<SpriteRenderer>();
     }
     
     void Update()
@@ -57,50 +51,42 @@ public class FlyData : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
         rotation *= Quaternion.Euler(0, 0, 90);
-        Instantiate(SkillObject, gun.transform.position ,  rotation);
-
-        Fly_Energy -= 10;
-
-        /*
+        
         switch (ButterFlyID)
         {
             case 0:
-                //Debug.Log(ButterFlyID);
                 break;
             case 1: //炙熱蝴蝶
-                //Debug.Log(ButterFlyID);
-
+                Fly_Energy -= 10;
+                Instantiate(SkillObject, gun.transform.position ,  rotation);
                 break;
             case 2://生命蝴蝶
-                //Debug.Log(ButterFlyID);
-                Quaternion rotation2 = Quaternion.LookRotation(Vector3.forward, mousePosition - bullet.transform.position);
-                rotation2 *= Quaternion.Euler(0, 0, 90);
-                Instantiate(SkillObject, gun.transform.position ,  rotation2);
-                Fly_Energy = Fly_Energy - 10;
+                Fly_Energy -= 25;
+                Instantiate(SkillObject, player.transform.position ,  rotation);
+                Debug.Log("應該要升成了");
                 break;
             case 3://氧氣蝴蝶
-                Debug.Log(ButterFlyID);
-                Fly_Energy = Fly_Energy - 10;
+                Fly_Energy -= 20;
+                Instantiate(SkillObject, player.transform.position ,  rotation);
                 break;
             case 4://閃電蝴蝶
-                Debug.Log(ButterFlyID);
-                Fly_Energy = Fly_Energy - 10;
+                //Fly_Energy -= 10;
                 break;
             case 5:
-                Debug.Log(ButterFlyID);
                 break;
             case 6:
-                Debug.Log(ButterFlyID);
                 break;
             case 7:
-                Debug.Log(ButterFlyID);
                 break;
-            default:
-                Debug.Log("null");
-                break;
+
         }
-        */
+        
         CheckEnergy();
+    }
+
+    void test()
+    {
+        Debug.Log("嗨");
     }
 
     public void stop()

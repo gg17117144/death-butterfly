@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerAnime : MonoBehaviour
+public class PlayerAnime : MonoBehaviour
 {
     GameObject player;
 
@@ -72,18 +72,24 @@ public class playerAnime : MonoBehaviour
             if (verticalInput > 0 && horizontalInput < 0)       // 左上斜角的動畫和音效
             {
                 //Debug.Log("左上斜");
+                spriteRenderer.flipX = true;
+                animator.Play("LiftSide");//暫時代替
             }
             else if (verticalInput > 0 && horizontalInput > 0)  // 右上斜角的動畫和音效
             {
                 //Debug.Log("右上斜");
+                animator.Play("RunUp");//暫時代替
             }
             else if (verticalInput < 0 && horizontalInput < 0)  // 左下斜角的動畫和音效
             {
                 //Debug.Log(" 左下斜");
+                animator.Play("RunDown");//暫時代替
             }
             else if (verticalInput < 0 && horizontalInput > 0)  // 右下斜角的動畫和音效
             {
                 //Debug.Log("右下斜");
+                spriteRenderer.flipX = false;
+                animator.Play("RightSide");//暫時代替
             }
             else if (verticalInput > 0)     // 向上的動畫和音效
             {
