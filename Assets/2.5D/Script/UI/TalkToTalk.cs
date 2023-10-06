@@ -64,7 +64,7 @@ public class TalkToTalk : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.Escape))
             {
-                Debug.Log("跳出對話");
+                //Debug.Log("跳出對話");
                 animator.Play("disappear");
                 GameManager.instance.isTalking = false;
                 currentIndex = 0;

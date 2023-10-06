@@ -234,6 +234,6 @@ MonoBehaviour:
   lifeTime: 3
   skillID: 3
   damage: 5
-  speed: 5
+  speed: 0
   playerHeart: {fileID: 0}
   playermovee: {fileID: 0}

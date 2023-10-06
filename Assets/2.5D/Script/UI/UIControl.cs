@@ -147,7 +147,7 @@ public class UIControl : MonoBehaviour
     public void volumeSliderSet(float volumeValue)
     {
         AudioListener.volume = volumeValue;
-        Debug.Log(volumeValue);
+        //Debug.Log(volumeValue);
     }
 
     public void lightSliderSet(float lightValue)
@@ -164,13 +164,16 @@ public class UIControl : MonoBehaviour
     
     public void DebugText(string debug)
     {
-        GameObject debugTextInstance = Instantiate(debugTextPrefab, DebugGrid.gameObject.transform);
-        debugText = debugTextInstance.GetComponent<Text>();
-        debugText.text = debug; 
-        Color textColor = debugText.color;
-        textColor.a = 1f; // 初始透明度为不透明
-        debugText.color = textColor;
-        StartCoroutine(FadeOutAndDestroy(debugTextInstance));
+        if (debugTextPrefab)
+        {
+            GameObject debugTextInstance = Instantiate(debugTextPrefab, DebugGrid.gameObject.transform);
+            debugText = debugTextInstance.GetComponent<Text>();
+            debugText.text = debug; 
+            Color textColor = debugText.color;
+            textColor.a = 1f; // 初始透明度为不透明
+            debugText.color = textColor;
+            StartCoroutine(FadeOutAndDestroy(debugTextInstance));
+        }
     }
     
     private IEnumerator FadeOutAndDestroy(GameObject debugTextInstance)

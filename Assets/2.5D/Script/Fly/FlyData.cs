@@ -62,8 +62,8 @@ public class FlyData : MonoBehaviour
                 break;
             case 2://生命蝴蝶
                 Fly_Energy -= 25;
-                Instantiate(SkillObject, player.transform.position ,  rotation);
-                Debug.Log("應該要升成了");
+                Instantiate(SkillObject, gun.transform.position ,  rotation);
+                //Debug.Log("應該要升成了");
                 break;
             case 3://氧氣蝴蝶
                 Fly_Energy -= 20;

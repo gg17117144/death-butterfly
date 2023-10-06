@@ -2198,7 +2198,7 @@ MonoBehaviour:
   playerHit: {fileID: 1594465348438105073}
   AccelerHpSpeed: 1
   DebugGrid: {fileID: 2186732391379313251}
-  debugTextPrefab: {fileID: 0}
+  debugTextPrefab: {fileID: 1963453172042072444, guid: d2c224b1d65e960498eb04736c8a7926, type: 3}
 --- !u!114 &6754472412630312196
 MonoBehaviour:
   m_ObjectHideFlags: 0

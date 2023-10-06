@@ -165,5 +165,5 @@ MonoBehaviour:
   ButterFlyImage: {fileID: 21300000, guid: 1b6fd78a7c7429e4ba2f26f8e4b7f4a0, type: 3}
   ButterFlyID: 2
   Fly_Energy: 100
-  SkillObject: {fileID: 6359566053058424963, guid: 2ec9efdd9f56a6841b99a0aa8217f611, type: 3}
+  SkillObject: {fileID: 6359566053058424963, guid: 7b61dfa5b723ce24c86d7dcf23f8db47, type: 3}
   ButterFlyInfo: "\u6280\u80FD\uFF1A\u5C04\u51FA\u7DA0\u8272\u6771\u6771\uFF01"

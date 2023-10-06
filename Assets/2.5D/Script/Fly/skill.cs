@@ -11,14 +11,22 @@ public class skill : MonoBehaviour
     public int skillID;
 
     public int damage;
+    
     Vector3 moveDirection;
-    public float speed = 0.3f;
+    public float speed = 0;
     [SerializeField]
     private PlayerHeart playerHeart;
     [SerializeField]
     private Playermovee playermovee;
 
     private bool isplayerHealth = false;
+
+    private void Awake()
+    {
+        playerHeart = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHeart>();
+        playermovee = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermovee>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +58,8 @@ public class skill : MonoBehaviour
             //Debug.Log($"lifeTime = {lifeTime} , 玩家回血{damage * Time.deltaTime}");
             playerHeart.healHp(damage * Time.deltaTime);
         }
+
+        move();
     }
 
     private void useSkill(monsterAI monsterAI = null)
@@ -61,14 +71,13 @@ public class skill : MonoBehaviour
                 break;
             case 2://生命
                 StartCoroutine(heal(damage));
-                //isplayerHealth = true;
+                StartCoroutine(hurtMonster(monsterAI));
+                GetComponent<SpriteRenderer>().sprite = null;
+                GetComponent<Collider2D>().enabled = false;
                 break;
             case 3://氧氣
-                //playerHeart.healO2(damage);
-                playerHeart = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHeart>();
-                playermovee = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermovee>();
-                playermovee.startplayerSpeedUP();
                 playerHeart.healO2(damage);
+                playermovee.startplayerSpeedUP();
                 Destroy(gameObject);
                 break;
             case 4://閃電
@@ -77,7 +86,9 @@ public class skill : MonoBehaviour
                 break;
             case 6://傳送
                 break;
-            case 7://補血治癒圈 生命+
+            case 7://補血治癒圈 生命+(還有少東西)
+                playerHeart.healO2(damage);
+                isplayerHealth = true;
                 break;
         }
         //Destroy(gameObject);
@@ -126,7 +137,7 @@ public class skill : MonoBehaviour
         if (other.tag == "PlayerCollider")
         {
             //isplayerHealth = true;
-            if (skillID == 2)   //生命(雙)
+            if (skillID == 7)   //生命(雙)
             {
                 // 增加玩家的生命值，根据恢复速率和 Time.deltaTime 来计算
                 lifeTime -= Time.deltaTime;
@@ -140,7 +151,7 @@ public class skill : MonoBehaviour
     {
         if (other.tag == "PlayerCollider")
         {
-            if (skillID == 2)   //生命
+            if (skillID == 7)   //生命
             {
                 useSkill();
                 isplayerHealth = false;
@@ -156,6 +167,17 @@ public class skill : MonoBehaviour
         {
             //Debug.Log($"回復了1d血 還有{5-i}次");
             playerHeart.healHp(1);
+            yield return new WaitForSeconds(0.5f);
+        }
+        Destroy(gameObject);
+    }
+    
+    IEnumerator hurtMonster(monsterAI monsterAI)
+    {
+        UIControl.instance.DebugText("-回覆血量效果動畫");
+        for (int i = 0; i < damage; i++)
+        {
+            monsterAI.isHurt(1);
             yield return new WaitForSeconds(0.5f);
         }
         Destroy(gameObject);

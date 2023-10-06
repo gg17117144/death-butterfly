@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1905858035160287613}
   - component: {fileID: 4347028610452004843}
   m_Layer: 0
-  m_Name: animaShot
+  m_Name: fireAnimaShot
   m_TagString: skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6359566053058424963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.215, y: 2.973, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.08877003, g: 0.509434, b: 0, a: 1}
+  m_Color: {r: 0.08877003, g: 0.509434, b: 0, a: 0.29411766}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 10
   skillID: 2
-  damage: 20
-  speed: 5
+  damage: 5
+  speed: 0
   playerHeart: {fileID: 0}
   playermovee: {fileID: 0}
