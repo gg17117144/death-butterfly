@@ -68,11 +68,12 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log(SceneIndex);
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !isTalking)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isTalking && !UIControl.instance.isPlayingVideo)
         {
             //Debug.Log("叫出暫停鍵了");
             StopOpen = !StopOpen;
             StopButton();
+
         }
 
     }
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 break;
             case 1:
+                UIControl.instance.PlayVideo();//播放開始影片
                 task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
@@ -140,16 +142,24 @@ public class GameManager : MonoBehaviour
 
     void StopButton()
     {
-        if (StopOpen == true)
+        if (!ReferenceEquals(StopSetting , null))
         {
-            StopSetting.SetActive(true);
-            isStoping = true;
+            if (StopOpen)
+            {
+                StopSetting.SetActive(true);
+                isStoping = true;
+            }
+            else
+            {
+                StopSetting.SetActive(false);
+                isStoping = false;
+            }
         }
         else
         {
-            StopSetting.SetActive(false);
-            isStoping = false;
+            Debug.LogError("沒有StopSetting");
         }
+
 
         checkIsStoping();
     }
@@ -161,18 +171,10 @@ public class GameManager : MonoBehaviour
     
     public void Continue()
     {
-        StopOpen = !StopOpen;
+        Debug.Log("使用Continue");
 
-        if (StopOpen)
-        {
-            StopSetting.SetActive(true);
-            isStoping = true;
-        }
-        else
-        {
-            StopSetting.SetActive(false);
-            isStoping = false;
-        }
+        instance.StopOpen = false;
+        instance.isStoping = false;
 
         checkIsStoping();
     }

@@ -19,37 +19,31 @@ public class skill : MonoBehaviour
     [SerializeField]
     private Playermovee playermovee;
 
+    private SpriteRenderer spriteRenderer;
+    private GameObject Player;
+    
     private bool isplayerHealth = false;
 
     private void Awake()
     {
         playerHeart = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHeart>();
         playermovee = GameObject.FindGameObjectWithTag("Player").GetComponent<Playermovee>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameManager.instance.player;
         moveDirection = new Vector3(speed * Time.deltaTime, 0, 0);
-        playerHeart = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHeart>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Debug.Log(isplayerHealth);
         //move();
-        lifeTime -= Time.deltaTime;
-        
-        if (lifeTime <= 0)
-        {
-            moveDirection = new Vector2(0,0); // 停止移動
-            Destroy(gameObject);
-        }
-        else if (lifeTime > 0.1f)
-        {
-            //transform.Translate(moveDirection);
-        }
+        spriteRenderer.sortingOrder = 1 - (int)Player.transform.position.y;
         
         if (isplayerHealth)
         {
@@ -60,6 +54,11 @@ public class skill : MonoBehaviour
         }
 
         move();
+
+        if (skillID == 3)
+        {
+            transform.position = Player.transform.position;
+        }
     }
 
     private void useSkill(monsterAI monsterAI = null)
@@ -70,6 +69,7 @@ public class skill : MonoBehaviour
                 //monsterAI.isHurt(damage);
                 break;
             case 2://生命
+                lifeTime += 10;
                 StartCoroutine(heal(damage));
                 StartCoroutine(hurtMonster(monsterAI));
                 GetComponent<SpriteRenderer>().sprite = null;
@@ -77,8 +77,8 @@ public class skill : MonoBehaviour
                 break;
             case 3://氧氣
                 playerHeart.healO2(damage);
-                playermovee.startplayerSpeedUP();
-                Destroy(gameObject);
+                playermovee.startplayerSpeedUP(5f);
+                lifeTime = 5f;
                 break;
             case 4://閃電
                 break;
@@ -119,8 +119,10 @@ public class skill : MonoBehaviour
         
         if (other.tag == "PlayerCollider")
         {
+            //Debug.Log("有碰到玩家");
             if (skillID == 3)   //氧氣
             {
+                //Debug.Log("有要使用");
                 useSkill();
             }
         }
@@ -136,6 +138,14 @@ public class skill : MonoBehaviour
     {
         if (other.tag == "PlayerCollider")
         {
+            /*
+            Debug.Log("有碰到玩家");
+            if (skillID == 3)   //氧氣
+            {
+                Player.GetComponent<Playermovee>().PlayerSpeed();
+            }
+            */
+            
             //isplayerHealth = true;
             if (skillID == 7)   //生命(雙)
             {
@@ -151,7 +161,7 @@ public class skill : MonoBehaviour
     {
         if (other.tag == "PlayerCollider")
         {
-            if (skillID == 7)   //生命
+            if (skillID == 7)   //生命(雙)
             {
                 useSkill();
                 isplayerHealth = false;
@@ -177,7 +187,7 @@ public class skill : MonoBehaviour
         UIControl.instance.DebugText("-回覆血量效果動畫");
         for (int i = 0; i < damage; i++)
         {
-            monsterAI.isHurt(1);
+            monsterAI.isHurt(3);
             yield return new WaitForSeconds(0.5f);
         }
         Destroy(gameObject);

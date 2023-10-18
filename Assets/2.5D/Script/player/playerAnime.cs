@@ -12,6 +12,7 @@ public class PlayerAnime : MonoBehaviour
     AudioSource audioSource;
 
     private PlayerHeart playerHeart;
+    private Playermovee playermovee;
 
     public AudioClip walk;
 
@@ -21,6 +22,7 @@ public class PlayerAnime : MonoBehaviour
     {
         player = gameObject;
         playerHeart = GetComponent<PlayerHeart>();
+        playermovee = GetComponent<Playermovee>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,20 +34,23 @@ public class PlayerAnime : MonoBehaviour
         spriteRenderer.sortingOrder = 3 - (int)player.transform.position.y;
         
         //lookmouse();
-        if (playerHeart.newhp > 0)
+        if (!GameManager.instance.isStoping)
         {
-            if (!GameManager.instance.isTalking)
+            if (playerHeart.newhp > 0)
             {
-                RunWhere();
+                if (!GameManager.instance.isTalking)
+                {
+                    RunWhere();
+                }
+                else
+                {
+                    animator.Play("Idle");
+                }
             }
             else
             {
-                animator.Play("Idle");
+                Dead();
             }
-        }
-        else
-        {
-            Dead();
         }
     }
 
@@ -69,6 +74,7 @@ public class PlayerAnime : MonoBehaviour
         if (verticalInput != 0 || horizontalInput != 0)
         {
             // 檢查斜角方向
+            animator.speed = playermovee.SpeedUP;
             if (verticalInput > 0 && horizontalInput < 0)       // 左上斜角的動畫和音效
             {
                 //Debug.Log("左上斜");

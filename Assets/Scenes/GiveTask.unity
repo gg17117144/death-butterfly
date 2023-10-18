@@ -819,9 +819,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.082069874, y: 0}
+  m_Offset: {x: -0.3683982, y: 0}
   serializedVersion: 2
-  m_Radius: 5.2746053
+  m_Radius: 5.7250743
 --- !u!61 &654594836
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1656,6 +1656,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2174694559353040323, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3203096434109089657, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1669,8 +1673,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738730635899696, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738730635899696, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879738730635899696, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738731337830092, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_Name
@@ -1814,15 +1826,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4879738732064323430, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738732064323430, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738732064323430, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4879738732227983260, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_FillAmount

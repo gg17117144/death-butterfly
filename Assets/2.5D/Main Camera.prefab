@@ -115,6 +115,8 @@ MonoBehaviour:
   - {fileID: 2280571037442025747, guid: ae3dde5b69bdd114ca590fbd6fcff360, type: 3}
   flyprefab:
   - {fileID: 509935326212809480, guid: e4a7d01398ba438498c4cf75fe249553, type: 3}
+  - {fileID: 1503987833791849572, guid: 912aac8ea381c47448f2e4f72c2475b6, type: 3}
+  - {fileID: 2265505685997128498, guid: feab7e6ae643fde4e9367100b6828017, type: 3}
   monster_parent: {fileID: 0}
   fly_parent: {fileID: 0}
   waitTimeToCreate_camera: 3
@@ -149,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7258705842584824498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 1.9000009, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7258705842171772285}

@@ -208,8 +208,8 @@ public class GunType : MonoBehaviour
                 {
                     //Debug.Log("??�^??????????");
                     FlyTank[num].GetComponent<FlyData>().skill();    //使用技能
-                    UIControl.instance.ReloadGunUI();
                     canuse = false;
+                    UIControl.instance.ReloadGunUI();
                     Invoke("waituse", 1);
                 }
             }
@@ -234,7 +234,7 @@ public class GunType : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))    //左鍵
         {
-            if (ReferenceEquals(FlyTank[num] ,null))        //看第幾格
+            if (FlyTank[num] == null)        //看第幾格
             {
                 UnityEngine.Debug.Log("雙發技能");
             }

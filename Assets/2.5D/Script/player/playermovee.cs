@@ -6,8 +6,9 @@ using UnityEngine;
 public class Playermovee : MonoBehaviour
 {
     //public float moveSpeed; //移動速度
-    private float SpeedUP = 1f;
-    private float SpeedUPTime = 0f;
+    public float SpeedUP = 1f;
+    [SerializeField]
+    public float SpeedUPTime = 0f;
     
     public float moveSpeed = 5f;
     public float smoothTime = 0.1f;
@@ -28,18 +29,8 @@ public class Playermovee : MonoBehaviour
         if (!GameManager.instance.isTalking)
         {
             movement();
+            PlayerSpeed();
         }
-
-        if (SpeedUPTime > 0)
-        {
-            SpeedUP = 1.5f;
-            SpeedUPTime -= Time.deltaTime;
-        }
-        else
-        {
-            SpeedUP = 1f;
-        }
-        
     }
 
     private void movement()//方法
@@ -56,11 +47,35 @@ public class Playermovee : MonoBehaviour
 
     }
 
-    public void startplayerSpeedUP()
+    public void startplayerSpeedUP(float time)
     {
-        UIControl.instance.DebugText("應該要調整動畫速度");
-        UIControl.instance.DebugText("應該要有加速動畫效果");
-        SpeedUPTime += 3f;
+        //UIControl.instance.DebugText("應該要調整動畫速度");
+        //UIControl.instance.DebugText("應該要有加速動畫效果");
+        if (SpeedUP < 2f)
+        {
+            SpeedUP += 0.25f;
+        }
+
+        //Debug.Log($"以增加{SpeedUPTime}");
+        SpeedUPTime = time;
+    }
+
+    public void PlayerSpeed()
+    {
+        if (SpeedUPTime > 0)
+        {
+            //SpeedUP = 1.5f;
+            SpeedUPTime -= Time.deltaTime;
+        }
+        else
+        {
+            //SpeedUP = 1f;
+            if (SpeedUP > 1f)
+            {
+                SpeedUP -= 0.1f;
+            }
+            SpeedUPTime = 0f;
+        }
     }
 
     

@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 10
   skillID: 2
-  damage: 20
-  speed: 5
+  damage: 10
+  speed: 10
   playerHeart: {fileID: 0}
   playermovee: {fileID: 0}

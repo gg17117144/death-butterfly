@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14557cfcb9def1b4f87aa6ae02232b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightSet: {fileID: 0}
   gaming: {fileID: 0}
   StopSetting: {fileID: 0}
   task: {fileID: 0}
   dead: {fileID: 0}
+  isStoping: 0
+  isTalking: 0
   player: {fileID: 0}
   gun: {fileID: 0}
   SceneIndex: 0

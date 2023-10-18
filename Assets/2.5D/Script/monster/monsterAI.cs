@@ -51,7 +51,7 @@ public class monsterAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.instance.isTalking)
+        if (!GameManager.instance.isStoping)
         {
             ChasePlayer();
 

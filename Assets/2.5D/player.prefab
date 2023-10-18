@@ -298,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fecae431c94684bbe1410569ada01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedUP: 1
+  SpeedUPTime: 0
   moveSpeed: 50
   smoothTime: 0.1
 --- !u!114 &1277456669420016925
@@ -315,7 +317,7 @@ MonoBehaviour:
   max_hp: 200
   oldhp: 0
   newhp: 0
-  max_O2: 0
+  max_O2: 100
   O2: 0
   O2timer: 0
 --- !u!1 &1277456669586421816

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using NaughtyAttributes;
+using UnityEngine.Video;
 
 public class UIControl : MonoBehaviour
 {
@@ -43,6 +44,12 @@ public class UIControl : MonoBehaviour
     public GameObject DebugGrid;
     public GameObject debugTextPrefab;
     private Text debugText;
+    //播放影片
+    public GameObject videoGameObject;
+    public VideoClip GameStart;
+    private VideoPlayer videoPlayer;
+    private RawImage rawImage;
+    public bool isPlayingVideo;
 
     void Awake()
     {
@@ -62,29 +69,28 @@ public class UIControl : MonoBehaviour
         gun = GameManager.instance.gun;
         flytank = gun.GetComponent<GunType>().FlyTank;
         debugText = debugTextPrefab.GetComponent<Text>();
-        /*
-        GameObject SkillUnder = GameObject.Find("SkillUnder");
-        for (int i = 0; i < 3; i++)
-        {
-            FlyTank_Image[i] = SkillUnder.transform.GetChild(i).GetComponent<Image>();
-            FlyTank_energy[i] = FlyTank_Image[i].transform.GetChild(i).GetComponent<Slider>();
-        }
+        //播放影片
+        videoPlayer = videoGameObject.GetComponent<VideoPlayer>();
+        rawImage = videoGameObject.GetComponent<RawImage>();
 
-        blood_R = GameObject.Find("RedBlood").transform.GetComponent<Image>();
-        blood_Y = GameObject.Find("YellowBlood").transform.GetComponent<Image>();
-        O2Image = GameObject.Find("O2Image").transform.GetComponent<Image>();
-        */
         if (gun != null && !gun.activeSelf)
         {
             ReloadGunUI();
         }
-
+        
         currentPrg = blood_R.fillAmount;
     }
 
     private void Update()
     {
-        
+        if (!ReferenceEquals(videoPlayer.texture ,null))
+        {
+            rawImage.texture = videoPlayer.texture;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                StopPlayVideo();
+            }
+        }
     }
 
     public void ReloadGunUI() //重製UI
@@ -160,7 +166,6 @@ public class UIControl : MonoBehaviour
             //Debug.Log(mappedValue);
         }
     }
-
     
     public void DebugText(string debug)
     {
@@ -195,6 +200,26 @@ public class UIControl : MonoBehaviour
         debugText.color = finalTextColor;
         Destroy(debugTextInstance);
         //DestroyImmediate(debugTextInstance, true);
+    }
+
+    [Button]
+    public void PlayVideo()
+    {
+        GameManager.instance.isStoping = true;
+        videoPlayer.clip = GameStart;
+        videoGameObject.SetActive(true);
+        videoPlayer.Play();
+        isPlayingVideo = true;
+    }
+    
+    [Button]
+    public void StopPlayVideo()
+    {
+        videoPlayer.Stop();
+        videoPlayer.clip = null;
+        videoGameObject.SetActive(false);
+        isPlayingVideo = false;
+        GameManager.instance.isStoping = false;
     }
     
 }
