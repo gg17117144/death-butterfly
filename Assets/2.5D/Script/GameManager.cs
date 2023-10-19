@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     public static bool creatMonster;
     public static bool creatFly;
+
+    public bool isDeading;
     
     public int SceneIndex;
     void Awake()

@@ -42,6 +42,20 @@ public class PlayerHeart : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (newhp > max_hp)
+        {
+            newhp = max_hp;
+        }
+
+        if (newhp <= 0)
+        {
+            newhp = 0;
+        }
+
+        if (O2 > max_O2)
+        {
+            O2 = max_O2;
+        }
         if (GameManager.mapLevel >= 2)
         {
             O2timer += Time.deltaTime;    //­pºâ®É¶¡
@@ -105,7 +119,7 @@ public class PlayerHeart : MonoBehaviour
         ResetPlayerValue();
         GameManager.instance.isStoping = false;
         GameManager.instance.checkIsStoping();
-
+        GameManager.instance.isDeading = false;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
         foreach (GameObject enemy in enemies)
         {

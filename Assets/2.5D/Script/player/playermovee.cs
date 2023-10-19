@@ -26,7 +26,7 @@ public class Playermovee : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.instance.isTalking)
+        if (!GameManager.instance.isTalking && !UIControl.instance.isPlayingVideo && !GameManager.instance.isDeading)
         {
             movement();
             PlayerSpeed();

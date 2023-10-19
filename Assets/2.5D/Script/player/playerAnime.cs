@@ -17,7 +17,8 @@ public class PlayerAnime : MonoBehaviour
     public AudioClip walk;
 
     SpriteRenderer spriteRenderer;
-    
+
+    private bool isDeading;
     private void Awake()
     {
         player = gameObject;
@@ -32,7 +33,11 @@ public class PlayerAnime : MonoBehaviour
     void Update()
     {
         spriteRenderer.sortingOrder = 3 - (int)player.transform.position.y;
-        
+
+        if (GameManager.instance.isDeading)
+        {
+            audioSource.Stop();
+        }
         //lookmouse();
         if (!GameManager.instance.isStoping)
         {
@@ -45,6 +50,7 @@ public class PlayerAnime : MonoBehaviour
                 else
                 {
                     animator.Play("Idle");
+                    audioSource.Stop();
                 }
             }
             else
@@ -52,10 +58,15 @@ public class PlayerAnime : MonoBehaviour
                 Dead();
             }
         }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     public void Dead()
     {
+        GameManager.instance.isDeading = true;
         animator.Play("Dead");
     }
 
@@ -84,12 +95,14 @@ public class PlayerAnime : MonoBehaviour
             else if (verticalInput > 0 && horizontalInput > 0)  // 右上斜角的動畫和音效
             {
                 //Debug.Log("右上斜");
-                animator.Play("RunUp");//暫時代替
+                spriteRenderer.flipX = false;
+                animator.Play("RightSide");//暫時代替
             }
             else if (verticalInput < 0 && horizontalInput < 0)  // 左下斜角的動畫和音效
             {
                 //Debug.Log(" 左下斜");
-                animator.Play("RunDown");//暫時代替
+                spriteRenderer.flipX = true;
+                animator.Play("LiftSide");//暫時代替
             }
             else if (verticalInput < 0 && horizontalInput > 0)  // 右下斜角的動畫和音效
             {
