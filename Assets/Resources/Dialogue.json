@@ -63,6 +63,10 @@
           {
             "character": "",
             "context": "（按下滑鼠右鍵吸取，左鍵使用蝴蝶技能）"
+          },          
+          {
+            "character": "",
+            "context": "似乎需要擊殺左邊的怪物！"
           }
         ]
       },
@@ -83,6 +87,15 @@
             "context": "這裡在測試"
           }
         ]
-      }     
+      },      
+      {
+        "StoryLever": 4,
+        "dialogue": [
+          {
+            "character": "系統",
+            "context": "還沒做完拉！"
+          }
+        ]
+      }
     ]
   }

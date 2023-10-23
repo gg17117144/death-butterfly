@@ -192,7 +192,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -292,4 +292,4 @@ MonoBehaviour:
   hardcollider: {fileID: 2865590995245329165}
   speed: 0.5
   shou: {fileID: 8300000, guid: 44f58c493214be94c93950e277c43645, type: 3}
-  bom: {fileID: 8300000, guid: fe492bbb7e2908145b8d4f8903d88e22, type: 3}
+  bom: {fileID: 8300000, guid: 7beaf40563d543b45acbf135b077a2c6, type: 3}
