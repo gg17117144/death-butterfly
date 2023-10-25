@@ -62,11 +62,11 @@ public class skill : MonoBehaviour
 
         move();
 
-        if (skillID == 3)
-        {
-            transform.position = Player.transform.position;
-            //Debug.Log("氧氣特效應該要在正確的位子");
-        }
+        // if (skillID == 3)
+        // {
+        //     transform.position = Player.transform.position;
+        //     //Debug.Log("氧氣特效應該要在正確的位子");
+        // }
         
     }
 
