@@ -15,11 +15,11 @@ public class FlyMove : MonoBehaviour
     public float size = 1.5f;
 
 
-
+    private SpriteRenderer spriteRenderer;
     //float lifeTime = 30;
     void Start()
     {
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -46,11 +46,11 @@ public class FlyMove : MonoBehaviour
 
             if (posX >= 0)
             {
-                this.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+                spriteRenderer.flipX = false;
             }
             else
             {
-                this.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+                spriteRenderer.flipX = true;
             }
 
             float Xabs = Mathf.Abs(posX);
@@ -59,7 +59,7 @@ public class FlyMove : MonoBehaviour
         }
         else
         {
-            //Debug.Log("½¹½º²¾°Ê¤¤");
+            //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½");
             this.gameObject.transform.Translate(new Vector3(posX, posY, 0) * Time.deltaTime);
             Tt -= Time.deltaTime;
         }

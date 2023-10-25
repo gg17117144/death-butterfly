@@ -12,7 +12,7 @@ public class DeleteObject : MonoBehaviour
     {
         if (other.gameObject.tag == "skill")
         {
-            if (other.GetComponent<skill>().skillID == 1)
+            if (other.GetComponent<FireControl>().ID == 1)
             {
                 Debug.Log(other);
                 firemm.SetTrigger("fire");

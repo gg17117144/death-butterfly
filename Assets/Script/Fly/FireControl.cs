@@ -7,13 +7,13 @@ public class FireControl : MonoBehaviour
     public float lifeTime = 3f;
 
     public Collider2D hardcollider;
-
+    public int ID;
     bool iswee = false;
     bool isbom = false;
 
     Vector3 moveDirection;
     public float speed = 0.3f;
-
+    
     private Animator animator;
     
     AudioSource audioSource;

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class FlyData : MonoBehaviour
 {
-    public string ButterFlyName;    //�����W��
-    public Sprite  ButterFlyImage;   //�����Ϥ�
-    public int ButterFlyID;         //�����s��
-    public int Fly_Energy;          //������q
-    public GameObject SkillObject;  //�ޯફ��
+    public string ButterFlyName;    //蝴蝶的名子
+    public Sprite  ButterFlyImage;   //蝴蝶的圖片
+    public int ButterFlyID;         //蝴蝶的ID
+    public float Fly_Energy;          //蝴蝶的能量
+    public GameObject SkillObject;  //蝴蝶的技能
     
     [TextArea]
-    public string ButterFlyInfo;    //���~²��
+    public string ButterFlyInfo;    //蝴蝶的介紹
 
     GameObject bullet;
 
@@ -21,6 +21,8 @@ public class FlyData : MonoBehaviour
 
     private SpriteRenderer sprite;
     private GunType gunType;
+
+    public bool isCatch = false;
 
     void Start()
     {
@@ -34,6 +36,13 @@ public class FlyData : MonoBehaviour
     void Update()
     {
         sprite.sortingOrder = 2 - (int)gun.transform.position.y;
+
+        if (isCatch)
+        {
+            Fly_Energy -= Time.deltaTime;
+            UIControl.instance.ReloadGunUI();
+            CheckEnergy();
+        }
     }
     public void CheckEnergy()
     {

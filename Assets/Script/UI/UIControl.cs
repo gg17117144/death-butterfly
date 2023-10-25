@@ -82,11 +82,12 @@ public class UIControl : MonoBehaviour
         }
         
         currentPrg = blood_R.fillAmount;
+        StopPlayVideo();
     }
 
     private void Update()
     {
-        if (!ReferenceEquals(videoPlayer.texture ,null))
+        if (!ReferenceEquals(videoPlayer.texture ,null) && isPlayingVideo)
         {
             rawImage.texture = videoPlayer.texture;
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -254,13 +255,15 @@ public class UIControl : MonoBehaviour
     [Button]
     public void StopPlayVideo()
     {
-        videoPlayer.Stop();
-        videoPlayer.clip = null;
         animator.Play("disappear");
-        //videoGameObject.SetActive(false);
-        //isPlayingVideo = false;
         isPlayingVideo = false;
         GameManager.instance.isStoping = false;
+    }
+
+    public void videoStop()
+    {
+        videoPlayer.Stop();
+        videoPlayer.clip = null;
     }
     
 }

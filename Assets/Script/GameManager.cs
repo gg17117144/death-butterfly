@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
     public bool isDeading;
     public SceneController sceneController;
     public int SceneIndex;
-    private TalkToTalk talkToTalk;
+    public TalkToTalk talkToTalk;
+    public bool canTP;
     void Awake()
     {
         if (instance == null)
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         mapLevel = SceneIndex;
         //SceneCheck();
         Task.ResetTask();
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -109,13 +111,22 @@ public class GameManager : MonoBehaviour
                 StopSetting.SetActive(false);
                 player.SetActive(false);
                 dead.SetActive(false);
+                creatMonster = false;
+                // gun.GetComponent<GunType>().reSetGunValue();
                 break;
             case 1: //研究室
+                isStoping = false;
+                checkIsStoping();
+                isDeading = false;
+                
                 task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
                 player.SetActive(true);
+                player.transform.position = new Vector3(0, 0, 0);
                 dead.SetActive(false);
+                creatMonster = false;
+                gun.GetComponent<GunType>().reSetGunValue();
                 UIControl.instance.PlayStartVideo();//播放開始影片
                 break;
             case 2: //第一區前
@@ -125,8 +136,11 @@ public class GameManager : MonoBehaviour
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                player.transform.position = new Vector3(0, 0, 0);
                 dead.SetActive(false);
+                //creatMonster = true;
                 talkToTalk.ShowDialogueByStoryLevel(1);
+                canTP = false;
                 break;
             case 3: //第一區後
                 creatMonster = true;
@@ -134,7 +148,10 @@ public class GameManager : MonoBehaviour
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                player.transform.position = new Vector3(0, 0, 0);
                 dead.SetActive(false);
+                creatMonster = true;
+                canTP = false;
                 break;
             case 4: //第二區前
                 creatMonster = true;
@@ -142,7 +159,10 @@ public class GameManager : MonoBehaviour
                 gun.SetActive(true);
                 gaming.SetActive(true);
                 player.SetActive(true);
+                player.transform.position = new Vector3(0, 0, 0);
                 dead.SetActive(false);
+                creatMonster = true;
+                canTP = false;
                 break;
         }
     }
@@ -244,7 +264,27 @@ public class GameManager : MonoBehaviour
 
     public void relife()
     {
-        player.GetComponent<PlayerHeart>().relife();
+        // player.GetComponent<PlayerHeart>().relife();
+        // Debug.Log("重生囉~");
+        // isStoping = false;
+        // checkIsStoping();
+        // isDeading = false;
+        // sceneController.LoadScene(0);
+        // player.GetComponent<PlayerHeart>().ResetPlayerValue();
+        // gun.GetComponent<GunType>().reSetGunValue();
+        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        // foreach (GameObject enemy in enemies)
+        // {
+        //     Destroy(enemy);
+        // }
+        Debug.Log("重生囉~");
+        isStoping = false;
+        checkIsStoping();
+        isDeading = false;
+        player.GetComponent<PlayerHeart>().ResetPlayerValue();
+        player.GetComponent<Playermovee>().reSetPlayerValue();
+        gun.GetComponent<GunType>().reSetGunValue();
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
         dead.SetActive(false);
     }
 }

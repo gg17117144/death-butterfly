@@ -96,6 +96,33 @@
             "context": "還沒做完拉！"
           }
         ]
+      },
+      {
+        "StoryLever": 5,
+        "dialogue": [
+          {
+            "character": "熾熱蝴蝶",
+            "context": "噴射火球對敵人造成10傷害！"
+          }
+        ]
+      },
+      {
+        "StoryLever": 6,
+        "dialogue": [
+          {
+            "character": "生命蝴蝶",
+            "context": "射中敵人後總共扣5點，持續2.5秒， 並回復生命5點 ，持續2.5秒！"
+          }
+        ]
+      },
+      {
+        "StoryLever": 7,
+        "dialogue": [
+          {
+            "character": "氧氣蝴蝶",
+            "context": "使用能補充氧氣5點,跑速增加0.25倍5秒(可疊加)！"
+          }
+        ]
       }
     ]
   }

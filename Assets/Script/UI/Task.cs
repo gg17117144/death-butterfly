@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
 
 public class Task : MonoBehaviour
 {
@@ -15,13 +16,19 @@ public class Task : MonoBehaviour
     [SerializeField]
     public static bool task01,task02,task03;
 
-
+    [SerializeField]
     public static int killEmeny = 0;
     public static int DropEmeny = 0;
     private bool isMovingRight = true; // 初始狀態向右移動
     private bool isTaskMoving = false; // 任務是否正在移動
     
     private RectTransform rectTransform;
+
+    [Button]
+    public void addkillnum()
+    {
+        killEmeny += 10;
+    }
     
     // Start is called before the first frame update
     private void Start()
@@ -79,9 +86,10 @@ public class Task : MonoBehaviour
                     task02 = false;
                 }
 
-                if (task01 == true || task02 == true)
+                if (task01 == true && task02 == true)
                 {
                     task03 = true;
+                    GameManager.instance.canTP = true;
                 }
                 break;
             case 3://第一區後scenes02
@@ -93,6 +101,7 @@ public class Task : MonoBehaviour
                 if (killEmeny >= 10)
                 {
                     task02 = true;
+                    GameManager.instance.canTP = true;
                     //Debug.Log("任務2完成");
                 }
 
@@ -103,6 +112,7 @@ public class Task : MonoBehaviour
                 else
                 {
                     task03 = true;
+                    //GameManager.instance.canTP = true;
                 }
                 break;
             case 4:
@@ -155,11 +165,11 @@ public class Task : MonoBehaviour
 
                 if (task02 == true)
                 {
-                    TaskText[1].text = "擊敗50隻怪物 [✓] ";
+                    TaskText[1].text = "擊敗20隻怪物 [✓] ";
                 }
                 else
                 {
-                    TaskText[1].text = $"擊敗50隻怪物 ( {killEmeny} / {monsterNum} )";
+                    TaskText[1].text = $"擊敗20隻怪物 ( {killEmeny} / {monsterNum} )";
                 }
 
                 TaskText[2].text = $"三分鐘內離開森林 {timeLeft}s";

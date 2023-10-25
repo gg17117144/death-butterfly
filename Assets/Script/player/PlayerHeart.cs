@@ -7,16 +7,16 @@ using UnityEngine.Serialization;
 public class PlayerHeart : MonoBehaviour
 {
     private static PlayerHeart instance;
-    public float max_hp;              //³Ì¤j¦å¶q­È
-    public float oldhp;                  //¦å¶q­È
+    public float max_hp;              //ï¿½Ì¤jï¿½ï¿½qï¿½ï¿½
+    public float oldhp;                  //ï¿½ï¿½qï¿½ï¿½
     public float newhp;
 
-    public float max_O2;                    //³Ì¤j®ñ®ğ­È
-    public float O2;                        //®ñ®ğ­È
+    public float max_O2;                    //ï¿½Ì¤jï¿½ï¿½ï¿½ï¿½
+    public float O2;                        //ï¿½ï¿½ï¿½ï¿½
 
-    public float O2timer;                 //®É¶¡
+    public float O2timer;                 //ï¿½É¶ï¿½
 
-    //bool canDamage = true;               //¨ü¶Ë¥ğ®§®É¶¡
+    //bool canDamage = true;               //ï¿½ï¿½ï¿½Ë¥ğ®§®É¶ï¿½
 
 
     // Start is called before the first frame update
@@ -45,20 +45,26 @@ public class PlayerHeart : MonoBehaviour
         if (newhp > max_hp)
         {
             newhp = max_hp;
+            Debug.Log("æœ‰åŸ·è¡Œå§");
         }
 
-        if (newhp <= 0)
+        if (GameManager.instance.isStoping)
         {
-            newhp = 0;
+            
+            if (newhp <= 0)
+            {
+                newhp = 0;
+            }
+            
+            if (O2 > max_O2)
+            {
+                O2 = max_O2;
+            }
         }
 
-        if (O2 > max_O2)
-        {
-            O2 = max_O2;
-        }
         if (GameManager.mapLevel >= 2)
         {
-            O2timer += Time.deltaTime;    //­pºâ®É¶¡
+            O2timer += Time.deltaTime;    //ï¿½pï¿½ï¿½É¶ï¿½
 
             if (O2timer >= 3)
             {
@@ -75,7 +81,7 @@ public class PlayerHeart : MonoBehaviour
     }
 
 
-    public void damage(int damage)  //¸I¨ì¼Ä¤H¦©damage
+    public void damage(int damage)  //ï¿½Iï¿½ï¿½Ä¤Hï¿½ï¿½damage
     {
         newhp -= damage;
         float HpValue = newhp / max_hp;
@@ -99,14 +105,14 @@ public class PlayerHeart : MonoBehaviour
 
     public void ResetPlayerValue()
     {
-        max_hp = 200;               //³Ì¤j¦å¶q­È
+        max_hp = 200;               //ï¿½Ì¤jï¿½ï¿½qï¿½ï¿½
         oldhp = max_hp;
-        newhp = oldhp;                //¦å¶q³]¬°³Ì¤j¦å¶q­È
+        newhp = oldhp;                //ï¿½ï¿½qï¿½]ï¿½ï¿½ï¿½Ì¤jï¿½ï¿½qï¿½ï¿½
 
-        max_O2 = 100;              //³Ì¤j®ñ®ğ­È
-        O2 = max_O2;              //®ñ®ğ³]¬°³Ì¤j®ñ®ğ­È
+        max_O2 = 100;              //ï¿½Ì¤jï¿½ï¿½ï¿½ï¿½
+        O2 = max_O2;              //ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½Ì¤jï¿½ï¿½ï¿½ï¿½
 
-        O2timer = 0;                  //®É¶¡³]©w0
+        O2timer = 0;                  //ï¿½É¶ï¿½ï¿½]ï¿½w0
         float O2Value = O2 / max_O2;
         float HpValue = newhp / max_hp;
         UIControl.instance.ReloadPlayeHpUI(HpValue);
@@ -115,16 +121,18 @@ public class PlayerHeart : MonoBehaviour
     
     public void relife()
     {
-        Debug.Log("­«¥Í");
-        ResetPlayerValue();
+        Debug.Log("é‡ç”Ÿå›‰~");
         GameManager.instance.isStoping = false;
         GameManager.instance.checkIsStoping();
         GameManager.instance.isDeading = false;
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
+        GameManager.instance.sceneController.LoadScene(GameManager.instance.SceneIndex);
+        ResetPlayerValue();
+        GameManager.instance.gun.GetComponent<GunType>().reSetGunValue();
+        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        // foreach (GameObject enemy in enemies)
+        // {
+        //     Destroy(enemy);
+        // }
     }
 
 }

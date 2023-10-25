@@ -50,18 +50,21 @@ public class EndTP : MonoBehaviour
             case 4: //第二區前
                 break;
         }
+
+        //Debug.Log(GameManager.instance.canTP);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other is Collider2D)
+        if (other is CapsuleCollider2D)
         {
-            if (other.CompareTag("PlayerCollider"))
+            if (other.CompareTag("PlayerCollider") && GameManager.instance.canTP)
             {
                 insideAnimator.SetBool("isLight" , true);
                 //Debug.Log("任務完成");
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    
                     Debug.Log("我按下了");
                     if (isOver) //有完成
                     {
@@ -103,38 +106,5 @@ public class EndTP : MonoBehaviour
     {
         GameManager.instance.sceneController.LoadScene(sceneNum);
     }
-
-    // public void LoadScene(int sceneNum)
-    // {
-    //     Debug.Log("跑這裡應該比較不會卡");
-    //
-    //     if (!isChangScene)
-    //     {
-    //         isChangScene = true;
-    //         UIControl.instance.PlayCutscenesVideo();
-    //         StartCoroutine(LoadSceneTask(sceneNum));
-    //     }
-    //
-    // }
-    //
-    // private IEnumerator LoadSceneTask(int sceneNum)
-    // {
-    //     AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
-    //     asyncLoad.allowSceneActivation = false;
-    //     
-    //     while (!asyncLoad.isDone)
-    //     {
-    //         // 在加载的过程中可以执行其他操作
-    //         // 可以显示加载进度条等
-    //         if (Input.GetKeyDown(KeyCode.F))
-    //         {
-    //             asyncLoad.allowSceneActivation = true;
-    //             UIControl.instance.StopPlayVideo();
-    //         }
-    //         float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-    //         Debug.Log("Loading progress: " + (progress * 100) + "%");
-    //
-    //         yield return null;
-    //     }
-    // }
+    
 }

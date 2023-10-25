@@ -27,7 +27,7 @@ public class TalkControl : MonoBehaviour
             {
                 DialogBubble.SetActive(false);
                 talkToTalk.ShowDialogueByStoryLevel(PlayStoryLevel);
-                //UnityEngine.Debug.Log("碰到了");
+                UnityEngine.Debug.Log("碰到了");
                 hasTriggered = true;
             }
         }

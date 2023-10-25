@@ -18,6 +18,7 @@ public class GunType : MonoBehaviour
     public GameObject[] FlyTankHere;
 
     public List<GameObject> FlyTank = new List<GameObject>();   //蝴蝶槽[]
+    private Dictionary<int, bool> capturedButterflies = new Dictionary<int, bool>();    //偵測抓過的蝴蝶
 
     private AudioSource audioSource;
 
@@ -75,6 +76,8 @@ public class GunType : MonoBehaviour
                 //Debug.Log("抓到蝴蝶了");
                 audioSource.clip = catchfly;
                 audioSource.Play();
+                other.GetComponent<FlyData>().isCatch = true;
+                CaptureButterfly(other.GetComponent<FlyData>().ButterFlyID);
                 for (int i = 0; i < 3; i++)
                 {
                     if (FlyTank[i] == null)
@@ -123,6 +126,33 @@ public class GunType : MonoBehaviour
         this.GetComponent<EdgeCollider2D>().enabled = true;
     }
 
+    public void CaptureButterfly(int flyID)
+    {
+        if (!capturedButterflies.ContainsKey(flyID) || !capturedButterflies[flyID])
+        {
+            // 這是第一次抓到的蝴蝶，可以執行特定操作
+            Debug.Log("抓到ID是 " + flyID + " 的蝴蝶！");
+            switch (flyID)
+            {
+                case 1:
+                    GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(5);
+                    break;
+                case 2:
+                    GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(6);
+                    break;
+                case 3:
+                    GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(7);
+                    break;
+            }
+            //GameManager.instance.talkToTalk.ShowDialogueByStoryLevel();
+            capturedButterflies[flyID] = true;
+        }
+        else
+        {
+            // 不是第一次抓到该蝴蝶的ID，不执行操作
+            Debug.Log("ID是 " + flyID + " 的蝴蝶已經被抓過了！");
+        }
+    }
 
 
     public void flyNull()
@@ -218,6 +248,7 @@ public class GunType : MonoBehaviour
         {
             FlyTank[i] = null;
         }
+        UIControl.instance.ReloadGunUI();
     }
 
 
@@ -285,5 +316,25 @@ public class GunType : MonoBehaviour
         }
     }
 
+    public void reSetGunValue()
+    {
+        checkarms.SetActive(false); //開始先關閉
+        resetFlyTank();
+        for (int i = 0; i < 3; i++)
+        {
+            if (player && FlyTankHere[i].transform.childCount > 0)
+            {
+                for (int j = 0; j < FlyTankHere[i].transform.childCount; j++)
+                {
+                    Destroy(FlyTankHere[i].transform.GetChild(j).gameObject);
+                    Debug.Log($"已清空FlyTankHere{i}");
+                }
+            }
+            else
+            {
+                Debug.Log("沒有找到東西");
+            }
+        }
+    }
    
 }

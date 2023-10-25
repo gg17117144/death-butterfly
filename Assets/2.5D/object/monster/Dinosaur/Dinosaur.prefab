@@ -100,7 +100,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -215,8 +215,10 @@ MonoBehaviour:
     m_Bits: 0
   speed: 3
   stoppingDistance: {x: 11, y: 7}
+  monsterStop: 1
   isright: 1
   damage: 50
+  waitAttackTime: 1.8
 --- !u!1 &2336278435159645007
 GameObject:
   m_ObjectHideFlags: 0

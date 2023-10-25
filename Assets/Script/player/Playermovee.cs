@@ -22,6 +22,8 @@ public class Playermovee : MonoBehaviour
     {
         //rB = GetComponent<Rigidbody2D>();
     }
+    
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -78,5 +80,10 @@ public class Playermovee : MonoBehaviour
         }
     }
 
+    public void reSetPlayerValue()
+    {
+        SpeedUPTime = 0f;
+        SpeedUP = 1f;
+    }
     
 }

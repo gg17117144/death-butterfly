@@ -17,8 +17,6 @@ public class PlayerAnime : MonoBehaviour
     public AudioClip walk;
 
     SpriteRenderer spriteRenderer;
-
-    private bool isDeading;
     private void Awake()
     {
         player = gameObject;
@@ -41,7 +39,7 @@ public class PlayerAnime : MonoBehaviour
         //lookmouse();
         if (!GameManager.instance.isStoping)
         {
-            if (playerHeart.newhp > 0)
+            if (playerHeart.newhp > 0 && !GameManager.instance.isDeading)
             {
                 if (!GameManager.instance.isTalking)
                 {

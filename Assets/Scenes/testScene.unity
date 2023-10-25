@@ -1196,6 +1196,10 @@ MonoBehaviour:
   isTalking: 0
   player: {fileID: 0}
   gun: {fileID: 0}
+  creatMonster: 0
+  creatFly: 0
+  isDeading: 0
+  sceneController: {fileID: 0}
   SceneIndex: 0
 --- !u!114 &277365246
 MonoBehaviour:
@@ -3867,10 +3871,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f42a2b10f917fd479ae2665fd7c1470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  insideLight: {fileID: 0}
   lever: 4
   rot: 1
   fCheck: 1
+  insideObGameObject: {fileID: 0}
   waitIng: {fileID: 0}
+  isOver: 1
 --- !u!58 &1071994219
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4097,6 +4104,8 @@ MonoBehaviour:
   debugTextPrefab: {fileID: 0}
   videoGameObject: {fileID: 0}
   GameStart: {fileID: 0}
+  Cutscenes: {fileID: 0}
+  isPlayingVideo: 0
 --- !u!114 &1165704214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8390,7 +8399,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.75224245, y: 0.26050037}
-    oldSize: {x: 13.78, y: 11.03}
+    oldSize: {x: 1.9685714, y: 1.5757142}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
@@ -8438,6 +8447,7 @@ MonoBehaviour:
   Fly_Energy: 100
   SkillObject: {fileID: 7897890505152135465, guid: 25d6fbe160b142940adc2800f597a6c1, type: 3}
   ButterFlyInfo: "\u6280\u80FD\uFF1A\u5674\u51FA\u706B\u7130\uFF01"
+  isCatch: 0
 --- !u!1 &509935325707515135
 GameObject:
   m_ObjectHideFlags: 0
@@ -8598,7 +8608,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.75224245, y: 0.26050037}
-    oldSize: {x: 13.78, y: 11.03}
+    oldSize: {x: 1.9685714, y: 1.5757142}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
@@ -8647,6 +8657,7 @@ MonoBehaviour:
   Fly_Energy: 100
   SkillObject: {fileID: 7897890505152135465, guid: 25d6fbe160b142940adc2800f597a6c1, type: 3}
   ButterFlyInfo: "\u6280\u80FD\uFF1A\u5674\u51FA\u706B\u7130\uFF01"
+  isCatch: 0
 --- !u!114 &509935327383989634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8665,6 +8676,7 @@ MonoBehaviour:
   Fly_Energy: 100
   SkillObject: {fileID: 7897890505152135465, guid: 25d6fbe160b142940adc2800f597a6c1, type: 3}
   ButterFlyInfo: "\u6280\u80FD\uFF1A\u5674\u51FA\u706B\u7130\uFF01"
+  isCatch: 0
 --- !u!1 &509935327383989635
 GameObject:
   m_ObjectHideFlags: 0
@@ -8739,7 +8751,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.75224245, y: 0.26050037}
-    oldSize: {x: 13.78, y: 11.03}
+    oldSize: {x: 1.9685714, y: 1.5757142}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1

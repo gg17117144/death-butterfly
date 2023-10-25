@@ -31,15 +31,15 @@ public class TalkToTalk : MonoBehaviour
     public GameObject TalkUI;
     
     [SerializeField] private TextAsset jsonFilePath; // JSON文件的路徑
-    public List<Dialogue> dialogues;
+    //public List<Dialogue> dialogues;
     public Text nametext; // 顯示說話者名字的UI元素
     public Text messagetext; // 顯示對話內容的UI元素
 
-    private DialogueData dialogueData; // 對話數據
-    private StoryData storyData; // 將對話數據類型更改為 StoryData
-    private int storyLevel; // 目前對話的索引
-    private int currentIndex = 0; // 目前對話的索引
-    private bool isTyping = false; // 是否正在打印對話
+    [SerializeField] private DialogueData dialogueData; // 對話數據
+    [SerializeField] private StoryData storyData; // 將對話數據類型更改為 StoryData
+    [SerializeField] private int storyLevel; // 目前對話的索引
+    [SerializeField] private int currentIndex = 0; // 目前對話的索引
+    [SerializeField] private bool isTyping = false; // 是否正在打印對話
 
     [SerializeField] private bool checckk;
 
@@ -49,13 +49,13 @@ public class TalkToTalk : MonoBehaviour
         ReadJsonFile(); // 讀取JSON文件
         //ShowDialogueByStoryLevel(0);
         
-        
+        TalkUI.SetActive(false);
     }
 
     [Button]
     public void startTalk()
     {
-        ShowDialogue(storyLevel); // 顯示對話
+        ShowDialogueByStoryLevel(storyLevel); // 顯示對話
     }
 
     void Update()
@@ -65,9 +65,10 @@ public class TalkToTalk : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 //Debug.Log("跳出對話");
-                animator.Play("disappear");
                 GameManager.instance.isTalking = false;
                 currentIndex = 0;
+                animator.Play("disappear");
+                TalkUI.SetActive(false);
             }
             
             if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
@@ -116,22 +117,17 @@ public class TalkToTalk : MonoBehaviour
     // 新增函数，根据故事等级展示对话
     public void ShowDialogueByStoryLevel(int _storyLevel)//對外
     {
+        storyLevel = _storyLevel;
         // 首先檢查 storyData 是否為 null
         if (storyData != null && storyData.Story != null)
         {
             GameManager.instance.isTalking = true;
-            //storyLevel = 0;
-            storyLevel = _storyLevel;
-            //TalkUI.SetActive(true);
-            //Debug.Log("應該要play Appear");
+            //storyLevel = 0;            storyLevel = _storyLevel;
+            TalkUI.SetActive(true);
             animator.Play("Appear");
             string aaa = storyData.Story[0].dialogue[0].context.ToString();
-            //Debug.Log(aaa);
             // 根據傳入的故事等級查找對應的 StoryData
-            //DialogueData foundDialogueData = storyData.Story.Find(x => x.StoryLevel == storyLevel);
             DialogueData foundDialogueData = storyData.Story[_storyLevel];
-            
-            //Debug.Log(foundDialogueData.StoryLevel);
             
             if (foundDialogueData != null)
             {
@@ -168,8 +164,8 @@ public class TalkToTalk : MonoBehaviour
         else
         {
             GameManager.instance.isTalking = false;
+            TalkUI.SetActive(false);
             animator.Play("disappear");
-            //TalkUI.SetActive(false);
         }
     }
     

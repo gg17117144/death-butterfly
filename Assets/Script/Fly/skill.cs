@@ -128,10 +128,13 @@ public class skill : MonoBehaviour
             }
         }
         
-        if (other.tag == "Object")
+        if (other.tag == "Object" && other.isTrigger == false)
         {
-            moveDirection = new Vector2(0, 0); // 停止移動
-            Destroy(gameObject);
+            if (skillID != 3)   //不是氧氣蝴蝶
+            {
+                moveDirection = new Vector2(0, 0); // 停止移動
+                Destroy(gameObject);
+            }
         }
     }
 
