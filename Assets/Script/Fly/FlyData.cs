@@ -49,7 +49,12 @@ public class FlyData : MonoBehaviour
         if (Fly_Energy <= 0)
         {
             gunType.flyNoEnergy();
-            Destroy(gameObject);
+            for (int i = 0; i < transform.parent.transform.childCount; i++)
+            {
+                Destroy(transform.parent.transform.GetChild(i));
+
+            }
+            //Destroy(gameObject);
         }
     }
 

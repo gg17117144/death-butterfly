@@ -888,6 +888,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1840897348397709323, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2062769107024108495, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2630,6 +2634,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: end
       objectReference: {fileID: 0}
+    - target: {fileID: 3898896300196618848, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3898896300196618849, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2682,6 +2690,10 @@ PrefabInstance:
       propertyPath: waitIng
       value: 
       objectReference: {fileID: 294665846}
+    - target: {fileID: 3898896300196618855, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8b1da7950efcb464698d8a05eb9390c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
 --- !u!1 &6179427764806694993

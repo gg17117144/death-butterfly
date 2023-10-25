@@ -448,6 +448,7 @@ MonoBehaviour:
   Fly_Energy: 100
   SkillObject: {fileID: 7897890505152135465, guid: 25d6fbe160b142940adc2800f597a6c1, type: 3}
   ButterFlyInfo: "\u6280\u80FD\uFF1A\u5674\u51FA\u706B\u7130\uFF01"
+  isCatch: 0
 --- !u!114 &440088831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,6 +1313,10 @@ PrefabInstance:
     - target: {fileID: 3898896300196618848, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
       propertyPath: m_Name
       value: end
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898896300196618848, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3898896300196618849, guid: a3965a41d8c437744a2f21fc392afcd5, type: 3}
       propertyPath: m_RootOrder

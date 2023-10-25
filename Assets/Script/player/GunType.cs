@@ -62,7 +62,7 @@ public class GunType : MonoBehaviour
         {
             FlyTankUnder.transform.Rotate(Vector3.forward * rotatinspeed * Time.deltaTime);
         }
-        
+        UIControl.instance.ReloadGunUI();
     }
 
 
@@ -154,6 +154,10 @@ public class GunType : MonoBehaviour
         }
     }
 
+    public void reSetFlyCapture()
+    {
+        capturedButterflies = new Dictionary<int, bool>();
+    }
 
     public void flyNull()
     {
@@ -256,7 +260,7 @@ public class GunType : MonoBehaviour
     {
         if (canuse == true)
         {
-            if (Input.GetMouseButton(0)) //左鍵
+            if (Input.GetMouseButton(0) && !canCatchFly) //左鍵
             {
                 if (FlyTank[num] == null)    //如果是空的
                 {
@@ -336,5 +340,7 @@ public class GunType : MonoBehaviour
             }
         }
     }
+    
+
    
 }

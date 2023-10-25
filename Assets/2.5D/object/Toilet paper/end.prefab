@@ -215,7 +215,7 @@ Animator:
   m_GameObject: {fileID: 3898896300196618848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e43c9f0b3c9859c4b9e25956e20ffb64, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,6 +242,8 @@ MonoBehaviour:
   fCheck: 1
   insideObGameObject: {fileID: 3898896300942747903}
   waitIng: {fileID: 0}
+  isOver: 1
+  animator: {fileID: 3898896300196618855}
 --- !u!1 &3898896300942747903
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,11 @@ public class PlayerHeart : MonoBehaviour
         if (newhp > max_hp)
         {
             newhp = max_hp;
-            Debug.Log("有執行吧");
+            //Debug.Log("有執行吧");
+        }
+        if (O2 > max_O2)
+        {
+            O2 = max_O2;
         }
 
         if (GameManager.instance.isStoping)
@@ -54,11 +58,6 @@ public class PlayerHeart : MonoBehaviour
             if (newhp <= 0)
             {
                 newhp = 0;
-            }
-            
-            if (O2 > max_O2)
-            {
-                O2 = max_O2;
             }
         }
 

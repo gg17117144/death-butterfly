@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
     public void checkNum()
     {
         var maxMonsterNum = GameObject.FindGameObjectsWithTag("enemy");
-        if (maxMonsterNum.Length >= 50)
+        if (maxMonsterNum.Length >= 30)
         {
             creatMonster = false;
         }
@@ -281,10 +281,11 @@ public class GameManager : MonoBehaviour
         isStoping = false;
         checkIsStoping();
         isDeading = false;
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
         player.GetComponent<PlayerHeart>().ResetPlayerValue();
         player.GetComponent<Playermovee>().reSetPlayerValue();
         gun.GetComponent<GunType>().reSetGunValue();
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        gun.GetComponent<GunType>().reSetFlyCapture();
         dead.SetActive(false);
     }
 }

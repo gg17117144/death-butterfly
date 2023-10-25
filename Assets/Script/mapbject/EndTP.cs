@@ -23,8 +23,12 @@ public class EndTP : MonoBehaviour
 
     public bool isOver = true;
 
+    public Animator animator;
+
     private void Start()
     {
+        //animator.GetComponent<Animator>();
+        animator.Play("appear");
         //GameManager.isStoping = false;
         if (waitIng != null)
         {
@@ -33,6 +37,10 @@ public class EndTP : MonoBehaviour
         
         player = GameManager.instance.player;
         insideAnimator = insideObGameObject.GetComponent<Animator>();
+
+        lever = GameManager.instance.SceneIndex + 1;
+        
+        
     }
     private void Update()
     {
@@ -56,7 +64,7 @@ public class EndTP : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other is CapsuleCollider2D)
+        if (other is CapsuleCollider2D && !GameManager.instance.isStoping)
         {
             if (other.CompareTag("PlayerCollider") && GameManager.instance.canTP)
             {
@@ -66,7 +74,7 @@ public class EndTP : MonoBehaviour
                 {
                     
                     Debug.Log("我按下了");
-                    if (isOver) //有完成
+                    if (lever != 5) //有完成
                     {
                         GameManager.mapLevel++;
                         Task.ResetTask();

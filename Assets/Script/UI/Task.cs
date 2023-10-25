@@ -23,7 +23,10 @@ public class Task : MonoBehaviour
     private bool isTaskMoving = false; // 任務是否正在移動
     
     private RectTransform rectTransform;
+    [SerializeField]
+    public GameObject EndTP;
 
+    public Transform playerTransform;
     [Button]
     public void addkillnum()
     {
@@ -37,6 +40,7 @@ public class Task : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         killEmeny = 0;
         reTaskText();
+        playerTransform = GameManager.instance.player.transform;
     }
     
     // Update is called once per frame
@@ -89,6 +93,8 @@ public class Task : MonoBehaviour
                 if (task01 == true && task02 == true)
                 {
                     task03 = true;
+                    Vector3 spawnPosition = playerTransform.position + Random.insideUnitSphere * 10;
+                    Instantiate(EndTP, spawnPosition, Quaternion.identity);
                     GameManager.instance.canTP = true;
                 }
                 break;
@@ -175,6 +181,11 @@ public class Task : MonoBehaviour
                 TaskText[2].text = $"三分鐘內離開森林 {timeLeft}s";
                 break;
             case 4:
+                for (int i = 0; i < 3; i++)
+                {
+                    TaskText[i].text = "";
+                }
+                
                 break;
             case 5:
                 break;

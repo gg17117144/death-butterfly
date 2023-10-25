@@ -3716,6 +3716,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7258705842171772284, guid: 4f72f63e2ab597c46a8b39ebbc21a465, type: 3}
+      propertyPath: waitTimeToCreate_camera
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7258705842584824457, guid: 4f72f63e2ab597c46a8b39ebbc21a465, type: 3}
       propertyPath: m_RootOrder
       value: 3

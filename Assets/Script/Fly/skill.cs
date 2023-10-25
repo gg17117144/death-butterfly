@@ -38,6 +38,11 @@ public class skill : MonoBehaviour
         Player = GameManager.instance.player;
         animator = GetComponent<Animator>();
         moveDirection = new Vector3(speed * Time.deltaTime, 0, 0);
+
+        if (skillID == 2)
+        {
+            
+        }
     }
 
     // Update is called once per frame
@@ -60,7 +65,9 @@ public class skill : MonoBehaviour
         if (skillID == 3)
         {
             transform.position = Player.transform.position;
+            Debug.Log("氧氣特效應該要在正確的位子");
         }
+        
     }
 
     private void useSkill(monsterAI monsterAI = null)
