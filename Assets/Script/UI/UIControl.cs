@@ -260,7 +260,7 @@ public class UIControl : MonoBehaviour
         GameManager.instance.isStoping = false;
     }
 
-    public void videoStop()
+    public void videoStop() //放在animation裡
     {
         videoPlayer.Stop();
         videoPlayer.clip = null;

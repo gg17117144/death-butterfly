@@ -65,7 +65,7 @@ public class skill : MonoBehaviour
         if (skillID == 3)
         {
             transform.position = Player.transform.position;
-            Debug.Log("氧氣特效應該要在正確的位子");
+            //Debug.Log("氧氣特效應該要在正確的位子");
         }
         
     }

@@ -51,8 +51,7 @@ public class FlyData : MonoBehaviour
             gunType.flyNoEnergy();
             for (int i = 0; i < transform.parent.transform.childCount; i++)
             {
-                Destroy(transform.parent.transform.GetChild(i));
-
+                Destroy(transform.parent.transform.GetChild(i).gameObject);
             }
             //Destroy(gameObject);
         }
