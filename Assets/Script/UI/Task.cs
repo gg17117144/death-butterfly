@@ -107,6 +107,8 @@ public class Task : MonoBehaviour
                 if (killEmeny >= 10)
                 {
                     task02 = true;
+                    Vector3 spawnPosition = playerTransform.position + Random.insideUnitSphere * 10;
+                    Instantiate(EndTP, spawnPosition, Quaternion.identity);
                     GameManager.instance.canTP = true;
                     //Debug.Log("任務2完成");
                 }
@@ -171,11 +173,11 @@ public class Task : MonoBehaviour
 
                 if (task02 == true)
                 {
-                    TaskText[1].text = "擊敗20隻怪物 [✓] ";
+                    TaskText[1].text = "擊敗10隻怪物 [✓] ";
                 }
                 else
                 {
-                    TaskText[1].text = $"擊敗20隻怪物 ( {killEmeny} / {monsterNum} )";
+                    TaskText[1].text = $"擊敗10隻怪物 ( {killEmeny} / {monsterNum} )";
                 }
 
                 TaskText[2].text = $"三分鐘內離開森林 {timeLeft}s";
