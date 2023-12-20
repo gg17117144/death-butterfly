@@ -70,7 +70,7 @@ public class PlayerAnime : MonoBehaviour
 
     public void DeadText()
     {
-        Task.ResetTask();
+        Task.instance.ResetTask();
         GameManager.instance.Dead();
     }
 

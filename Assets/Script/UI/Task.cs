@@ -1,24 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
+using Random = UnityEngine.Random;
+
+public class TaskData
+{
+    public int Lever; //第幾關
+    public string[] incomplete; //未完成
+    public string[] completed; //完成
+}
+
 
 public class Task : MonoBehaviour
 {
+    public static Task instance;
     public Text[] TaskText;
 
     private int monsterNum;
     private int TaskNum;
     private float timeLeft = 180f;
     [SerializeField]
-    public static bool task01,task02,task03;
+    public bool task01,task02,task03;
+
+    private List<TaskData> TaskDatas;
 
     [SerializeField]
-    public static int killEmeny = 0;
-    public static int DropEmeny = 0;
+    public int killEmeny = 0;
+    public int DropEmeny = 0;
     private bool isMovingRight = true; // 初始狀態向右移動
     private bool isTaskMoving = false; // 任務是否正在移動
     
@@ -27,15 +40,30 @@ public class Task : MonoBehaviour
     public GameObject EndTP;
 
     public Transform playerTransform;
+    
     [Button]
     public void addkillnum()
     {
-        killEmeny += 10;
+        killEmeny += 5;
     }
-    
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
+        
         ResetTask();
         rectTransform = GetComponent<RectTransform>();
         killEmeny = 0;
@@ -61,7 +89,7 @@ public class Task : MonoBehaviour
             reTaskText();
         }
     }
-    public static void ResetTask()
+    public void ResetTask()
     {
         task01 = false;
         task02 = false;
@@ -139,29 +167,30 @@ public class Task : MonoBehaviour
             case 2: //第一區前scenes01
                 monsterNum = 20;
                 TaskNum = 0;
+                
                 if (task01 == true)
                 {
                     TaskText[0].text = "基礎移動、吸取蝴蝶 [✓] ";
                 }
                 else
                 {
-                    TaskText[0].text = "基礎移動、吸取蝴蝶 (0/1)";
+                    TaskText[0].text = "請執行基礎移動、吸取蝴蝶";
                 }
 
                 if (task02 == true)
                 {
-                    TaskText[1].text = "擊敗20隻怪物 [✓] ";
+                    TaskText[1].text = $"擊敗{monsterNum}隻怪物 [✓] ";
                 }
                 else
                 {
-                    TaskText[1].text = $"擊敗20隻怪物 ( {killEmeny} / {monsterNum} )";
+                    TaskText[1].text = $"擊敗{monsterNum}隻怪物 ( {killEmeny} / {monsterNum} )";
                 }
 
-                TaskText[2].text = "到達指定地點";
+                TaskText[2].text = "使用傳送門";
                 break;
             case 3: //第一區後scenes02
-                monsterNum = 20;
-                TaskNum = 10;
+                monsterNum = 10;
+                TaskNum = 5;
                 if (task01 == true)
                 {
                     TaskText[0].text = "收集掉落物 [✓] ";
@@ -173,14 +202,14 @@ public class Task : MonoBehaviour
 
                 if (task02 == true)
                 {
-                    TaskText[1].text = "擊敗10隻怪物 [✓] ";
+                    TaskText[1].text = $"擊敗{monsterNum}隻怪物 [✓] ";
                 }
                 else
                 {
-                    TaskText[1].text = $"擊敗10隻怪物 ( {killEmeny} / {monsterNum} )";
+                    TaskText[1].text = $"擊敗{monsterNum}隻怪物 ( {killEmeny} / {monsterNum} )";
                 }
 
-                TaskText[2].text = $"三分鐘內離開森林 {timeLeft}s";
+                TaskText[2].text = $"{timeLeft}s內離開森林 ";
                 break;
             case 4:
                 for (int i = 0; i < 3; i++)

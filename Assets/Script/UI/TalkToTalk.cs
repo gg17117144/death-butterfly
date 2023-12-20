@@ -113,7 +113,7 @@ public class TalkToTalk : MonoBehaviour
         }
     }
     
-
+    
     // 新增函数，根据故事等级展示对话
     public void ShowDialogueByStoryLevel(int _storyLevel)//對外
     {

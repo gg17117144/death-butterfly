@@ -125,7 +125,11 @@ public class GunType : MonoBehaviour
     {
         this.GetComponent<EdgeCollider2D>().enabled = true;
     }
-
+    
+/// <summary>
+/// 檢測抓到蝴蝶是否抓過:要跳視窗介紹
+/// </summary>
+/// <param name="flyID"></param>
     public void CaptureButterfly(int flyID)
     {
         if (!capturedButterflies.ContainsKey(flyID) || !capturedButterflies[flyID])
@@ -134,14 +138,17 @@ public class GunType : MonoBehaviour
             Debug.Log("抓到ID是 " + flyID + " 的蝴蝶！");
             switch (flyID)
             {
-                case 1:
+                case 1: //火蝴蝶
                     GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(5);
                     break;
-                case 2:
+                case 2: //生命蝴蝶
                     GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(6);
                     break;
-                case 3:
+                case 3: //氧氣蝴蝶
                     GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(7);
+                    break;
+                case 4: //雷電蝴蝶
+                    GameManager.instance.talkToTalk.ShowDialogueByStoryLevel(8);
                     break;
             }
             //GameManager.instance.talkToTalk.ShowDialogueByStoryLevel();

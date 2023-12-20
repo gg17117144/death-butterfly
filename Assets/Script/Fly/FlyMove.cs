@@ -26,15 +26,6 @@ public class FlyMove : MonoBehaviour
     void FixedUpdate()
     {
         fly_move();
-
-        /*
-        lifeTime -= Time.deltaTime;
-
-        if (lifeTime <= 0)
-        {
-            Destroy(gameObject);
-        }
-        */
     }
 
     void fly_move()

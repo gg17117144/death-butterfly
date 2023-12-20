@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(SceneIndex);
         mapLevel = SceneIndex;
         //SceneCheck();
-        Task.ResetTask();
+        Task.instance.ResetTask();
         
     }
     // Start is called before the first frame update
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         talkToTalk = UIControl.instance.GetComponent<TalkToTalk>();
         sceneController = GetComponent<SceneController>();
         SceneCheck();
-        Task.ResetTask();
+        Task.instance.ResetTask();
         InvokeRepeating("checkNum", 2f,5f);
     }
 

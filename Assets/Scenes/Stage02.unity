@@ -1526,6 +1526,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4879738731337830095, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
+      propertyPath: damageTextPrefab
+      value: 
+      objectReference: {fileID: 1414505124946590768, guid: bf4f6a4c17ca07b4399f4bf0da60f466, type: 3}
     - target: {fileID: 4879738731337830099, guid: f71fbff5696d1f549a370dc9838edfd7, type: 3}
       propertyPath: m_Pivot.x
       value: 0

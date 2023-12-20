@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class monsterAI : MonoBehaviour
 {
@@ -55,7 +51,7 @@ public class monsterAI : MonoBehaviour
         {
             ChasePlayer();
 
-            spriteRenderer.sortingOrder = (int)stoppingDistance.y/2 - (int)this.transform.position.y;
+            spriteRenderer.sortingOrder = (int)stoppingDistance.y / 2 - (int)this.transform.position.y;
 
             Vector3 newPosition = transform.position;
             newPosition.z = 0f;
@@ -70,13 +66,13 @@ public class monsterAI : MonoBehaviour
 
     void killemeny()
     {
-        Task.killEmeny += 1;
+        Task.instance.killEmeny += 1;
         task.GetComponent<Task>().mapTask();
     }
 
     void ChasePlayer()
     {
-        if (!ReferenceEquals(player , null))
+        if (!ReferenceEquals(player, null))
         {
             // 計算距離
             float distance = Vector2.Distance(transform.position, player.transform.position);
@@ -88,8 +84,10 @@ public class monsterAI : MonoBehaviour
                 Vector2 moveDirection = (player.transform.position - transform.position).normalized;
 
                 // 移動怪物
-                transform.position = Vector2.MoveTowards(transform.position, transform.position + (Vector3)moveDirection , speed * Time.deltaTime * Random.Range(1.0f ,2.0f));
+                transform.position = Vector2.MoveTowards(transform.position,
+                    transform.position + (Vector3)moveDirection, speed * Time.deltaTime * Random.Range(1.0f, 2.0f));
             }
+
             // 檢查 x 和 y 值的條件，如果其中一個小於特定值，觸發攻擊動畫
             if (monsterStop && !canDamage)
             {
@@ -97,6 +95,7 @@ public class monsterAI : MonoBehaviour
                 //Debug.Log(canDamage);
                 animator.Play("attack");
             }
+
             if (isright == true)
             {
                 if (gameObject.transform.position.x > player.transform.position.x)
@@ -119,14 +118,12 @@ public class monsterAI : MonoBehaviour
                     this.transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
             }
-
         }
     }
 
 
     private void OnTriggerStay2D(Collider2D other)
     {
-
         if (other.tag == "enemy")
         {
             GetComponent<BoxCollider2D>().enabled = false;
@@ -142,7 +139,7 @@ public class monsterAI : MonoBehaviour
             monsterStop = true;
             canDamage = false;
             player.GetComponent<PlayerHeart>().damage(damage);
-            Invoke("waitDamage" , waitAttackTime);
+            Invoke("waitDamage", waitAttackTime);
         }
         else
         {
@@ -154,7 +151,7 @@ public class monsterAI : MonoBehaviour
     {
         canDamage = true;
     }
-    
+
     void DropDown()
     {
         if (Drop != null)
@@ -162,7 +159,6 @@ public class monsterAI : MonoBehaviour
             if (Random.value <= dropProbability)
             {
                 Instantiate(Drop, transform.position, Quaternion.identity);
-                
             }
         }
     }
@@ -172,7 +168,8 @@ public class monsterAI : MonoBehaviour
         if (canDamage)
         {
             HP -= damage;
-
+            UIControl.instance.ShowDamageText(damage,this.transform.position);
+            
             if (HP <= 0)
             {
                 animator.SetTrigger("die");
@@ -187,5 +184,4 @@ public class monsterAI : MonoBehaviour
             }
         }
     }
-    
 }

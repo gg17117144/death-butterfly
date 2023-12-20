@@ -53,6 +53,8 @@ public class UIControl : MonoBehaviour
     private VideoPlayer videoPlayer;
     private RawImage rawImage;
     public bool isPlayingVideo;
+    
+    public Text damageTextPrefab;
 
     void Awake()
     {
@@ -145,6 +147,17 @@ public class UIControl : MonoBehaviour
         //playerHit.Play("nothing");
         playerHit.Play("hit");
         //playerHit.Play("Warning");
+    }
+    
+    public void ShowDamageText(int damageAmount, Vector3 worldPosition)
+    {
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+        screenPosition += new Vector2(50, 50);
+        Text damageText = Instantiate(damageTextPrefab, this.transform);
+        damageText.rectTransform.position = screenPosition;
+        damageText.text = "-" + damageAmount.ToString();
+
+        Destroy(damageText.gameObject, 1.0f); // 1秒後銷毀顯示的傷害數字傷害數字
     }
 
     public void ChangeGunTank(int input)

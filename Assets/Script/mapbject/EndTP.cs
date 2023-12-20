@@ -77,7 +77,7 @@ public class EndTP : MonoBehaviour
                     if (lever != 5) //有完成
                     {
                         GameManager.mapLevel++;
-                        Task.ResetTask();
+                        Task.instance.ResetTask();
                     
                         LoadScene(lever);
                     }

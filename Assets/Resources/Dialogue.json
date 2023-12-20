@@ -123,6 +123,15 @@
             "context": "使用能補充氧氣5點,跑速增加0.25倍5秒(可疊加)！"
           }
         ]
+      },
+      {
+        "StoryLever": 8,
+        "dialogue": [
+          {
+            "character": "雷電蝴蝶",
+            "context": "這隻沒有東西可以做,所以沒啥用（just Easter egg）"
+          }
+        ]
       }
     ]
   }
