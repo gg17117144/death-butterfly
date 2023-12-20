@@ -36,11 +36,11 @@ public class createItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PlayerCollider")
+        if (collision.tag == "Player")
         {
             if (timer >= waitTimeToCreate)
             {
-                Debug.Log("¥Í¦¨¹D¨ã");
+                Debug.Log("ï¿½Í¦ï¿½ï¿½Dï¿½ï¿½");
                 createitem();
                 timer = 0;
             }

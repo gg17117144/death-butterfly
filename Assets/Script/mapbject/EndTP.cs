@@ -66,7 +66,7 @@ public class EndTP : MonoBehaviour
     {
         if (other is CapsuleCollider2D && !GameManager.instance.isStoping)
         {
-            if (other.CompareTag("PlayerCollider") && GameManager.instance.canTP)
+            if (other.CompareTag("Player") && GameManager.instance.canTP)
             {
                 insideAnimator.SetBool("isLight" , true);
                 //Debug.Log("任務完成");
@@ -90,7 +90,7 @@ public class EndTP : MonoBehaviour
             }
             if (!fCheck)
             {
-                if (other.CompareTag("PlayerCollider"))
+                if (other.CompareTag("Player"))
                 {
                     //Debug.Log("觸發加載過場動畫");
                     player.transform.position = new Vector3(0, 0, 0);
@@ -104,7 +104,7 @@ public class EndTP : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerCollider"))
+        if (other.CompareTag("Player"))
         {
             insideAnimator.SetBool("isLight" , false);
         }

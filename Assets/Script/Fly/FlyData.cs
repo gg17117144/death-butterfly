@@ -85,7 +85,7 @@ public class FlyData : MonoBehaviour
                 //Debug.Log("真的有生成囉");
                 break;
             case 4://閃電蝴蝶
-                //Fly_Energy -= 10;
+                Fly_Energy -= 100;
                 break;
             case 5:
                 break;

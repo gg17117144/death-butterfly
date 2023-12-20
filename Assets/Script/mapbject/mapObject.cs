@@ -25,7 +25,7 @@ public class mapObject : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "PlayerCollider" && isfull == false)
+        if (other.tag == "Player" && isfull == false)
         {
             if (other.transform.position.y > Shadow.transform.position.y)
             {
@@ -39,7 +39,7 @@ public class mapObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = -2 - (int)gameObject.transform.position.y;
             this.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);

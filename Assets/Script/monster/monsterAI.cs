@@ -134,7 +134,7 @@ public class monsterAI : MonoBehaviour
         }
 
 
-        if (other.tag == "PlayerCollider" && canDamage)
+        if (other.tag == "Player" && canDamage)
         {
             monsterStop = true;
             canDamage = false;

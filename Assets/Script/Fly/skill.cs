@@ -118,14 +118,7 @@ public class skill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "enemy")
-        {
-            useSkill(other.GetComponent<monsterAI>());
-            
-            moveDirection = new Vector2(0, 0); // 停止移動
-        }
-        
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             //Debug.Log("有碰到玩家");
             if (skillID == 3)   //氧氣
@@ -133,6 +126,13 @@ public class skill : MonoBehaviour
                 //Debug.Log("有要使用");
                 useSkill();
             }
+        }
+        
+        if (other.tag == "enemy")
+        {
+            useSkill(other.GetComponent<monsterAI>());
+            
+            moveDirection = new Vector2(0, 0); // 停止移動
         }
         
         if (other.tag == "Object" && other.isTrigger == false)
@@ -147,7 +147,7 @@ public class skill : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             /*
             Debug.Log("有碰到玩家");
@@ -170,7 +170,7 @@ public class skill : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             if (skillID == 7)   //生命(雙)
             {

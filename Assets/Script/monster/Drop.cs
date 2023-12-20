@@ -34,7 +34,7 @@ public class Drop : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             Task.instance.DropEmeny += 1;
             task.GetComponent<Task>().mapTask();

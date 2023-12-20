@@ -24,7 +24,7 @@ public class BossAmmo : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"打到玩家了{other}");
-        if (other.tag == "PlayerCollider")
+        if (other.tag == "Player")
         {
             Debug.Log($"打到玩家了{other}");
             other.transform.parent.gameObject.GetComponent<PlayerHeart>().damage(ammoDamage);

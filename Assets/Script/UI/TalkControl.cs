@@ -20,7 +20,7 @@ public class TalkControl : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!hasTriggered && other.tag == "PlayerCollider")
+        if (!hasTriggered && other.tag == "Player")
         {
             //UnityEngine.Debug.Log("按下F開始對話");
             if (Input.GetKeyDown(KeyCode.F))
@@ -35,7 +35,7 @@ public class TalkControl : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (hasTriggered && other.tag == "PlayerCollider")
+        if (hasTriggered && other.tag == "Player")
         {
             DialogBubble.SetActive(true);
             //UnityEngine.Debug.Log("解除觸發了");
