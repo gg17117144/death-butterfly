@@ -96,6 +96,7 @@ public class UIControl : MonoBehaviour
             rawImage.texture = videoPlayer.texture;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                Debug.Log("有按到結束");
                 StopPlayVideo();
             }
         }
@@ -281,12 +282,12 @@ public class UIControl : MonoBehaviour
     public void StopPlayVideo()
     {
         animator.Play("disappear");
-        isPlayingVideo = false;
-        GameManager.instance.isStoping = false;
     }
 
     public void videoStop() //放在animation裡
     {
+        isPlayingVideo = false;
+        GameManager.instance.isStoping = false;
         videoPlayer.Stop();
         videoPlayer.clip = null;
     }

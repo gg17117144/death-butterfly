@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
+using UnityEditorInternal;
 using UnityEngine.Serialization;
+using UnityHFSM;
+using StateMachine = UnityHFSM.StateMachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +41,9 @@ public class GameManager : MonoBehaviour
     public bool canTP;
     
     public GameObject bossBarUI;
+    //狀態機
+    public StateMachine fsm;
+
     void Awake()
     {
         if (instance == null)
@@ -74,6 +80,13 @@ public class GameManager : MonoBehaviour
         SceneCheck();
         Task.instance.ResetTask();
         InvokeRepeating("checkNum", 2f,5f);
+        
+        fsm = new StateMachine();
+        // fsm.AddState("wait", onLogic: state => cancancelrecord());
+        // fsm.AddState("call", onLogic: state => cancall());
+        // fsm.AddState("doublecheck", onLogic: state => candoublecheck());
+        // fsm.AddState("continre", onLogic: state => cancontinre());
+        // fsm.SetStartState("call");
     }
 
     // Update is called once per frame
