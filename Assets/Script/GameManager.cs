@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public int SceneIndex;
     public TalkToTalk talkToTalk;
     public bool canTP;
+    
+    public GameObject bossBarUI;
     void Awake()
     {
         if (instance == null)
@@ -54,7 +56,11 @@ public class GameManager : MonoBehaviour
         //Debug.Log(SceneIndex);
         mapLevel = SceneIndex;
         //SceneCheck();
-        Task.instance.ResetTask();
+        if (ReferenceEquals(Task.instance,null))
+        {
+            Task.instance.ResetTask();
+        }
+        
         
     }
     // Start is called before the first frame update
@@ -112,6 +118,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(false);
                 dead.SetActive(false);
                 creatMonster = false;
+                bossBarUI.SetActive(false);
                 // gun.GetComponent<GunType>().reSetGunValue();
                 break;
             case 1: //研究室
@@ -127,6 +134,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 creatMonster = false;
                 gun.GetComponent<GunType>().reSetGunValue();
+                bossBarUI.SetActive(false);
                 UIControl.instance.PlayStartVideo();//播放開始影片
                 break;
             case 2: //第一區前
@@ -141,6 +149,7 @@ public class GameManager : MonoBehaviour
                 //creatMonster = true;
                 talkToTalk.ShowDialogueByStoryLevel(1);
                 canTP = false;
+                bossBarUI.SetActive(false);
                 break;
             case 3: //第一區後
                 creatMonster = true;
@@ -152,6 +161,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 creatMonster = true;
                 canTP = false;
+                bossBarUI.SetActive(false);
                 break;
             case 4: //第二區前
                 creatMonster = true;
@@ -163,6 +173,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 creatMonster = true;
                 canTP = false;
+                bossBarUI.SetActive(true);
                 break;
         }
     }

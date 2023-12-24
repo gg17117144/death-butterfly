@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5698413356629727501}
   m_Layer: 0
   m_Name: boss01
-  m_TagString: Untagged
+  m_TagString: boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3390b243b9cd6fc44989005f3220ed16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 300
   ammoPrefab: {fileID: 8457659542097419032, guid: f992a73d5f14eac4d96c79b4bf9da757, type: 3}
   numberOfAttacks: 12
   radius: 5

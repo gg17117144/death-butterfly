@@ -38,6 +38,7 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     public Animator playerHit;
 
+    public Slider BossSlider;
     private float currentPrg, targetPrg;
     public float AccelerHpSpeed = 0.5f;
 
@@ -55,6 +56,7 @@ public class UIControl : MonoBehaviour
     public bool isPlayingVideo;
     
     public Text damageTextPrefab;
+
 
     void Awake()
     {
@@ -124,6 +126,11 @@ public class UIControl : MonoBehaviour
         StartCoroutine(changeYValue());
     }
 
+    public void ReloadBossHpUI(int HpValue)
+    {
+        
+    }
+
     IEnumerator changeYValue()
     {
         while (currentPrg != targetPrg)
@@ -147,6 +154,11 @@ public class UIControl : MonoBehaviour
         //playerHit.Play("nothing");
         playerHit.Play("hit");
         //playerHit.Play("Warning");
+    }
+    
+    public void ReloadBossHpUI(float hp)
+    {
+        BossSlider.value = hp;
     }
     
     public void ShowDamageText(int damageAmount, Vector3 worldPosition)

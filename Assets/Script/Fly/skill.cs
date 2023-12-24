@@ -70,7 +70,7 @@ public class skill : MonoBehaviour
         
     }
 
-    private void useSkill(monsterAI monsterAI = null)
+    private void useSkill(GameObject monster = null)
     {
         switch (skillID)
         {
@@ -80,7 +80,7 @@ public class skill : MonoBehaviour
             case 2://生命
                 lifeTime += 10;
                 StartCoroutine(heal(damage));
-                StartCoroutine(hurtMonster(monsterAI));
+                StartCoroutine(hurtMonster(monster));
                 animator.Play("animaBom");
                 break;
             case 3://氧氣
@@ -123,14 +123,19 @@ public class skill : MonoBehaviour
             //Debug.Log("有碰到玩家");
             if (skillID == 3)   //氧氣
             {
-                //Debug.Log("有要使用");
+                Debug.Log("要使用氧氣技能");
                 useSkill();
             }
         }
         
+        if (other.tag == "boss")
+        {
+            useSkill(other.gameObject);
+        }
+        
         if (other.tag == "enemy")
         {
-            useSkill(other.GetComponent<monsterAI>());
+            useSkill(other.gameObject);
             
             moveDirection = new Vector2(0, 0); // 停止移動
         }
@@ -193,15 +198,27 @@ public class skill : MonoBehaviour
         Destroy(gameObject);
     }
     
-    IEnumerator hurtMonster(monsterAI monsterAI)
+    IEnumerator hurtMonster(GameObject monster)
     {
         //UIControl.instance.DebugText("-回覆血量效果動畫");
-        for (int i = 0; i < damage; i++)
+        if (monster.tag == "boss")
         {
-            monsterAI.isHurt(3);
-            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < damage; i++)
+            {
+                monster.GetComponent<BossAI>().damage(3);
+                yield return new WaitForSeconds(0.5f);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else if(monster.tag == "enemy")
+        {
+            for (int i = 0; i < damage; i++)
+            {
+                monster.GetComponent<monsterAI>().isHurt(3);
+                yield return new WaitForSeconds(0.5f);
+            }
+            Destroy(gameObject);
+        }
     }
 
     public void closeImage()

@@ -135,7 +135,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7897890505152135465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 7307343643a417d4e8fd8827d7e752f4, type: 2}
   m_IsTrigger: 0
@@ -294,3 +294,4 @@ MonoBehaviour:
   speed: 0.5
   shou: {fileID: 8300000, guid: 44f58c493214be94c93950e277c43645, type: 3}
   bom: {fileID: 8300000, guid: 7beaf40563d543b45acbf135b077a2c6, type: 3}
+  testbool: 0

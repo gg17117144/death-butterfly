@@ -20,6 +20,8 @@ public class FireControl : MonoBehaviour
     public AudioClip shou;
     public AudioClip bom;
 
+    public bool testbool;
+
     void Start()
     {
         moveDirection = new Vector3(speed, 0, 0);
@@ -71,6 +73,8 @@ public class FireControl : MonoBehaviour
         {
             startwee();
         }
+
+        testbool = hardcollider.enabled;
     }
     
     private void OnCollisionEnter2D(Collision2D other)
@@ -84,12 +88,29 @@ public class FireControl : MonoBehaviour
             GetComponent<Animator>().SetTrigger("bom");
             moveDirection = new Vector2(0, 0); // 停止移動
         }
+        else if (other.gameObject.tag == "Lake")
+        {
+            hardcollider.enabled = false;
+        }
     }
 
     
     private void OnTriggerEnter2D(Collider2D other)
     { 
-        if (other.tag == "enemy")
+        if (other.tag == "boss")
+        {
+            //Debug.Log("撞到東西囉");
+            audioSource.clip = bom;
+            audioSource.Play();
+            other.GetComponent<BossAI>().damage(10);
+            
+            hardcollider.enabled = false;
+
+            GetComponent<Animator>().SetTrigger("bom");
+            
+            moveDirection = new Vector2(0, 0); // 停止移動
+        }
+        else if(other.tag == "enemy")
         {
             //Debug.Log("撞到東西囉");
             audioSource.clip = bom;
@@ -101,6 +122,7 @@ public class FireControl : MonoBehaviour
             GetComponent<Animator>().SetTrigger("bom");
 
             moveDirection = new Vector2(0, 0); // 停止移動
+            
         }
     }
 

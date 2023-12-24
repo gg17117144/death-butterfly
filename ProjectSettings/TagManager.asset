@@ -20,6 +20,7 @@ TagManager:
   - uncle
   - BackGround
   - Lake
+  - boss
   layers:
   - Default
   - TransparentFX

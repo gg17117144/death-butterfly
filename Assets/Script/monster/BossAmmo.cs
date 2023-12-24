@@ -6,6 +6,8 @@ public class BossAmmo : MonoBehaviour
     [SerializeField] private float ammoSpeed;   
     [SerializeField] private int ammoDamage;
     Vector3 moveDirection;
+
+    private float time;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,11 @@ public class BossAmmo : MonoBehaviour
     void Update()
     {
         move();
+        time += Time.deltaTime;
+        if (time >= 10)
+        {
+            Destroy(gameObject);
+        }
     }
     void move()
     { 
@@ -27,7 +34,7 @@ public class BossAmmo : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log($"打到玩家了{other}");
-            other.transform.parent.gameObject.GetComponent<PlayerHeart>().damage(ammoDamage);
+            other.GetComponent<PlayerHeart>().damage(ammoDamage);
             Destroy(gameObject);
         }
     }
