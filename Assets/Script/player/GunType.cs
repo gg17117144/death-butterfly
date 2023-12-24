@@ -33,6 +33,8 @@ public class GunType : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public GameObject Ammo;
+
     void Start()
     {
         checkarms.SetActive(false); //開始先關閉
@@ -226,11 +228,11 @@ public class GunType : MonoBehaviour
 
     void checkType() //確認模式
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            check_Type = !check_Type;   //切換模式
-            //CanCatchFly = !CanCatchFly; //是否可以抓蝴蝶
-        }
+        // if (Input.GetKeyDown(KeyCode.B))
+        // {
+        //     check_Type = !check_Type;   //切換模式
+        //     //CanCatchFly = !CanCatchFly; //是否可以抓蝴蝶
+        // }
 
         if (check_Type == true)
         {
@@ -272,7 +274,10 @@ public class GunType : MonoBehaviour
                 if (FlyTank[num] == null)    //如果是空的
                 {
                     //Debug.Log("空的");
+                    shotAmmo();
+                    canuse = false;
                     UIControl.instance.ReloadGunUI();
+                    Invoke("waituse", 1);
                 }
                 else
                 {
@@ -325,6 +330,14 @@ public class GunType : MonoBehaviour
             checkarms.SetActive(false);
             canCatchFly = false;
         }
+    }
+
+    void shotAmmo()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, mousePosition - transform.GetChild(0).position);
+        rotation *= Quaternion.Euler(0, 0, 90);
+        Instantiate(Ammo,transform.position,  rotation);
     }
 
     public void reSetGunValue()

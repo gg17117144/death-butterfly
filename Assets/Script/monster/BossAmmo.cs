@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BossAmmo : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BossAmmo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ammoSpeed = Random.Range(5, 15);
         moveDirection = new Vector3(ammoSpeed * Time.deltaTime, 0, 0);
     }
 

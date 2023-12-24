@@ -632,6 +632,7 @@ MonoBehaviour:
   - {fileID: 0}
   catchfly: {fileID: 8300000, guid: e2c51c3c17d10e74d9cc1ec51b917115, type: 3}
   rotatinspeed: 50
+  Ammo: {fileID: 7790169811090126174, guid: 8b4686590e973834caf8896e6308ff27, type: 3}
 --- !u!1 &1277456669817598966
 GameObject:
   m_ObjectHideFlags: 0

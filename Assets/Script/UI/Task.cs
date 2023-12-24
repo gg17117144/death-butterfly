@@ -211,12 +211,28 @@ public class Task : MonoBehaviour
 
                 TaskText[2].text = $"{timeLeft}s內離開森林 ";
                 break;
-            case 4:
-                for (int i = 0; i < 3; i++)
+            case 4://第二區前scense03
+                monsterNum = 10;
+                TaskNum = 5;
+                if (task01 == true)
                 {
-                    TaskText[i].text = "";
+                    TaskText[0].text = $"擊敗{monsterNum}隻怪物 [✓] ";
                 }
-                
+                else
+                {
+                    TaskText[0].text = $"擊敗{monsterNum}隻怪物 ( {killEmeny} / {monsterNum} )";
+                }
+
+                if (task02 == true)
+                {
+                    TaskText[1].text = $"收集{TaskNum}個道具 [✓] ";
+                }
+                else
+                {
+                    TaskText[1].text = $"收集{TaskNum}個道具 ( {DropEmeny} / {TaskNum} )";
+                }
+
+                TaskText[2].text = $"擊殺Boss！(不一定要完成)";
                 break;
             case 5:
                 break;

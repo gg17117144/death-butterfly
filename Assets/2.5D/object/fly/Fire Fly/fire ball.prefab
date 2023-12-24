@@ -295,3 +295,4 @@ MonoBehaviour:
   shou: {fileID: 8300000, guid: 44f58c493214be94c93950e277c43645, type: 3}
   bom: {fileID: 8300000, guid: 7beaf40563d543b45acbf135b077a2c6, type: 3}
   testbool: 0
+  damage: 25

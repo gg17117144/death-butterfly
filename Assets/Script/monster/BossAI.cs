@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityHFSM;
 
 public class BossAI : MonoBehaviour
 {
+    [SerializeField]
     private int hp;
     private int maxhp = 1000;
     
@@ -16,6 +18,11 @@ public class BossAI : MonoBehaviour
 
     private GameObject player;
 
+
+    private float time;
+    private bool isLever2;
+
+    public StateMachine fsm;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -24,12 +31,36 @@ public class BossAI : MonoBehaviour
     void Start()
     {
         InvokeRepeating("skill02",5,5);
+        fsm = new StateMachine();
+        fsm.AddState("lever1", onLogic: state => lever1());
+        fsm.AddState("lever2", onLogic: state => lever2());
+        fsm.SetStartState("lever1");
+        hp = maxhp;
     }
     
     // Update is called once per frame
     void Update()
     {
-        
+        time = Time.deltaTime;
+    }
+
+    void lever1()
+    {
+        checkLever2();
+        if (time > 5)
+        {
+            time = 0;
+            skill02();
+        }
+    }
+    
+    void lever2()
+    {
+        if (time > 5)
+        {
+            time = 0;
+            skill01();
+        }
     }
     
     public void damage(int damage)  //�I��ĤH��damage
@@ -37,6 +68,15 @@ public class BossAI : MonoBehaviour
         hp -= damage;
         UIControl.instance.ReloadBossHpUI(hp);
         // UIControl.instance.PlayerHit();
+    }
+
+    void checkLever2()
+    {
+        if (hp <= 500)
+        {
+            isLever2 = true;
+            fsm.RequestStateChange("lever2");
+        }
     }
 
     [Button]

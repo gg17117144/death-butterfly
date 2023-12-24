@@ -14,9 +14,8 @@ public class skill : MonoBehaviour
     
     Vector3 moveDirection;
     public float speed = 0;
-    [SerializeField]
+
     private PlayerHeart playerHeart;
-    [SerializeField]
     private Playermovee playermovee;
 
     private SpriteRenderer spriteRenderer;
@@ -61,19 +60,16 @@ public class skill : MonoBehaviour
         }
 
         move();
-
-        // if (skillID == 3)
-        // {
-        //     transform.position = Player.transform.position;
-        //     //Debug.Log("氧氣特效應該要在正確的位子");
-        // }
-        
     }
 
     private void useSkill(GameObject monster = null)
     {
         switch (skillID)
         {
+            case 0://普通子彈
+                StartCoroutine(hurtMonster(monster));
+                Destroy(gameObject);
+                break;
             case 1://熾熱
                 //monsterAI.isHurt(damage);
                 break;
