@@ -63,10 +63,11 @@ public class BossAI : MonoBehaviour
         }
     }
     
-    public void damage(int damage)  //�I��ĤH��damage
+    public void damage(int damage,Vector3 skillposition)  //�I��ĤH��damage
     {
         hp -= damage;
-        UIControl.instance.ReloadBossHpUI(hp);
+        // UIControl.instance.ReloadBossHpUI(hp);
+        UIControl.instance.ShowDamageText(damage,skillposition);
         // UIControl.instance.PlayerHit();
     }
 

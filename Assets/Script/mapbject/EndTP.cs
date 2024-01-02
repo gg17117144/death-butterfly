@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class EndTP : MonoBehaviour
 {
@@ -34,17 +28,16 @@ public class EndTP : MonoBehaviour
         {
             waitIng.SetActive(false);
         }
-        
+
         player = GameManager.instance.player;
         insideAnimator = insideObGameObject.GetComponent<Animator>();
 
         lever = GameManager.instance.SceneIndex + 1;
-        
-        
     }
+
     private void Update()
     {
-        if (rot ==true)
+        if (rot == true)
         {
             transform.Rotate(Vector3.forward, 50 * Time.deltaTime);
         }
@@ -68,17 +61,16 @@ public class EndTP : MonoBehaviour
         {
             if (other.CompareTag("Player") && GameManager.instance.canTP)
             {
-                insideAnimator.SetBool("isLight" , true);
+                insideAnimator.SetBool("isLight", true);
                 //Debug.Log("任務完成");
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    
                     Debug.Log("我按下了");
                     if (lever != 5) //有完成
                     {
                         GameManager.mapLevel++;
                         Task.instance.ResetTask();
-                    
+
                         LoadScene(lever);
                     }
                     else
@@ -88,6 +80,7 @@ public class EndTP : MonoBehaviour
                     }
                 }
             }
+
             if (!fCheck)
             {
                 if (other.CompareTag("Player"))
@@ -99,14 +92,13 @@ public class EndTP : MonoBehaviour
                 }
             }
         }
-        
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            insideAnimator.SetBool("isLight" , false);
+            insideAnimator.SetBool("isLight", false);
         }
     }
 
@@ -114,5 +106,4 @@ public class EndTP : MonoBehaviour
     {
         GameManager.instance.sceneController.LoadScene(sceneNum);
     }
-    
 }

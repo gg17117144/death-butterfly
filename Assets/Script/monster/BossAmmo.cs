@@ -32,10 +32,10 @@ public class BossAmmo : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"打到玩家了{other}");
+        // Debug.Log($"打到玩家了{other}");
         if (other.tag == "Player")
         {
-            Debug.Log($"打到玩家了{other}");
+            // Debug.Log($"打到玩家了{other}");
             other.GetComponent<PlayerHeart>().damage(ammoDamage);
             Destroy(gameObject);
         }

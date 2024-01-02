@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using Random = UnityEngine.Random;
 
 public class skill : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class skill : MonoBehaviour
             // 增加玩家的生命值，根据恢复速率和 Time.deltaTime 来计算
             lifeTime -= Time.deltaTime;
             //Debug.Log($"lifeTime = {lifeTime} , 玩家回血{damage * Time.deltaTime}");
+            damage = Random.Range(1, 6);
             playerHeart.healHp(damage * Time.deltaTime);
         }
 
@@ -75,11 +77,13 @@ public class skill : MonoBehaviour
                 break;
             case 2://生命
                 lifeTime += 10;
+                damage = Random.Range(20, 31);
                 StartCoroutine(heal(damage));
                 StartCoroutine(hurtMonster(monster));
                 animator.Play("animaBom");
                 break;
             case 3://氧氣
+                
                 playerHeart.healO2(damage);
                 playermovee.startplayerSpeedUP(5f);
                 lifeTime = 5f;
@@ -188,7 +192,8 @@ public class skill : MonoBehaviour
         for (int i = 0; i < healHP; i++)
         {
             //Debug.Log($"回復了1d血 還有{5-i}次");
-            playerHeart.healHp(1);
+            var healHpNum = Random.Range(1, 4);
+            playerHeart.healHp(healHpNum);
             yield return new WaitForSeconds(0.5f);
         }
         Destroy(gameObject);
@@ -197,11 +202,31 @@ public class skill : MonoBehaviour
     IEnumerator hurtMonster(GameObject monster)
     {
         //UIControl.instance.DebugText("-回覆血量效果動畫");
+        var randomdamage = Random.Range(1, 5);
+
+        if (skillID == 0)
+        {
+            var randomLuck = Random.Range(0f, 1f);
+
+            if (randomLuck <= 0.89f)
+            {
+            
+            }
+            else if(randomLuck <= 0.99)
+            {
+                randomdamage = Random.Range(50,101);
+            }
+            else if(randomLuck <= 0.1)
+            {
+                randomdamage = 999;
+            }
+        }
+        
         if (monster.tag == "boss")
         {
             for (int i = 0; i < damage; i++)
             {
-                monster.GetComponent<BossAI>().damage(3);
+                monster.GetComponent<BossAI>().damage(randomdamage,transform.position);
                 yield return new WaitForSeconds(0.5f);
             }
             Destroy(gameObject);
@@ -210,7 +235,10 @@ public class skill : MonoBehaviour
         {
             for (int i = 0; i < damage; i++)
             {
-                monster.GetComponent<monsterAI>().isHurt(3);
+                if (!ReferenceEquals(monster,null))
+                {
+                    monster.GetComponent<monsterAI>().isHurt(randomdamage);
+                }
                 yield return new WaitForSeconds(0.5f);
             }
             Destroy(gameObject);

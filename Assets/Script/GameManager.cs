@@ -1,35 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using NaughtyAttributes;
-using UnityEditorInternal;
-using UnityEngine.Serialization;
 using UnityHFSM;
-using StateMachine = UnityHFSM.StateMachine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static int mapLevel;
     public static GameObject mainCamera;
-    [SerializeField]
-    public GameObject gaming;
-    [SerializeField]
-    public GameObject StopSetting;
-    [SerializeField]
-    public GameObject task;
-    [SerializeField]
-    public GameObject dead;
+    [SerializeField] public GameObject gaming;
+    [SerializeField] public GameObject StopSetting;
+    [SerializeField] public GameObject task;
+    [SerializeField] public GameObject dead;
     public bool isStoping;
     public bool isTalking;
-    
+
     bool StopOpen;
 
     public GameObject player;
-    [SerializeField]
-    public GameObject gun;
+    [SerializeField] public GameObject gun;
 
     public bool creatMonster;
     public bool creatFly;
@@ -38,9 +26,12 @@ public class GameManager : MonoBehaviour
     public SceneController sceneController;
     public int SceneIndex;
     public TalkToTalk talkToTalk;
+
     public bool canTP;
+
     //狀態機
     public StateMachine fsm;
+
 
     void Awake()
     {
@@ -52,21 +43,21 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(gameObject);
         gun = GameObject.FindGameObjectWithTag("gun");
         player = GameObject.FindGameObjectWithTag("Player");
         SceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
+
         //Debug.Log(SceneIndex);
         mapLevel = SceneIndex;
         //SceneCheck();
-        if (ReferenceEquals(Task.instance,null))
+        if (!ReferenceEquals(Task.instance, null))
         {
             Task.instance.ResetTask();
         }
-        
-        
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,8 +68,8 @@ public class GameManager : MonoBehaviour
         sceneController = GetComponent<SceneController>();
         SceneCheck();
         Task.instance.ResetTask();
-        InvokeRepeating("checkNum", 2f,5f);
-        
+        InvokeRepeating("checkNum", 2f, 5f);
+
         fsm = new StateMachine();
         // fsm.AddState("wait", onLogic: state => cancancelrecord());
         // fsm.AddState("call", onLogic: state => cancall());
@@ -113,29 +104,29 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    
+
     public void SceneCheck()
     {
         SceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
+
         Debug.Log("現在場景編號：" + SceneIndex);
         switch (SceneIndex)
         {
             case 0: //開始畫面
-                task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
-                StopSetting.SetActive(false);
                 player.SetActive(false);
                 dead.SetActive(false);
                 creatMonster = false;
+                task.SetActive(false);
+                StopSetting.SetActive(false);
                 // gun.GetComponent<GunType>().reSetGunValue();
                 break;
             case 1: //研究室
                 isStoping = false;
                 checkIsStoping();
                 isDeading = false;
-                
+
                 task.SetActive(false);
                 gun.SetActive(false);
                 gaming.SetActive(false);
@@ -144,7 +135,7 @@ public class GameManager : MonoBehaviour
                 dead.SetActive(false);
                 creatMonster = false;
                 gun.GetComponent<GunType>().reSetGunValue();
-                UIControl.instance.PlayStartVideo();//播放開始影片
+                UIControl.instance.PlayStartVideo(); //播放開始影片
                 break;
             case 2: //第一區前
                 //Debug.Log(mapLevel);
@@ -186,7 +177,7 @@ public class GameManager : MonoBehaviour
 
     void StopButton()
     {
-        if (!ReferenceEquals(StopSetting , null))
+        if (!ReferenceEquals(StopSetting, null))
         {
             if (StopOpen)
             {
@@ -207,12 +198,12 @@ public class GameManager : MonoBehaviour
 
         checkIsStoping();
     }
-    
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
     }
-    
+
     public void Continue()
     {
         Debug.Log("使用Continue");
@@ -222,7 +213,6 @@ public class GameManager : MonoBehaviour
 
         checkIsStoping();
     }
-
 
 
     public void BackHome()
@@ -238,12 +228,10 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
-
     }
 
     public void LoadGame()
     {
-
     }
 
     public void checkNum()
@@ -257,6 +245,7 @@ public class GameManager : MonoBehaviour
         {
             //creatMonster = true;
         }
+
         var maxFlyNum = GameObject.FindGameObjectsWithTag("fly");
         if (maxFlyNum.Length >= 40)
         {
@@ -269,7 +258,7 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log($"maxMonsterNum:{maxMonsterNum.Length}  maxFlyNum:{maxFlyNum.Length}");
     }
-    
+
     public void Dead()
     {
         Debug.Log("重生");

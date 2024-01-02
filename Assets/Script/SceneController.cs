@@ -1,19 +1,28 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class SceneController : MonoBehaviour
 {
-    [SerializeField]
-    public cameraCreate cameraCreate;
-    
+    public static SceneController instance;
+
+    [SerializeField] public cameraCreate cameraCreate;
+
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         if (GameManager.instance.SceneIndex >= 2)
         {
             cameraCreate.RefreshReferences();
+        }
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -28,12 +37,13 @@ public class SceneController : MonoBehaviour
             cameraCreate.RefreshReferences();
         }
     }
-    
+
     public void LoadScene(int sceneNum)
     {
         Debug.Log("跑這裡應該比較不會卡");
         //SceneManager.LoadScene("Loading");
         UIControl.instance.PlayCutscenesVideo();
+        Task.instance.reTaskText();
         StartCoroutine(LoadSceneTask(sceneNum));
     }
 
@@ -42,7 +52,7 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNum);
         // asyncLoad.allowSceneActivation = false;
-        
+
         while (!asyncLoad.isDone)
         {
             // 在加载的过程中可以执行其他操作
@@ -54,9 +64,10 @@ public class SceneController : MonoBehaviour
             // }
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
             Debug.Log("Loading progress: " + (progress * 100) + "%");
-            
+
             yield return null;
         }
+
         UIControl.instance.StopPlayVideo();
     }
 }

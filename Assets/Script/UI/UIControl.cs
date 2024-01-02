@@ -1,42 +1,30 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using NaughtyAttributes;
+using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class UIControl : MonoBehaviour
 {
     public static UIControl instance;
-    [SerializeField]
-    GameObject gun;
-    [SerializeField] 
-    public Animator skillUnderAnime;
-    [SerializeField]
-    public Image[] FlyTank_Image;           //蝴蝶槽的[]
-    [SerializeField]
-    public Slider[] FlyTank_energy;
-    
-    public Sprite nullimage;
-    [SerializeField]
-    public GameObject lightSet;
+    [SerializeField] GameObject gun;
+    [SerializeField] public Animator skillUnderAnime;
+    [SerializeField] public Image[] FlyTank_Image; //蝴蝶槽的[]
+    [SerializeField] public Slider[] FlyTank_energy;
 
-    [SerializeField] 
-    List<GameObject> flytank;
+    public Sprite nullimage;
+    [SerializeField] public GameObject lightSet;
+
+    [SerializeField] List<GameObject> flytank;
 
     private FlyData[] flyData;
-    
-    [SerializeField]
-    public Image blood_R;
-    [SerializeField]
-    public Image blood_Y;
 
-    [SerializeField]
-    public Image O2Image;
-    [SerializeField]
-    public Animator playerHit;
+    [SerializeField] public Image blood_R;
+    [SerializeField] public Image blood_Y;
+
+    [SerializeField] public Image O2Image;
+    [SerializeField] public Animator playerHit;
 
     public Slider BossSlider;
     private float currentPrg, targetPrg;
@@ -47,6 +35,7 @@ public class UIControl : MonoBehaviour
     private Text debugText;
 
     private Animator animator;
+
     //播放影片
     public GameObject videoGameObject;
     public VideoClip GameStart;
@@ -54,9 +43,10 @@ public class UIControl : MonoBehaviour
     private VideoPlayer videoPlayer;
     private RawImage rawImage;
     public bool isPlayingVideo;
-    
+
     public Text damageTextPrefab;
 
+    public GameObject AuthorCanvas;
 
     void Awake()
     {
@@ -68,6 +58,7 @@ public class UIControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -80,18 +71,19 @@ public class UIControl : MonoBehaviour
         videoPlayer = videoGameObject.GetComponent<VideoPlayer>();
         rawImage = videoGameObject.GetComponent<RawImage>();
         animator = GetComponent<Animator>();
+        AuthorCanvas.SetActive(false);
         if (gun != null && !gun.activeSelf)
         {
             ReloadGunUI();
         }
-        
+
         currentPrg = blood_R.fillAmount;
         StopPlayVideo();
     }
 
     private void Update()
     {
-        if (!ReferenceEquals(videoPlayer.texture ,null) && isPlayingVideo)
+        if (!ReferenceEquals(videoPlayer.texture, null) && isPlayingVideo)
         {
             rawImage.texture = videoPlayer.texture;
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -100,7 +92,12 @@ public class UIControl : MonoBehaviour
                 StopPlayVideo();
             }
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.F2) && !isPlayingVideo)
+        {
+            //Debug.Log("叫出暫停鍵了");
+            AuthorCanvas.SetActive(!AuthorCanvas.activeSelf);
+        }
     }
 
     public void ReloadGunUI() //重製UI
@@ -129,7 +126,6 @@ public class UIControl : MonoBehaviour
 
     public void ReloadBossHpUI(int HpValue)
     {
-        
     }
 
     IEnumerator changeYValue()
@@ -144,7 +140,7 @@ public class UIControl : MonoBehaviour
             yield return new WaitForSeconds(0.1f); // 调整这个等待时间以控制血量下降速度
         }
     }
-    
+
     public void ReloadPlayerO2UI(float O2Value)
     {
         O2Image.fillAmount = O2Value;
@@ -156,12 +152,12 @@ public class UIControl : MonoBehaviour
         playerHit.Play("hit");
         //playerHit.Play("Warning");
     }
-    
+
     public void ReloadBossHpUI(float hp)
     {
         BossSlider.value = hp;
     }
-    
+
     public void ShowDamageText(int damageAmount, Vector3 worldPosition)
     {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
@@ -175,12 +171,12 @@ public class UIControl : MonoBehaviour
 
     public void ChangeGunTank(int input)
     {
-        if (!ReferenceEquals(skillUnderAnime , null))
+        if (!ReferenceEquals(skillUnderAnime, null))
         {
             skillUnderAnime.SetTrigger($"{input}");
         }
     }
-    
+
     public void volumeSliderSet(float volumeValue)
     {
         AudioListener.volume = volumeValue;
@@ -197,21 +193,21 @@ public class UIControl : MonoBehaviour
             //Debug.Log(mappedValue);
         }
     }
-    
+
     public void DebugText(string debug)
     {
         if (debugTextPrefab)
         {
             GameObject debugTextInstance = Instantiate(debugTextPrefab, DebugGrid.gameObject.transform);
             debugText = debugTextInstance.GetComponent<Text>();
-            debugText.text = debug; 
+            debugText.text = debug;
             Color textColor = debugText.color;
             textColor.a = 1f; // 初始透明度为不透明
             debugText.color = textColor;
             StartCoroutine(FadeOutAndDestroy(debugTextInstance));
         }
     }
-    
+
     private IEnumerator FadeOutAndDestroy(GameObject debugTextInstance)
     {
         // 等待一段时间（可根据需要调整）
@@ -225,7 +221,7 @@ public class UIControl : MonoBehaviour
             debugText.color = textColor;
             yield return null;
         }
-        
+
         Color finalTextColor = debugText.color;
         finalTextColor.a = 0f;
         debugText.color = finalTextColor;
@@ -242,12 +238,12 @@ public class UIControl : MonoBehaviour
         isPlayingVideo = true;
         videoPlayer.clip = GameStart;
         videoPlayer.Play();
-        
+
         //isPlayingVideo = true;
-        
+
         StartCoroutine(WaitForVideoToFinish());
     }
-    
+
     [Button]
     public void PlayCutscenesVideo()
     {
@@ -262,7 +258,7 @@ public class UIControl : MonoBehaviour
         videoPlayer.Prepare();
         //StartCoroutine(WaitForVideoToFinish());
     }
-    
+
     private IEnumerator WaitForVideoToFinish()
     {
         yield return new WaitForSeconds(1f);
@@ -277,7 +273,7 @@ public class UIControl : MonoBehaviour
             StopPlayVideo();
         }
     }
-    
+
     [Button]
     public void StopPlayVideo()
     {
@@ -291,5 +287,12 @@ public class UIControl : MonoBehaviour
         videoPlayer.Stop();
         videoPlayer.clip = null;
     }
-    
+
+    public void LoadScenes(int num)
+    {
+        AuthorCanvas.SetActive(false);
+        SceneController.instance.LoadScene(num);
+        Task.instance.ResetTask();
+        Task.instance.reTaskText();
+    }
 }

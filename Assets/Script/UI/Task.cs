@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using NaughtyAttributes;
 using Random = UnityEngine.Random;
 
 public class TaskData
@@ -24,23 +22,20 @@ public class Task : MonoBehaviour
     private int monsterNum;
     private int TaskNum;
     private float timeLeft = 180f;
-    [SerializeField]
-    public bool task01,task02,task03;
+    [SerializeField] public bool task01, task02, task03;
 
     private List<TaskData> TaskDatas;
 
-    [SerializeField]
-    public int killEmeny = 0;
+    [SerializeField] public int killEmeny = 0;
     public int DropEmeny = 0;
     private bool isMovingRight = true; // 初始狀態向右移動
     private bool isTaskMoving = false; // 任務是否正在移動
-    
+
     private RectTransform rectTransform;
-    [SerializeField]
-    public GameObject EndTP;
+    [SerializeField] public GameObject EndTP;
 
     public Transform playerTransform;
-    
+
     [Button]
     public void addkillnum()
     {
@@ -57,20 +52,20 @@ public class Task : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        
         ResetTask();
         rectTransform = GetComponent<RectTransform>();
         killEmeny = 0;
         reTaskText();
         playerTransform = GameManager.instance.player.transform;
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -83,12 +78,14 @@ public class Task : MonoBehaviour
                 reTaskText();
                 break;
         }
+
         if (Input.GetKeyDown(KeyCode.Tab) && gameObject.activeSelf)
         {
             moveTask();
             reTaskText();
         }
     }
+
     public void ResetTask()
     {
         task01 = false;
@@ -125,13 +122,15 @@ public class Task : MonoBehaviour
                     Instantiate(EndTP, spawnPosition, Quaternion.identity);
                     GameManager.instance.canTP = true;
                 }
+
                 break;
-            case 3://第一區後scenes02
+            case 3: //第一區後scenes02
                 if (DropEmeny >= 10)
                 {
                     task01 = true;
                     //Debug.Log("任務1完成");
                 }
+
                 if (killEmeny >= 10)
                 {
                     task02 = true;
@@ -150,16 +149,17 @@ public class Task : MonoBehaviour
                     task03 = true;
                     //GameManager.instance.canTP = true;
                 }
+
                 break;
             case 4:
                 break;
             case 5:
                 break;
-
         }
 
         reTaskText();
     }
+
     public void reTaskText()
     {
         switch (GameManager.mapLevel)
@@ -167,7 +167,7 @@ public class Task : MonoBehaviour
             case 2: //第一區前scenes01
                 monsterNum = 20;
                 TaskNum = 0;
-                
+
                 if (task01 == true)
                 {
                     TaskText[0].text = "基礎移動、吸取蝴蝶 [✓] ";
@@ -211,7 +211,7 @@ public class Task : MonoBehaviour
 
                 TaskText[2].text = $"{timeLeft}s內離開森林 ";
                 break;
-            case 4://第二區前scense03
+            case 4: //第二區前scense03
                 monsterNum = 10;
                 TaskNum = 5;
                 if (task01 == true)
@@ -232,15 +232,14 @@ public class Task : MonoBehaviour
                     TaskText[1].text = $"收集{TaskNum}個道具 ( {DropEmeny} / {TaskNum} )";
                 }
 
-                TaskText[2].text = $"擊殺Boss！(不一定要完成)";
+                TaskText[2].text = $"擊殺Boss！(殺的死的話)";
                 break;
             case 5:
                 break;
         }
-        
     }
 
-    
+
     public void moveTask()
     {
         if (isTaskMoving)
@@ -249,7 +248,8 @@ public class Task : MonoBehaviour
         }
 
         int offset = isMovingRight ? 475 : -475; // 根据当前状态确定偏移量
-        Vector2 targetPosition = new Vector2(rectTransform.anchoredPosition.x + offset, rectTransform.anchoredPosition.y);
+        Vector2 targetPosition =
+            new Vector2(rectTransform.anchoredPosition.x + offset, rectTransform.anchoredPosition.y);
         float duration = 1f; // 过渡持续时间
 
         isTaskMoving = true; // 设置任务正在移动中
@@ -261,7 +261,9 @@ public class Task : MonoBehaviour
 
         isMovingRight = !isMovingRight; // 切换移动方向
     }
-    private IEnumerator SmoothMove(RectTransform rectTransform, Vector2 targetPosition, float duration, System.Action onMoveComplete = null)
+
+    private IEnumerator SmoothMove(RectTransform rectTransform, Vector2 targetPosition, float duration,
+        Action onMoveComplete = null)
     {
         Vector2 startPosition = rectTransform.anchoredPosition;
         float elapsedTime = 0f;
@@ -278,7 +280,4 @@ public class Task : MonoBehaviour
 
         onMoveComplete?.Invoke(); // 执行移动完成后的回调函数
     }
-
-
-
 }

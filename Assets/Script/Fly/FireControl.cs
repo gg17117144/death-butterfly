@@ -103,7 +103,8 @@ public class FireControl : MonoBehaviour
             //Debug.Log("撞到東西囉");
             audioSource.clip = bom;
             audioSource.Play();
-            other.GetComponent<BossAI>().damage(damage);
+            damage = Random.Range(20, 31);
+            other.GetComponent<BossAI>().damage(damage,transform.position);
             
             hardcollider.enabled = false;
 
@@ -116,6 +117,7 @@ public class FireControl : MonoBehaviour
             //Debug.Log("撞到東西囉");
             audioSource.clip = bom;
             audioSource.Play();
+            damage = Random.Range(20, 31);
             other.GetComponent<monsterAI>().isHurt(damage);
             
             hardcollider.enabled = false;
