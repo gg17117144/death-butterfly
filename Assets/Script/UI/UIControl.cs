@@ -47,7 +47,9 @@ public class UIControl : MonoBehaviour
     public Text damageTextPrefab;
 
     public GameObject AuthorCanvas;
-
+    
+    public GameObject BrokenWindows;
+    
     void Awake()
     {
         if (instance == null)
@@ -72,6 +74,7 @@ public class UIControl : MonoBehaviour
         rawImage = videoGameObject.GetComponent<RawImage>();
         animator = GetComponent<Animator>();
         AuthorCanvas.SetActive(false);
+        BrokenWindows.SetActive(false);
         if (gun != null && !gun.activeSelf)
         {
             ReloadGunUI();
@@ -98,6 +101,11 @@ public class UIControl : MonoBehaviour
             //Debug.Log("叫出暫停鍵了");
             AuthorCanvas.SetActive(!AuthorCanvas.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            windowsBroken();
+        }
+
     }
 
     public void ReloadGunUI() //重製UI
@@ -294,5 +302,18 @@ public class UIControl : MonoBehaviour
         SceneController.instance.LoadScene(num);
         Task.instance.ResetTask();
         Task.instance.reTaskText();
+    }
+
+    public void windowsBroken()
+    {
+        BrokenWindows.SetActive(true);
+        BrokenWindows.GetComponent<AudioSource>().Play();
+        
+        Invoke("QuitGame",20);
+    }
+
+    void QuitGame()
+    {
+        GameManager.instance.QuitGame();
     }
 }

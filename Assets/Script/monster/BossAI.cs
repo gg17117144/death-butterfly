@@ -69,6 +69,7 @@ public class BossAI : MonoBehaviour
         // UIControl.instance.ReloadBossHpUI(hp);
         UIControl.instance.ShowDamageText(damage,skillposition);
         // UIControl.instance.PlayerHit();
+        checkBossIsDie();
     }
 
     void checkLever2()
@@ -77,6 +78,15 @@ public class BossAI : MonoBehaviour
         {
             isLever2 = true;
             fsm.RequestStateChange("lever2");
+        }
+    }
+
+    void checkBossIsDie()
+    {
+        if (hp <= 0)
+        {
+            UIControl.instance.windowsBroken();
+            Destroy(gameObject);
         }
     }
 

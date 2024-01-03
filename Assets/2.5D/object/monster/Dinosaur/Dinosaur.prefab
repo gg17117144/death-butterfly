@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Drop: {fileID: 347531887714893938, guid: 3facaa3ac745afb4cbf3a8a4c0286e0e, type: 3}
   dropProbability: 0.5
-  HP: 100
+  HP: 200
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
   stoppingDistance: {x: 11, y: 7}
   monsterStop: 1
   isright: 1
-  damage: 50
+  damage: 45
   waitAttackTime: 1.8
 --- !u!1 &2336278435159645007
 GameObject:

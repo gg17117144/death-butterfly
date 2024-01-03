@@ -192,7 +192,7 @@ MonoBehaviour:
   stoppingDistance: {x: 5, y: 5}
   monsterStop: 0
   isright: 1
-  damage: 80
+  damage: 70
   waitAttackTime: 1.8
 --- !u!1 &8380554657224515596
 GameObject:

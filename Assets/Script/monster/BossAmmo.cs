@@ -36,6 +36,7 @@ public class BossAmmo : MonoBehaviour
         if (other.tag == "Player")
         {
             // Debug.Log($"打到玩家了{other}");
+            ammoDamage = Random.Range(10, 51);
             other.GetComponent<PlayerHeart>().damage(ammoDamage);
             Destroy(gameObject);
         }

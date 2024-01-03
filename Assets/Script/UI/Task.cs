@@ -152,6 +152,16 @@ public class Task : MonoBehaviour
 
                 break;
             case 4:
+                if (killEmeny>=monsterNum)
+                {
+                    task01 = true;
+                }
+
+                if (DropEmeny >= TaskNum)
+                {
+                    task02 = true;
+                }
+                
                 break;
             case 5:
                 break;

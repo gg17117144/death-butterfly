@@ -25,6 +25,8 @@ public class skill : MonoBehaviour
     private bool isplayerHealth = false;
 
     private Animator animator;
+
+    private bool isUsed = false;
     private void Awake()
     {
         playerHeart = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHeart>();
@@ -76,6 +78,7 @@ public class skill : MonoBehaviour
                 //monsterAI.isHurt(damage);
                 break;
             case 2://生命
+                Debug.Log("有觸發到回復氧氣喔~");
                 lifeTime += 10;
                 damage = Random.Range(20, 31);
                 StartCoroutine(heal(damage));
@@ -83,7 +86,6 @@ public class skill : MonoBehaviour
                 animator.Play("animaBom");
                 break;
             case 3://氧氣
-                
                 playerHeart.healO2(damage);
                 playermovee.startplayerSpeedUP(5f);
                 lifeTime = 5f;
@@ -118,16 +120,6 @@ public class skill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
-        {
-            //Debug.Log("有碰到玩家");
-            if (skillID == 3)   //氧氣
-            {
-                Debug.Log("要使用氧氣技能");
-                useSkill();
-            }
-        }
-        
         if (other.tag == "boss")
         {
             useSkill(other.gameObject);
@@ -154,14 +146,16 @@ public class skill : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            /*
-            Debug.Log("有碰到玩家");
-            if (skillID == 3)   //氧氣
+            if (skillID == 3 && !isUsed)   //氧氣
             {
-                Player.GetComponent<Playermovee>().PlayerSpeed();
+                var random = Random.Range(0, 3);
+                if (random == 0)
+                {
+                    Debug.Log("要使用氧氣技能");
+                    isUsed = true;
+                    useSkill();
+                }
             }
-            */
-            
             //isplayerHealth = true;
             if (skillID == 7)   //生命(雙)
             {
@@ -203,27 +197,27 @@ public class skill : MonoBehaviour
     {
         //UIControl.instance.DebugText("-回覆血量效果動畫");
         var randomdamage = Random.Range(1, 5);
-
-        if (skillID == 0)
-        {
-            var randomLuck = Random.Range(0f, 1f);
-
-            if (randomLuck <= 0.89f)
-            {
-            
-            }
-            else if(randomLuck <= 0.99)
-            {
-                randomdamage = Random.Range(50,101);
-            }
-            else if(randomLuck <= 0.1)
-            {
-                randomdamage = 999;
-            }
-        }
         
         if (monster.tag == "boss")
         {
+            if (skillID == 0)
+            {
+                var randomLuck = Random.Range(0f, 1f);
+
+                if (randomLuck <= 0.94f)
+                {
+            
+                }
+                else if(randomLuck <= 0.99)
+                {
+                    randomdamage = Random.Range(50,101);
+                }
+                else if(randomLuck <= 1)
+                {
+                    randomdamage = 999;
+                }
+            }
+            
             for (int i = 0; i < damage; i++)
             {
                 monster.GetComponent<BossAI>().damage(randomdamage,transform.position);

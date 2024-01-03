@@ -176,6 +176,7 @@ public class GunType : MonoBehaviour
     void CheckFlyTank() //確認第幾格蝴蝶槽
     {
         float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
+        
         if (scrollWheelInput > 0)
         {
             scrollWheelInput = 1;
@@ -184,6 +185,7 @@ public class GunType : MonoBehaviour
         {
             scrollWheelInput = -1;
         }
+        
         int delta = (int)scrollWheelInput;
 
         //Debug.Log($"delt:{delta} scroll:{scrollWheelInput}");
