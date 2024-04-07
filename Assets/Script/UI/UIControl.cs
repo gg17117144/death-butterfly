@@ -47,9 +47,11 @@ public class UIControl : MonoBehaviour
     public Text damageTextPrefab;
 
     public GameObject AuthorCanvas;
-    
+
     public GameObject BrokenWindows;
-    
+
+    [SerializeField] private GameObject damageTexts;
+
     void Awake()
     {
         if (instance == null)
@@ -101,11 +103,11 @@ public class UIControl : MonoBehaviour
             //Debug.Log("叫出暫停鍵了");
             AuthorCanvas.SetActive(!AuthorCanvas.activeSelf);
         }
+
         if (Input.GetKeyDown(KeyCode.F3))
         {
             windowsBroken();
         }
-
     }
 
     public void ReloadGunUI() //重製UI
@@ -170,7 +172,7 @@ public class UIControl : MonoBehaviour
     {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
         screenPosition += new Vector2(50, 50);
-        Text damageText = Instantiate(damageTextPrefab, this.transform);
+        Text damageText = Instantiate(damageTextPrefab, transform.position, transform.rotation, damageTexts.transform);
         damageText.rectTransform.position = screenPosition;
         damageText.text = "-" + damageAmount.ToString();
 
@@ -308,8 +310,8 @@ public class UIControl : MonoBehaviour
     {
         BrokenWindows.SetActive(true);
         BrokenWindows.GetComponent<AudioSource>().Play();
-        
-        Invoke("QuitGame",20);
+
+        Invoke("QuitGame", 20);
     }
 
     void QuitGame()
