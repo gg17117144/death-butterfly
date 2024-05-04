@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public static SceneController instance;
+    
+    private float _displayProgress;
+    private float _toProgress;
+    bool _isLoadingScene = false;
 
     [SerializeField] public cameraCreate cameraCreate;
 
@@ -44,7 +48,8 @@ public class SceneController : MonoBehaviour
         //SceneManager.LoadScene("Loading");
         UIControl.instance.PlayCutscenesVideo();
         Task.instance.reTaskText();
-        StartCoroutine(LoadSceneTask(sceneNum));
+        // StartCoroutine(LoadSceneTask(sceneNum));
+        StartCoroutine(AsynLoadScene(sceneNum));
     }
 
     private IEnumerator LoadSceneTask(int sceneNum)
@@ -68,6 +73,43 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
+        UIControl.instance.StopPlayVideo();
+    }
+
+    IEnumerator AsynLoadScene(int sceneNum)
+    {
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("開始加載");
+        bool isFading = true;
+        // yield return new WaitWhile(() => isFading);
+
+        _displayProgress = 0;
+        _toProgress = 0;
+        _isLoadingScene = true;
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneNum);
+
+        operation.allowSceneActivation = false;
+        Debug.Log("開始跑條");
+        //0~90%讀取條動畫
+        while (operation.progress < 0.9f)
+        {
+            _toProgress = (int)operation.progress;
+            _displayProgress = _toProgress;
+            Debug.Log("Loading progress: " + (_displayProgress * 100) + "%");
+            yield return null;
+        }
+
+        //補足Unity 90%~100%時的動畫
+        _toProgress = 1;
+        while (_displayProgress < _toProgress)
+        {
+            _displayProgress += 0.01f;
+            Debug.Log("Loading progress: " + (_displayProgress * 100) + "%");
+            yield return null;
+        }
+        
+        operation.allowSceneActivation = true;
+        _isLoadingScene = false;
         UIControl.instance.StopPlayVideo();
     }
 }
