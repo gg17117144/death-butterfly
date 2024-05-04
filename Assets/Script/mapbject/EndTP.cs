@@ -70,7 +70,7 @@ public class EndTP : MonoBehaviour
                     {
                         GameManager.mapLevel++;
                         Task.instance.ResetTask();
-
+                        other.GetComponent<PlayerHeart>().Invincible();
                         LoadScene(lever);
                     }
                     else

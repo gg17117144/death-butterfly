@@ -134,4 +134,18 @@ public class PlayerHeart : MonoBehaviour
         // }
     }
 
+    public void Invincible()
+    {
+        StartCoroutine(nameof(StartInvincible));
+    }
+
+    IEnumerator StartInvincible()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        yield return new WaitForSeconds(5f);
+        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<CapsuleCollider2D>().enabled = true;
+    }
+
 }
