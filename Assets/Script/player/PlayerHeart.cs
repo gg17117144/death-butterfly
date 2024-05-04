@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class PlayerHeart : MonoBehaviour
 {
-    private static PlayerHeart instance;
+    public static PlayerHeart instance;
     public float max_hp;              //�̤j��q��
     public float oldhp;                  //��q��
     public float newhp;

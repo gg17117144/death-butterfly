@@ -79,11 +79,23 @@ public class Task : MonoBehaviour
                 break;
         }
 
+        if (timeLeft <= 0)
+        {
+            PlayerHeart.instance.gameObject.GetComponent<PlayerAnime>().Dead();
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab) && gameObject.activeSelf)
         {
             moveTask();
             reTaskText();
         }
+        
+        #if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            timeLeft -= 10;
+        }
+        #endif
     }
 
     public void ResetTask()
@@ -125,7 +137,7 @@ public class Task : MonoBehaviour
 
                 break;
             case 3: //第一區後scenes02
-                if (DropEmeny >= 10)
+                if (DropEmeny >= 5)
                 {
                     task01 = true;
                     //Debug.Log("任務1完成");
@@ -219,7 +231,7 @@ public class Task : MonoBehaviour
                     TaskText[1].text = $"擊敗{monsterNum}隻怪物 ( {killEmeny} / {monsterNum} )";
                 }
 
-                TaskText[2].text = $"{timeLeft}s內離開森林 ";
+                TaskText[2].text = $"{(int)timeLeft}s內離開森林 ";
                 break;
             case 4: //第二區前scense03
                 monsterNum = 10;
@@ -254,22 +266,22 @@ public class Task : MonoBehaviour
     {
         if (isTaskMoving)
         {
-            return; // 如果任务正在移动，则不执行新的移动操作
+            return; 
         }
 
-        int offset = isMovingRight ? 475 : -475; // 根据当前状态确定偏移量
+        int offset = isMovingRight ? 475 : -475;
         Vector2 targetPosition =
             new Vector2(rectTransform.anchoredPosition.x + offset, rectTransform.anchoredPosition.y);
-        float duration = 1f; // 过渡持续时间
+        float duration = 1f;
 
-        isTaskMoving = true; // 设置任务正在移动中
+        isTaskMoving = true;
 
         StartCoroutine(SmoothMove(rectTransform, targetPosition, duration, () =>
         {
-            isTaskMoving = false; // 移动结束后将 isTaskMoving 设置为 false
+            isTaskMoving = false;
         }));
 
-        isMovingRight = !isMovingRight; // 切换移动方向
+        isMovingRight = !isMovingRight;
     }
 
     private IEnumerator SmoothMove(RectTransform rectTransform, Vector2 targetPosition, float duration,
@@ -288,6 +300,6 @@ public class Task : MonoBehaviour
 
         rectTransform.anchoredPosition = targetPosition;
 
-        onMoveComplete?.Invoke(); // 执行移动完成后的回调函数
+        onMoveComplete?.Invoke();
     }
 }
