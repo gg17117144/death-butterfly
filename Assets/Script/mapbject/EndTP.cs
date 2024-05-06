@@ -22,7 +22,8 @@ public class EndTP : MonoBehaviour
     private void Start()
     {
         //animator.GetComponent<Animator>();
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0 - (int)gameObject.transform.position.y;
+        gameObject.GetComponentInChildren<SpriteRenderer>().sortingOrder = 0 - (int)gameObject.transform.position.y;
+        // gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0 - (int)gameObject.transform.position.y;
         animator.Play("appear");
         //GameManager.isStoping = false;
         if (waitIng != null)
