@@ -7,14 +7,14 @@ using UnityEngine.Serialization;
 public class PlayerHeart : MonoBehaviour
 {
     public static PlayerHeart instance;
-    public float max_hp;              //�̤j��q��
-    public float oldhp;                  //��q��
+    public float max_hp; //�̤j��q��
+    public float oldhp; //��q��
     public float newhp;
 
-    public float max_O2;                    //�̤j����
-    public float O2;                        //����
+    public float max_O2; //�̤j����
+    public float O2; //����
 
-    public float O2timer;                 //�ɶ�
+    public float O2timer; //�ɶ�
 
     //bool canDamage = true;               //���˥𮧮ɶ�
 
@@ -47,6 +47,7 @@ public class PlayerHeart : MonoBehaviour
             newhp = max_hp;
             //Debug.Log("有執行吧");
         }
+
         if (O2 > max_O2)
         {
             O2 = max_O2;
@@ -54,7 +55,6 @@ public class PlayerHeart : MonoBehaviour
 
         if (GameManager.instance.isStoping)
         {
-            
             if (newhp <= 0)
             {
                 newhp = 0;
@@ -63,7 +63,7 @@ public class PlayerHeart : MonoBehaviour
 
         if (GameManager.mapLevel >= 2)
         {
-            O2timer += Time.deltaTime;    //�p��ɶ�
+            O2timer += Time.deltaTime; //�p��ɶ�
 
             if (O2timer >= 3)
             {
@@ -77,17 +77,22 @@ public class PlayerHeart : MonoBehaviour
                 GetComponent<PlayerAnime>().Dead();
             }
         }
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            O2 -= 10;
+        }
+#endif
     }
 
-
-    public void damage(int damage)  //�I��ĤH��damage
+    public void damage(int damage) //�I��ĤH��damage
     {
         newhp -= damage;
         float HpValue = newhp / max_hp;
         UIControl.instance.ReloadPlayeHpUI(HpValue);
         UIControl.instance.PlayerHit();
     }
-    
+
     public void healHp(float healHP)
     {
         newhp += healHP;
@@ -104,20 +109,20 @@ public class PlayerHeart : MonoBehaviour
 
     public void ResetPlayerValue()
     {
-        max_hp = 200;               //�̤j��q��
+        max_hp = 200; //�̤j��q��
         oldhp = max_hp;
-        newhp = oldhp;                //��q�]���̤j��q��
+        newhp = oldhp; //��q�]���̤j��q��
 
-        max_O2 = 100;              //�̤j����
-        O2 = max_O2;              //���]���̤j����
+        max_O2 = 100; //�̤j����
+        O2 = max_O2; //���]���̤j����
 
-        O2timer = 0;                  //�ɶ��]�w0
+        O2timer = 0; //�ɶ��]�w0
         float O2Value = O2 / max_O2;
         float HpValue = newhp / max_hp;
         UIControl.instance.ReloadPlayeHpUI(HpValue);
         UIControl.instance.ReloadPlayerO2UI(O2Value);
     }
-    
+
     public void relife()
     {
         Debug.Log("重生囉~");
@@ -147,5 +152,4 @@ public class PlayerHeart : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = true;
         GetComponent<CapsuleCollider2D>().enabled = true;
     }
-
 }

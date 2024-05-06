@@ -82,6 +82,7 @@ public class Task : MonoBehaviour
         if (timeLeft <= 0)
         {
             PlayerHeart.instance.gameObject.GetComponent<PlayerAnime>().Dead();
+            timeLeft = 180;
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && gameObject.activeSelf)
